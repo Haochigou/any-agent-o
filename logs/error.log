@@ -1,0 +1,2526 @@
+[2024-06-15 09:12:37 +0800] [5764] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent/agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f2bc92891c0>
+  on_reload: <function OnReload.on_reload at 0x7f2bc9289300>
+  when_ready: <function WhenReady.when_ready at 0x7f2bc9289440>
+  pre_fork: <function Prefork.pre_fork at 0x7f2bc9289620>
+  post_fork: <function Postfork.post_fork at 0x7f2bc9289760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f2bc92898a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f2bc92899e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f2bc9289b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f2bc9289c60>
+  pre_request: <function PreRequest.pre_request at 0x7f2bc9289da0>
+  post_request: <function PostRequest.post_request at 0x7f2bc9289e40>
+  child_exit: <function ChildExit.child_exit at 0x7f2bc9289f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f2bc928a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f2bc928a200>
+  on_exit: <function OnExit.on_exit at 0x7f2bc928a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f2bc928a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:13:19 +0800] [5857] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent/agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f0a857091c0>
+  on_reload: <function OnReload.on_reload at 0x7f0a85709300>
+  when_ready: <function WhenReady.when_ready at 0x7f0a85709440>
+  pre_fork: <function Prefork.pre_fork at 0x7f0a85709620>
+  post_fork: <function Postfork.post_fork at 0x7f0a85709760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f0a857098a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f0a857099e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f0a85709b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f0a85709c60>
+  pre_request: <function PreRequest.pre_request at 0x7f0a85709da0>
+  post_request: <function PostRequest.post_request at 0x7f0a85709e40>
+  child_exit: <function ChildExit.child_exit at 0x7f0a85709f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f0a8570a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f0a8570a200>
+  on_exit: <function OnExit.on_exit at 0x7f0a8570a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f0a8570a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:13:51 +0800] [5917] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent/agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fe6cad891c0>
+  on_reload: <function OnReload.on_reload at 0x7fe6cad89300>
+  when_ready: <function WhenReady.when_ready at 0x7fe6cad89440>
+  pre_fork: <function Prefork.pre_fork at 0x7fe6cad89620>
+  post_fork: <function Postfork.post_fork at 0x7fe6cad89760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fe6cad898a0>
+  worker_int: <function WorkerInt.worker_int at 0x7fe6cad899e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fe6cad89b20>
+  pre_exec: <function PreExec.pre_exec at 0x7fe6cad89c60>
+  pre_request: <function PreRequest.pre_request at 0x7fe6cad89da0>
+  post_request: <function PostRequest.post_request at 0x7fe6cad89e40>
+  child_exit: <function ChildExit.child_exit at 0x7fe6cad89f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fe6cad8a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fe6cad8a200>
+  on_exit: <function OnExit.on_exit at 0x7fe6cad8a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7fe6cad8a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:14:24 +0800] [5987] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f98aad391c0>
+  on_reload: <function OnReload.on_reload at 0x7f98aad39300>
+  when_ready: <function WhenReady.when_ready at 0x7f98aad39440>
+  pre_fork: <function Prefork.pre_fork at 0x7f98aad39620>
+  post_fork: <function Postfork.post_fork at 0x7f98aad39760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f98aad398a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f98aad399e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f98aad39b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f98aad39c60>
+  pre_request: <function PreRequest.pre_request at 0x7f98aad39da0>
+  post_request: <function PostRequest.post_request at 0x7f98aad39e40>
+  child_exit: <function ChildExit.child_exit at 0x7f98aad39f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f98aad3a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f98aad3a200>
+  on_exit: <function OnExit.on_exit at 0x7f98aad3a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f98aad3a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:14:31 +0800] [6006] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent:api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fa9fe6091c0>
+  on_reload: <function OnReload.on_reload at 0x7fa9fe609300>
+  when_ready: <function WhenReady.when_ready at 0x7fa9fe609440>
+  pre_fork: <function Prefork.pre_fork at 0x7fa9fe609620>
+  post_fork: <function Postfork.post_fork at 0x7fa9fe609760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fa9fe6098a0>
+  worker_int: <function WorkerInt.worker_int at 0x7fa9fe6099e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fa9fe609b20>
+  pre_exec: <function PreExec.pre_exec at 0x7fa9fe609c60>
+  pre_request: <function PreRequest.pre_request at 0x7fa9fe609da0>
+  post_request: <function PostRequest.post_request at 0x7fa9fe609e40>
+  child_exit: <function ChildExit.child_exit at 0x7fa9fe609f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fa9fe60a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fa9fe60a200>
+  on_exit: <function OnExit.on_exit at 0x7fa9fe60a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7fa9fe60a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:14:40 +0800] [6040] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f364fc191c0>
+  on_reload: <function OnReload.on_reload at 0x7f364fc19300>
+  when_ready: <function WhenReady.when_ready at 0x7f364fc19440>
+  pre_fork: <function Prefork.pre_fork at 0x7f364fc19620>
+  post_fork: <function Postfork.post_fork at 0x7f364fc19760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f364fc198a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f364fc199e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f364fc19b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f364fc19c60>
+  pre_request: <function PreRequest.pre_request at 0x7f364fc19da0>
+  post_request: <function PostRequest.post_request at 0x7f364fc19e40>
+  child_exit: <function ChildExit.child_exit at 0x7f364fc19f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f364fc1a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f364fc1a200>
+  on_exit: <function OnExit.on_exit at 0x7f364fc1a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f364fc1a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:14:41 +0800] [6040] [INFO] Starting gunicorn 22.0.0
+[2024-06-15 09:14:41 +0800] [6040] [DEBUG] Arbiter booted
+[2024-06-15 09:14:41 +0800] [6040] [INFO] Listening at: http://0.0.0.0:7890 (6040)
+[2024-06-15 09:14:41 +0800] [6040] [INFO] Using worker: sync
+[2024-06-15 09:14:41 +0800] [6041] [INFO] Booting worker with pid: 6041
+[2024-06-15 09:14:41 +0800] [6042] [INFO] Booting worker with pid: 6042
+[2024-06-15 09:14:41 +0800] [6040] [DEBUG] 2 workers
+[2024-06-15 09:15:11 +0800] [6040] [INFO] Handling signal: int
+[2024-06-15 09:15:12 +0800] [6042] [INFO] Worker exiting (pid: 6042)
+[2024-06-15 09:15:12 +0800] [6041] [INFO] Worker exiting (pid: 6041)
+[2024-06-15 09:15:12 +0800] [6040] [INFO] Shutting down: Master
+[2024-06-15 09:15:18 +0800] [6162] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f39a52f91c0>
+  on_reload: <function OnReload.on_reload at 0x7f39a52f9300>
+  when_ready: <function WhenReady.when_ready at 0x7f39a52f9440>
+  pre_fork: <function Prefork.pre_fork at 0x7f39a52f9620>
+  post_fork: <function Postfork.post_fork at 0x7f39a52f9760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f39a52f98a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f39a52f99e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f39a52f9b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f39a52f9c60>
+  pre_request: <function PreRequest.pre_request at 0x7f39a52f9da0>
+  post_request: <function PostRequest.post_request at 0x7f39a52f9e40>
+  child_exit: <function ChildExit.child_exit at 0x7f39a52f9f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f39a52fa0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f39a52fa200>
+  on_exit: <function OnExit.on_exit at 0x7f39a52fa340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f39a52fa520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:15:19 +0800] [6162] [INFO] Starting gunicorn 22.0.0
+[2024-06-15 09:15:19 +0800] [6162] [DEBUG] Arbiter booted
+[2024-06-15 09:15:19 +0800] [6162] [INFO] Listening at: http://0.0.0.0:7890 (6162)
+[2024-06-15 09:15:19 +0800] [6162] [INFO] Using worker: sync
+[2024-06-15 09:15:19 +0800] [6163] [INFO] Booting worker with pid: 6163
+[2024-06-15 09:15:19 +0800] [6164] [INFO] Booting worker with pid: 6164
+[2024-06-15 09:15:19 +0800] [6162] [DEBUG] 2 workers
+[2024-06-15 09:16:03 +0800] [6164] [DEBUG] POST /v1/chat
+[2024-06-15 09:16:03 +0800] [6164] [ERROR] Error handling request /v1/chat
+Traceback (most recent call last):
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/gunicorn/workers/sync.py", line 135, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/gunicorn/workers/sync.py", line 178, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: FastAPI.__call__() missing 1 required positional argument: 'send'
+[2024-06-15 09:17:26 +0800] [6162] [INFO] Handling signal: int
+[2024-06-15 09:17:26 +0800] [6163] [INFO] Worker exiting (pid: 6163)
+[2024-06-15 09:17:26 +0800] [6164] [INFO] Worker exiting (pid: 6164)
+[2024-06-15 09:17:27 +0800] [6162] [INFO] Shutting down: Master
+[2024-06-15 09:46:25 +0800] [8284] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fb57f3891c0>
+  on_reload: <function OnReload.on_reload at 0x7fb57f389300>
+  when_ready: <function WhenReady.when_ready at 0x7fb57f389440>
+  pre_fork: <function Prefork.pre_fork at 0x7fb57f389620>
+  post_fork: <function Postfork.post_fork at 0x7fb57f389760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fb57f3898a0>
+  worker_int: <function WorkerInt.worker_int at 0x7fb57f3899e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fb57f389b20>
+  pre_exec: <function PreExec.pre_exec at 0x7fb57f389c60>
+  pre_request: <function PreRequest.pre_request at 0x7fb57f389da0>
+  post_request: <function PostRequest.post_request at 0x7fb57f389e40>
+  child_exit: <function ChildExit.child_exit at 0x7fb57f389f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fb57f38a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fb57f38a200>
+  on_exit: <function OnExit.on_exit at 0x7fb57f38a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7fb57f38a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:46:25 +0800] [8284] [INFO] Starting gunicorn 22.0.0
+[2024-06-15 09:46:25 +0800] [8284] [DEBUG] Arbiter booted
+[2024-06-15 09:46:25 +0800] [8284] [INFO] Listening at: http://0.0.0.0:7890 (8284)
+[2024-06-15 09:46:25 +0800] [8284] [INFO] Using worker: sync
+[2024-06-15 09:46:25 +0800] [8285] [INFO] Booting worker with pid: 8285
+[2024-06-15 09:46:26 +0800] [8286] [INFO] Booting worker with pid: 8286
+[2024-06-15 09:46:26 +0800] [8284] [DEBUG] 2 workers
+[2024-06-15 09:48:07 +0800] [8286] [DEBUG] POST /v1/chat
+[2024-06-15 09:48:07 +0800] [8286] [ERROR] Error handling request /v1/chat
+Traceback (most recent call last):
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/gunicorn/workers/sync.py", line 135, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/gunicorn/workers/sync.py", line 178, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: FastAPI.__call__() missing 1 required positional argument: 'send'
+[2024-06-15 09:48:54 +0800] [8284] [INFO] Handling signal: int
+[2024-06-15 09:48:54 +0800] [8286] [INFO] Worker exiting (pid: 8286)
+[2024-06-15 09:48:54 +0800] [8285] [INFO] Worker exiting (pid: 8285)
+[2024-06-15 09:48:54 +0800] [8284] [INFO] Shutting down: Master
+[2024-06-15 09:55:19 +0800] [9028] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f035c0091c0>
+  on_reload: <function OnReload.on_reload at 0x7f035c009300>
+  when_ready: <function WhenReady.when_ready at 0x7f035c009440>
+  pre_fork: <function Prefork.pre_fork at 0x7f035c009620>
+  post_fork: <function Postfork.post_fork at 0x7f035c009760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f035c0098a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f035c0099e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f035c009b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f035c009c60>
+  pre_request: <function PreRequest.pre_request at 0x7f035c009da0>
+  post_request: <function PostRequest.post_request at 0x7f035c009e40>
+  child_exit: <function ChildExit.child_exit at 0x7f035c009f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f035c00a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f035c00a200>
+  on_exit: <function OnExit.on_exit at 0x7f035c00a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f035c00a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 09:55:19 +0800] [9028] [INFO] Starting gunicorn 22.0.0
+[2024-06-15 09:55:19 +0800] [9028] [DEBUG] Arbiter booted
+[2024-06-15 09:55:19 +0800] [9028] [INFO] Listening at: http://0.0.0.0:7890 (9028)
+[2024-06-15 09:55:19 +0800] [9028] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-06-15 09:55:19 +0800] [9029] [INFO] Booting worker with pid: 9029
+[2024-06-15 09:55:19 +0800] [9029] [INFO] Started server process [9029]
+[2024-06-15 09:55:19 +0800] [9029] [INFO] Waiting for application startup.
+[2024-06-15 09:55:19 +0800] [9029] [INFO] Application startup complete.
+[2024-06-15 09:55:19 +0800] [9030] [INFO] Booting worker with pid: 9030
+[2024-06-15 09:55:19 +0800] [9030] [INFO] Started server process [9030]
+[2024-06-15 09:55:19 +0800] [9030] [INFO] Waiting for application startup.
+[2024-06-15 09:55:19 +0800] [9030] [INFO] Application startup complete.
+[2024-06-15 09:55:19 +0800] [9028] [DEBUG] 2 workers
+[2024-06-15 10:19:27 +0800] [9028] [INFO] Handling signal: int
+[2024-06-15 10:19:27 +0800] [9030] [INFO] Shutting down
+[2024-06-15 10:19:27 +0800] [9030] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-06-15 10:19:27 +0800] [9029] [INFO] Shutting down
+[2024-06-15 10:19:27 +0800] [9029] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-06-15 10:19:27 +0800] [9030] [INFO] Waiting for application shutdown.
+[2024-06-15 10:19:27 +0800] [9030] [INFO] Application shutdown complete.
+[2024-06-15 10:19:27 +0800] [9030] [INFO] Finished server process [9030]
+[2024-06-15 10:19:27 +0800] [9028] [ERROR] Worker (pid:9030) was sent SIGINT!
+[2024-06-15 10:19:27 +0800] [9029] [INFO] Waiting for application shutdown.
+[2024-06-15 10:19:27 +0800] [9029] [INFO] Application shutdown complete.
+[2024-06-15 10:19:27 +0800] [9029] [INFO] Finished server process [9029]
+[2024-06-15 10:19:27 +0800] [9028] [ERROR] Worker (pid:9029) was sent SIGINT!
+[2024-06-15 10:19:27 +0800] [9028] [INFO] Shutting down: Master
+[2024-06-15 10:34:21 +0800] [11419] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.api:service
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f4cab0291c0>
+  on_reload: <function OnReload.on_reload at 0x7f4cab029300>
+  when_ready: <function WhenReady.when_ready at 0x7f4cab029440>
+  pre_fork: <function Prefork.pre_fork at 0x7f4cab029620>
+  post_fork: <function Postfork.post_fork at 0x7f4cab029760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f4cab0298a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f4cab0299e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f4cab029b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f4cab029c60>
+  pre_request: <function PreRequest.pre_request at 0x7f4cab029da0>
+  post_request: <function PostRequest.post_request at 0x7f4cab029e40>
+  child_exit: <function ChildExit.child_exit at 0x7f4cab029f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f4cab02a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f4cab02a200>
+  on_exit: <function OnExit.on_exit at 0x7f4cab02a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f4cab02a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 10:34:21 +0800] [11419] [INFO] Starting gunicorn 22.0.0
+[2024-06-15 10:34:21 +0800] [11419] [DEBUG] Arbiter booted
+[2024-06-15 10:34:21 +0800] [11419] [INFO] Listening at: http://0.0.0.0:7890 (11419)
+[2024-06-15 10:34:21 +0800] [11419] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-06-15 10:34:21 +0800] [11420] [INFO] Booting worker with pid: 11420
+[2024-06-15 10:34:21 +0800] [11420] [INFO] Started server process [11420]
+[2024-06-15 10:34:21 +0800] [11420] [INFO] Waiting for application startup.
+[2024-06-15 10:34:21 +0800] [11420] [INFO] Application startup complete.
+[2024-06-15 10:34:21 +0800] [11421] [INFO] Booting worker with pid: 11421
+[2024-06-15 10:34:21 +0800] [11421] [INFO] Started server process [11421]
+[2024-06-15 10:34:21 +0800] [11421] [INFO] Waiting for application startup.
+[2024-06-15 10:34:21 +0800] [11421] [INFO] Application startup complete.
+[2024-06-15 10:34:21 +0800] [11419] [DEBUG] 2 workers
+[2024-06-15 12:32:12 +0800] [11419] [INFO] Handling signal: int
+[2024-06-15 12:32:12 +0800] [11420] [INFO] Shutting down
+[2024-06-15 12:32:12 +0800] [11420] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-06-15 12:32:12 +0800] [11421] [INFO] Shutting down
+[2024-06-15 12:32:12 +0800] [11421] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-06-15 12:32:12 +0800] [11420] [INFO] Waiting for application shutdown.
+[2024-06-15 12:32:12 +0800] [11420] [INFO] Application shutdown complete.
+[2024-06-15 12:32:12 +0800] [11420] [INFO] Finished server process [11420]
+[2024-06-15 12:32:12 +0800] [11419] [ERROR] Worker (pid:11420) was sent SIGINT!
+[2024-06-15 12:32:12 +0800] [11421] [INFO] Waiting for application shutdown.
+[2024-06-15 12:32:12 +0800] [11421] [INFO] Application shutdown complete.
+[2024-06-15 12:32:12 +0800] [11421] [INFO] Finished server process [11421]
+[2024-06-15 12:32:12 +0800] [11419] [ERROR] Worker (pid:11421) was sent SIGINT!
+[2024-06-15 12:32:12 +0800] [11419] [INFO] Shutting down: Master
+[2024-06-15 12:32:17 +0800] [18409] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f5fc08791c0>
+  on_reload: <function OnReload.on_reload at 0x7f5fc0879300>
+  when_ready: <function WhenReady.when_ready at 0x7f5fc0879440>
+  pre_fork: <function Prefork.pre_fork at 0x7f5fc0879620>
+  post_fork: <function Postfork.post_fork at 0x7f5fc0879760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f5fc08798a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f5fc08799e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f5fc0879b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f5fc0879c60>
+  pre_request: <function PreRequest.pre_request at 0x7f5fc0879da0>
+  post_request: <function PostRequest.post_request at 0x7f5fc0879e40>
+  child_exit: <function ChildExit.child_exit at 0x7f5fc0879f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f5fc087a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f5fc087a200>
+  on_exit: <function OnExit.on_exit at 0x7f5fc087a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f5fc087a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 12:32:31 +0800] [18454] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f52cda291c0>
+  on_reload: <function OnReload.on_reload at 0x7f52cda29300>
+  when_ready: <function WhenReady.when_ready at 0x7f52cda29440>
+  pre_fork: <function Prefork.pre_fork at 0x7f52cda29620>
+  post_fork: <function Postfork.post_fork at 0x7f52cda29760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f52cda298a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f52cda299e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f52cda29b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f52cda29c60>
+  pre_request: <function PreRequest.pre_request at 0x7f52cda29da0>
+  post_request: <function PostRequest.post_request at 0x7f52cda29e40>
+  child_exit: <function ChildExit.child_exit at 0x7f52cda29f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f52cda2a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f52cda2a200>
+  on_exit: <function OnExit.on_exit at 0x7f52cda2a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f52cda2a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-15 12:32:32 +0800] [18454] [INFO] Starting gunicorn 22.0.0
+[2024-06-15 12:32:32 +0800] [18454] [DEBUG] Arbiter booted
+[2024-06-15 12:32:32 +0800] [18454] [INFO] Listening at: http://0.0.0.0:7890 (18454)
+[2024-06-15 12:32:32 +0800] [18454] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-06-15 12:32:32 +0800] [18467] [INFO] Booting worker with pid: 18467
+[2024-06-15 12:32:33 +0800] [18470] [INFO] Booting worker with pid: 18470
+[2024-06-15 12:32:33 +0800] [18454] [DEBUG] 2 workers
+[2024-06-15 12:32:33 +0800] [18470] [INFO] Started server process [18470]
+[2024-06-15 12:32:33 +0800] [18470] [INFO] Waiting for application startup.
+[2024-06-15 12:32:33 +0800] [18467] [INFO] Started server process [18467]
+[2024-06-15 12:32:33 +0800] [18467] [INFO] Waiting for application startup.
+[2024-06-15 12:32:33 +0800] [18470] [INFO] Application startup complete.
+[2024-06-15 12:32:33 +0800] [18467] [INFO] Application startup complete.
+[2024-06-19 17:58:34 +0800] [18454] [ERROR] Worker (pid:18467) was sent SIGHUP!
+[2024-06-19 17:58:34 +0800] [18454] [ERROR] Worker (pid:18470) was sent SIGHUP!
+[2024-06-19 17:58:35 +0800] [27108] [INFO] Booting worker with pid: 27108
+[2024-06-19 17:58:35 +0800] [27109] [INFO] Booting worker with pid: 27109
+[2024-06-19 17:58:35 +0800] [18454] [INFO] Handling signal: hup
+[2024-06-19 17:58:35 +0800] [18454] [INFO] Hang up: Master
+[2024-06-19 17:58:35 +0800] [18454] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f52cda291c0>
+  on_reload: <function OnReload.on_reload at 0x7f52cda29300>
+  when_ready: <function WhenReady.when_ready at 0x7f52cda29440>
+  pre_fork: <function Prefork.pre_fork at 0x7f52cda29620>
+  post_fork: <function Postfork.post_fork at 0x7f52cda29760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f52cda298a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f52cda299e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f52cda29b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f52cda29c60>
+  pre_request: <function PreRequest.pre_request at 0x7f52cda29da0>
+  post_request: <function PostRequest.post_request at 0x7f52cda29e40>
+  child_exit: <function ChildExit.child_exit at 0x7f52cda29f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f52cda2a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f52cda2a200>
+  on_exit: <function OnExit.on_exit at 0x7f52cda2a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f52cda2a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-06-19 17:58:35 +0800] [27110] [INFO] Booting worker with pid: 27110
+[2024-06-19 17:58:35 +0800] [18454] [INFO] Handling signal: term
+[2024-06-19 17:58:35 +0800] [27111] [INFO] Booting worker with pid: 27111
+[2024-06-19 17:58:36 +0800] [27111] [INFO] Started server process [27111]
+[2024-06-19 17:58:36 +0800] [27108] [INFO] Started server process [27108]
+[2024-06-19 17:58:36 +0800] [27110] [INFO] Started server process [27110]
+[2024-06-19 17:58:36 +0800] [27111] [INFO] Waiting for application startup.
+[2024-06-19 17:58:36 +0800] [27109] [INFO] Started server process [27109]
+[2024-06-19 17:58:36 +0800] [27108] [INFO] Waiting for application startup.
+[2024-06-19 17:58:36 +0800] [27110] [INFO] Waiting for application startup.
+[2024-06-19 17:58:36 +0800] [27109] [INFO] Waiting for application startup.
+[2024-06-19 17:58:36 +0800] [27109] [INFO] Application startup complete.
+[2024-06-19 17:58:36 +0800] [27110] [INFO] Application startup complete.
+[2024-06-19 17:58:36 +0800] [27108] [INFO] Application startup complete.
+[2024-06-19 17:58:36 +0800] [27111] [INFO] Application startup complete.
+[2024-06-19 17:58:36 +0800] [18454] [ERROR] Worker (pid:27108) was sent SIGTERM!
+[2024-06-19 17:58:36 +0800] [18454] [ERROR] Worker (pid:27109) was sent SIGTERM!
+[2024-06-19 17:59:05 +0800] [18454] [INFO] Shutting down: Master
+[2024-06-19 17:59:05 +0800] [18454] [ERROR] Worker (pid:27110) was sent SIGKILL! Perhaps out of memory?
+[2024-06-19 17:59:05 +0800] [18454] [ERROR] Worker (pid:27111) was sent SIGKILL! Perhaps out of memory?
+[2024-07-14 13:34:55 +0800] [11412] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fa57a4a91c0>
+  on_reload: <function OnReload.on_reload at 0x7fa57a4a9300>
+  when_ready: <function WhenReady.when_ready at 0x7fa57a4a9440>
+  pre_fork: <function Prefork.pre_fork at 0x7fa57a4a9620>
+  post_fork: <function Postfork.post_fork at 0x7fa57a4a9760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fa57a4a98a0>
+  worker_int: <function WorkerInt.worker_int at 0x7fa57a4a99e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fa57a4a9b20>
+  pre_exec: <function PreExec.pre_exec at 0x7fa57a4a9c60>
+  pre_request: <function PreRequest.pre_request at 0x7fa57a4a9da0>
+  post_request: <function PostRequest.post_request at 0x7fa57a4a9e40>
+  child_exit: <function ChildExit.child_exit at 0x7fa57a4a9f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fa57a4aa0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fa57a4aa200>
+  on_exit: <function OnExit.on_exit at 0x7fa57a4aa340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7fa57a4aa520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-07-14 13:34:56 +0800] [11412] [INFO] Starting gunicorn 22.0.0
+[2024-07-14 13:34:56 +0800] [11412] [DEBUG] Arbiter booted
+[2024-07-14 13:34:56 +0800] [11412] [INFO] Listening at: http://0.0.0.0:7890 (11412)
+[2024-07-14 13:34:56 +0800] [11412] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-07-14 13:34:56 +0800] [11427] [INFO] Booting worker with pid: 11427
+[2024-07-14 13:34:56 +0800] [11427] [INFO] Started server process [11427]
+[2024-07-14 13:34:56 +0800] [11427] [INFO] Waiting for application startup.
+[2024-07-14 13:34:56 +0800] [11427] [INFO] Application startup complete.
+[2024-07-14 13:34:56 +0800] [11428] [INFO] Booting worker with pid: 11428
+[2024-07-14 13:34:56 +0800] [11428] [INFO] Started server process [11428]
+[2024-07-14 13:34:56 +0800] [11428] [INFO] Waiting for application startup.
+[2024-07-14 13:34:56 +0800] [11428] [INFO] Application startup complete.
+[2024-07-14 13:34:56 +0800] [11412] [DEBUG] 2 workers
+[2024-07-14 16:09:56 +0800] [11412] [INFO] Handling signal: int
+[2024-07-14 16:09:56 +0800] [11427] [INFO] Shutting down
+[2024-07-14 16:09:56 +0800] [11428] [INFO] Shutting down
+[2024-07-14 16:09:56 +0800] [11427] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-14 16:09:56 +0800] [11428] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-14 16:09:56 +0800] [11427] [INFO] Waiting for application shutdown.
+[2024-07-14 16:09:56 +0800] [11427] [INFO] Application shutdown complete.
+[2024-07-14 16:09:56 +0800] [11427] [INFO] Finished server process [11427]
+[2024-07-14 16:09:56 +0800] [11428] [INFO] Waiting for application shutdown.
+[2024-07-14 16:09:56 +0800] [11428] [INFO] Application shutdown complete.
+[2024-07-14 16:09:56 +0800] [11428] [INFO] Finished server process [11428]
+[2024-07-14 16:09:56 +0800] [11412] [ERROR] Worker (pid:11428) was sent SIGINT!
+[2024-07-14 16:09:56 +0800] [11412] [ERROR] Worker (pid:11427) was sent SIGINT!
+[2024-07-14 16:09:57 +0800] [11412] [INFO] Shutting down: Master
+[2024-07-16 21:34:43 +0800] [21466] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f754ae591c0>
+  on_reload: <function OnReload.on_reload at 0x7f754ae59300>
+  when_ready: <function WhenReady.when_ready at 0x7f754ae59440>
+  pre_fork: <function Prefork.pre_fork at 0x7f754ae59620>
+  post_fork: <function Postfork.post_fork at 0x7f754ae59760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f754ae598a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f754ae599e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f754ae59b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f754ae59c60>
+  pre_request: <function PreRequest.pre_request at 0x7f754ae59da0>
+  post_request: <function PostRequest.post_request at 0x7f754ae59e40>
+  child_exit: <function ChildExit.child_exit at 0x7f754ae59f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f754ae5a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f754ae5a200>
+  on_exit: <function OnExit.on_exit at 0x7f754ae5a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f754ae5a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-07-16 21:34:45 +0800] [21466] [INFO] Starting gunicorn 22.0.0
+[2024-07-16 21:34:45 +0800] [21466] [DEBUG] Arbiter booted
+[2024-07-16 21:34:45 +0800] [21466] [INFO] Listening at: http://0.0.0.0:7890 (21466)
+[2024-07-16 21:34:45 +0800] [21466] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-07-16 21:34:45 +0800] [21481] [INFO] Booting worker with pid: 21481
+[2024-07-16 21:34:45 +0800] [21486] [INFO] Booting worker with pid: 21486
+[2024-07-16 21:34:45 +0800] [21481] [INFO] Started server process [21481]
+[2024-07-16 21:34:45 +0800] [21481] [INFO] Waiting for application startup.
+[2024-07-16 21:34:45 +0800] [21481] [INFO] Application startup complete.
+[2024-07-16 21:34:45 +0800] [21486] [INFO] Started server process [21486]
+[2024-07-16 21:34:45 +0800] [21486] [INFO] Waiting for application startup.
+[2024-07-16 21:34:45 +0800] [21486] [INFO] Application startup complete.
+[2024-07-16 21:34:45 +0800] [21466] [DEBUG] 2 workers
+[2024-07-16 21:35:21 +0800] [21466] [INFO] Handling signal: int
+[2024-07-16 21:35:21 +0800] [21481] [INFO] Shutting down
+[2024-07-16 21:35:21 +0800] [21481] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-16 21:35:21 +0800] [21486] [INFO] Shutting down
+[2024-07-16 21:35:21 +0800] [21486] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-16 21:35:21 +0800] [21481] [INFO] Waiting for application shutdown.
+[2024-07-16 21:35:21 +0800] [21481] [INFO] Application shutdown complete.
+[2024-07-16 21:35:21 +0800] [21481] [INFO] Finished server process [21481]
+[2024-07-16 21:35:21 +0800] [21466] [ERROR] Worker (pid:21481) was sent SIGINT!
+[2024-07-16 21:35:21 +0800] [21486] [INFO] Waiting for application shutdown.
+[2024-07-16 21:35:21 +0800] [21486] [INFO] Application shutdown complete.
+[2024-07-16 21:35:21 +0800] [21486] [INFO] Finished server process [21486]
+[2024-07-16 21:35:21 +0800] [21466] [ERROR] Worker (pid:21486) was sent SIGINT!
+[2024-07-16 21:35:21 +0800] [21466] [INFO] Shutting down: Master
+[2024-07-16 22:03:52 +0800] [24443] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f92549691c0>
+  on_reload: <function OnReload.on_reload at 0x7f9254969300>
+  when_ready: <function WhenReady.when_ready at 0x7f9254969440>
+  pre_fork: <function Prefork.pre_fork at 0x7f9254969620>
+  post_fork: <function Postfork.post_fork at 0x7f9254969760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f92549698a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f92549699e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f9254969b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f9254969c60>
+  pre_request: <function PreRequest.pre_request at 0x7f9254969da0>
+  post_request: <function PostRequest.post_request at 0x7f9254969e40>
+  child_exit: <function ChildExit.child_exit at 0x7f9254969f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f925496a0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f925496a200>
+  on_exit: <function OnExit.on_exit at 0x7f925496a340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f925496a520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-07-16 22:03:54 +0800] [24443] [INFO] Starting gunicorn 22.0.0
+[2024-07-16 22:03:54 +0800] [24443] [DEBUG] Arbiter booted
+[2024-07-16 22:03:54 +0800] [24443] [INFO] Listening at: http://0.0.0.0:7890 (24443)
+[2024-07-16 22:03:54 +0800] [24443] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-07-16 22:03:54 +0800] [24465] [INFO] Booting worker with pid: 24465
+[2024-07-16 22:03:54 +0800] [24473] [INFO] Booting worker with pid: 24473
+[2024-07-16 22:03:54 +0800] [24465] [INFO] Started server process [24465]
+[2024-07-16 22:03:54 +0800] [24465] [INFO] Waiting for application startup.
+[2024-07-16 22:03:54 +0800] [24465] [INFO] Application startup complete.
+[2024-07-16 22:03:54 +0800] [24443] [DEBUG] 2 workers
+[2024-07-16 22:03:54 +0800] [24473] [INFO] Started server process [24473]
+[2024-07-16 22:03:54 +0800] [24473] [INFO] Waiting for application startup.
+[2024-07-16 22:03:54 +0800] [24473] [INFO] Application startup complete.
+[2024-07-16 22:07:30 +0800] [24443] [INFO] Handling signal: int
+[2024-07-16 22:07:30 +0800] [24473] [INFO] Shutting down
+[2024-07-16 22:07:30 +0800] [24473] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-16 22:07:30 +0800] [24465] [INFO] Shutting down
+[2024-07-16 22:07:30 +0800] [24465] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-16 22:07:30 +0800] [24473] [INFO] Waiting for application shutdown.
+[2024-07-16 22:07:30 +0800] [24473] [INFO] Application shutdown complete.
+[2024-07-16 22:07:30 +0800] [24473] [INFO] Finished server process [24473]
+[2024-07-16 22:07:30 +0800] [24443] [ERROR] Worker (pid:24473) was sent SIGINT!
+[2024-07-16 22:07:30 +0800] [24465] [INFO] Waiting for application shutdown.
+[2024-07-16 22:07:30 +0800] [24465] [INFO] Application shutdown complete.
+[2024-07-16 22:07:30 +0800] [24465] [INFO] Finished server process [24465]
+[2024-07-16 22:07:30 +0800] [24443] [ERROR] Worker (pid:24465) was sent SIGINT!
+[2024-07-16 22:07:30 +0800] [24443] [INFO] Shutting down: Master
+[2024-07-16 22:07:34 +0800] [24635] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fc9f19b91c0>
+  on_reload: <function OnReload.on_reload at 0x7fc9f19b9300>
+  when_ready: <function WhenReady.when_ready at 0x7fc9f19b9440>
+  pre_fork: <function Prefork.pre_fork at 0x7fc9f19b9620>
+  post_fork: <function Postfork.post_fork at 0x7fc9f19b9760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fc9f19b98a0>
+  worker_int: <function WorkerInt.worker_int at 0x7fc9f19b99e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fc9f19b9b20>
+  pre_exec: <function PreExec.pre_exec at 0x7fc9f19b9c60>
+  pre_request: <function PreRequest.pre_request at 0x7fc9f19b9da0>
+  post_request: <function PostRequest.post_request at 0x7fc9f19b9e40>
+  child_exit: <function ChildExit.child_exit at 0x7fc9f19b9f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fc9f19ba0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fc9f19ba200>
+  on_exit: <function OnExit.on_exit at 0x7fc9f19ba340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7fc9f19ba520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-07-16 22:07:36 +0800] [24635] [INFO] Starting gunicorn 22.0.0
+[2024-07-16 22:07:36 +0800] [24635] [DEBUG] Arbiter booted
+[2024-07-16 22:07:36 +0800] [24635] [INFO] Listening at: http://0.0.0.0:7890 (24635)
+[2024-07-16 22:07:36 +0800] [24635] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-07-16 22:07:37 +0800] [24647] [INFO] Booting worker with pid: 24647
+[2024-07-16 22:07:37 +0800] [24648] [INFO] Booting worker with pid: 24648
+[2024-07-16 22:07:37 +0800] [24647] [INFO] Started server process [24647]
+[2024-07-16 22:07:37 +0800] [24647] [INFO] Waiting for application startup.
+[2024-07-16 22:07:37 +0800] [24647] [INFO] Application startup complete.
+[2024-07-16 22:07:37 +0800] [24635] [DEBUG] 2 workers
+[2024-07-16 22:07:37 +0800] [24648] [INFO] Started server process [24648]
+[2024-07-16 22:07:37 +0800] [24648] [INFO] Waiting for application startup.
+[2024-07-16 22:07:37 +0800] [24648] [INFO] Application startup complete.
+[2024-07-17 10:47:36 +0800] [24635] [INFO] Handling signal: int
+[2024-07-17 10:47:36 +0800] [24647] [INFO] Shutting down
+[2024-07-17 10:47:36 +0800] [24647] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-17 10:47:36 +0800] [24648] [INFO] Shutting down
+[2024-07-17 10:47:36 +0800] [24648] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-07-17 10:47:36 +0800] [24648] [INFO] Waiting for application shutdown.
+[2024-07-17 10:47:36 +0800] [24647] [INFO] Waiting for application shutdown.
+[2024-07-17 10:47:36 +0800] [24648] [INFO] Application shutdown complete.
+[2024-07-17 10:47:36 +0800] [24648] [INFO] Finished server process [24648]
+[2024-07-17 10:47:36 +0800] [24647] [INFO] Application shutdown complete.
+[2024-07-17 10:47:36 +0800] [24647] [INFO] Finished server process [24647]
+[2024-07-17 10:47:36 +0800] [24635] [ERROR] Worker (pid:24647) was sent SIGINT!
+[2024-07-17 10:47:36 +0800] [24635] [ERROR] Worker (pid:24648) was sent SIGINT!
+[2024-07-17 10:47:36 +0800] [24635] [INFO] Shutting down: Master
+[2024-08-03 09:54:44 +0800] [8116] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f29c2eb51c0>
+  on_reload: <function OnReload.on_reload at 0x7f29c2eb5300>
+  when_ready: <function WhenReady.when_ready at 0x7f29c2eb5440>
+  pre_fork: <function Prefork.pre_fork at 0x7f29c2eb5620>
+  post_fork: <function Postfork.post_fork at 0x7f29c2eb5760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f29c2eb58a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f29c2eb59e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f29c2eb5b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f29c2eb5c60>
+  pre_request: <function PreRequest.pre_request at 0x7f29c2eb5da0>
+  post_request: <function PostRequest.post_request at 0x7f29c2eb5e40>
+  child_exit: <function ChildExit.child_exit at 0x7f29c2eb5f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f29c2eb60c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f29c2eb6200>
+  on_exit: <function OnExit.on_exit at 0x7f29c2eb6340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f29c2eb6520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-08-03 09:54:51 +0800] [8116] [INFO] Starting gunicorn 22.0.0
+[2024-08-03 09:54:51 +0800] [8116] [DEBUG] Arbiter booted
+[2024-08-03 09:54:51 +0800] [8116] [INFO] Listening at: http://0.0.0.0:7890 (8116)
+[2024-08-03 09:54:51 +0800] [8116] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-08-03 09:54:51 +0800] [8159] [INFO] Booting worker with pid: 8159
+[2024-08-03 09:54:51 +0800] [8160] [INFO] Booting worker with pid: 8160
+[2024-08-03 09:54:51 +0800] [8116] [DEBUG] 2 workers
+[2024-08-03 09:54:51 +0800] [8159] [INFO] Started server process [8159]
+[2024-08-03 09:54:51 +0800] [8160] [INFO] Started server process [8160]
+[2024-08-03 09:54:51 +0800] [8159] [INFO] Waiting for application startup.
+[2024-08-03 09:54:51 +0800] [8160] [INFO] Waiting for application startup.
+[2024-08-03 09:54:51 +0800] [8159] [INFO] Application startup complete.
+[2024-08-03 09:54:51 +0800] [8160] [INFO] Application startup complete.
+[2024-08-03 09:56:04 +0800] [8160] [ERROR] Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 265, in __call__
+    await wrap(partial(self.listen_for_disconnect, receive))
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    await func()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 238, in listen_for_disconnect
+    message = await receive()
+              ^^^^^^^^^^^^^^^
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 568, in receive
+    await self.message_event.wait()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/asyncio/locks.py", line 212, in wait
+    await fut
+asyncio.exceptions.CancelledError: Cancelled by cancel scope 7f29c062ba40
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 411, in run_asgi
+  |     result = await app(  # type: ignore[func-returns-value]
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 69, in __call__
+  |     return await self.app(scope, receive, send)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+  |     await route.handle(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+  |     await self.app(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+  |     await response(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 258, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    |     await func()
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 252, in stream_response
+    |     chunk = chunk.encode(self.charset)
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    | UnicodeEncodeError: 'utf-8' codec can't encode characters in position 92-93: surrogates not allowed
+    +------------------------------------
+[2024-08-03 09:56:34 +0800] [8116] [INFO] Handling signal: hup
+[2024-08-03 09:56:34 +0800] [8116] [INFO] Hang up: Master
+[2024-08-03 09:56:34 +0800] [8116] [ERROR] Worker (pid:8160) was sent SIGHUP!
+[2024-08-03 09:56:34 +0800] [8116] [ERROR] Worker (pid:8159) was sent SIGHUP!
+[2024-08-03 09:56:34 +0800] [8116] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f29c2eb51c0>
+  on_reload: <function OnReload.on_reload at 0x7f29c2eb5300>
+  when_ready: <function WhenReady.when_ready at 0x7f29c2eb5440>
+  pre_fork: <function Prefork.pre_fork at 0x7f29c2eb5620>
+  post_fork: <function Postfork.post_fork at 0x7f29c2eb5760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f29c2eb58a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f29c2eb59e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f29c2eb5b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f29c2eb5c60>
+  pre_request: <function PreRequest.pre_request at 0x7f29c2eb5da0>
+  post_request: <function PostRequest.post_request at 0x7f29c2eb5e40>
+  child_exit: <function ChildExit.child_exit at 0x7f29c2eb5f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f29c2eb60c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f29c2eb6200>
+  on_exit: <function OnExit.on_exit at 0x7f29c2eb6340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f29c2eb6520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-08-03 09:56:34 +0800] [8312] [INFO] Booting worker with pid: 8312
+[2024-08-03 09:56:35 +0800] [8313] [INFO] Booting worker with pid: 8313
+[2024-08-03 09:56:35 +0800] [8312] [INFO] Started server process [8312]
+[2024-08-03 09:56:35 +0800] [8312] [INFO] Waiting for application startup.
+[2024-08-03 09:56:35 +0800] [8312] [INFO] Application startup complete.
+[2024-08-03 09:56:35 +0800] [8313] [INFO] Started server process [8313]
+[2024-08-03 09:56:35 +0800] [8313] [INFO] Waiting for application startup.
+[2024-08-03 09:56:35 +0800] [8313] [INFO] Application startup complete.
+[2024-08-03 10:09:10 +0800] [11222] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f83d55851c0>
+  on_reload: <function OnReload.on_reload at 0x7f83d5585300>
+  when_ready: <function WhenReady.when_ready at 0x7f83d5585440>
+  pre_fork: <function Prefork.pre_fork at 0x7f83d5585620>
+  post_fork: <function Postfork.post_fork at 0x7f83d5585760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f83d55858a0>
+  worker_int: <function WorkerInt.worker_int at 0x7f83d55859e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f83d5585b20>
+  pre_exec: <function PreExec.pre_exec at 0x7f83d5585c60>
+  pre_request: <function PreRequest.pre_request at 0x7f83d5585da0>
+  post_request: <function PostRequest.post_request at 0x7f83d5585e40>
+  child_exit: <function ChildExit.child_exit at 0x7f83d5585f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f83d55860c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f83d5586200>
+  on_exit: <function OnExit.on_exit at 0x7f83d5586340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7f83d5586520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-08-03 10:09:11 +0800] [11222] [INFO] Starting gunicorn 22.0.0
+[2024-08-03 10:21:19 +0800] [1638] [DEBUG] Current configuration:
+  config: gunicorn.config.py
+  wsgi_app: None
+  bind: ['0.0.0.0:7890']
+  backlog: 2048
+  workers: 2
+  worker_class: uvicorn.workers.UvicornWorker
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 120
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  print_config: False
+  preload_app: True
+  sendfile: None
+  reuse_port: False
+  chdir: /mnt/c/Workspace/any-agent
+  daemon: False
+  raw_env: []
+  pidfile: ./logs/gunicron.pid
+  worker_tmp_dir: None
+  user: 1000
+  group: 1000
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: ./logs/access.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" " "%(a)s"
+  errorlog: ./logs/error.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  logconfig_json: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  dogstatsd_tags: 
+  statsd_prefix: 
+  proc_name: main
+  default_proc_name: agent.main:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fb67b6d91c0>
+  on_reload: <function OnReload.on_reload at 0x7fb67b6d9300>
+  when_ready: <function WhenReady.when_ready at 0x7fb67b6d9440>
+  pre_fork: <function Prefork.pre_fork at 0x7fb67b6d9620>
+  post_fork: <function Postfork.post_fork at 0x7fb67b6d9760>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fb67b6d98a0>
+  worker_int: <function WorkerInt.worker_int at 0x7fb67b6d99e0>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fb67b6d9b20>
+  pre_exec: <function PreExec.pre_exec at 0x7fb67b6d9c60>
+  pre_request: <function PreRequest.pre_request at 0x7fb67b6d9da0>
+  post_request: <function PostRequest.post_request at 0x7fb67b6d9e40>
+  child_exit: <function ChildExit.child_exit at 0x7fb67b6d9f80>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fb67b6da0c0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fb67b6da200>
+  on_exit: <function OnExit.on_exit at 0x7fb67b6da340>
+  ssl_context: <function NewSSLContext.ssl_context at 0x7fb67b6da520>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: None
+  raw_paste_global_conf: []
+  strip_header_spaces: False
+  permit_unconventional_http_method: False
+  permit_unconventional_http_version: False
+  casefold_http_method: False
+  header_map: drop
+  tolerate_dangerous_framing: False
+[2024-08-03 10:21:23 +0800] [1638] [INFO] Starting gunicorn 22.0.0
+[2024-08-03 10:21:23 +0800] [1638] [DEBUG] Arbiter booted
+[2024-08-03 10:21:23 +0800] [1638] [INFO] Listening at: http://0.0.0.0:7890 (1638)
+[2024-08-03 10:21:23 +0800] [1638] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2024-08-03 10:21:23 +0800] [1682] [INFO] Booting worker with pid: 1682
+[2024-08-03 10:21:23 +0800] [1683] [INFO] Booting worker with pid: 1683
+[2024-08-03 10:21:23 +0800] [1638] [DEBUG] 2 workers
+[2024-08-03 10:21:24 +0800] [1683] [INFO] Started server process [1683]
+[2024-08-03 10:21:24 +0800] [1683] [INFO] Waiting for application startup.
+[2024-08-03 10:21:24 +0800] [1682] [INFO] Started server process [1682]
+[2024-08-03 10:21:24 +0800] [1682] [INFO] Waiting for application startup.
+[2024-08-03 10:21:24 +0800] [1683] [INFO] Application startup complete.
+[2024-08-03 10:21:24 +0800] [1682] [INFO] Application startup complete.
+[2024-08-03 10:22:45 +0800] [1683] [ERROR] Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 265, in __call__
+    await wrap(partial(self.listen_for_disconnect, receive))
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    await func()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 238, in listen_for_disconnect
+    message = await receive()
+              ^^^^^^^^^^^^^^^
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 568, in receive
+    await self.message_event.wait()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/asyncio/locks.py", line 212, in wait
+    await fut
+asyncio.exceptions.CancelledError: Cancelled by cancel scope 7fb6782283e0
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 411, in run_asgi
+  |     result = await app(  # type: ignore[func-returns-value]
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 69, in __call__
+  |     return await self.app(scope, receive, send)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+  |     await route.handle(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+  |     await self.app(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+  |     await response(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 258, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    |     await func()
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 252, in stream_response
+    |     chunk = chunk.encode(self.charset)
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    | UnicodeEncodeError: 'utf-8' codec can't encode characters in position 60-61: surrogates not allowed
+    +------------------------------------
+[2024-08-03 10:23:07 +0800] [1638] [INFO] Handling signal: winch
+[2024-08-03 10:23:07 +0800] [1638] [DEBUG] SIGWINCH ignored. Not daemonized
+[2024-08-03 10:23:07 +0800] [1638] [INFO] Handling signal: winch
+[2024-08-03 10:23:07 +0800] [1638] [DEBUG] SIGWINCH ignored. Not daemonized
+[2024-08-03 10:32:19 +0800] [1683] [ERROR] Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 265, in __call__
+    await wrap(partial(self.listen_for_disconnect, receive))
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    await func()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 238, in listen_for_disconnect
+    message = await receive()
+              ^^^^^^^^^^^^^^^
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 568, in receive
+    await self.message_event.wait()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/asyncio/locks.py", line 212, in wait
+    await fut
+asyncio.exceptions.CancelledError: Cancelled by cancel scope 7fb678292810
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 411, in run_asgi
+  |     result = await app(  # type: ignore[func-returns-value]
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 69, in __call__
+  |     return await self.app(scope, receive, send)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+  |     await route.handle(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+  |     await self.app(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+  |     await response(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 258, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    |     await func()
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 252, in stream_response
+    |     chunk = chunk.encode(self.charset)
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    | UnicodeEncodeError: 'utf-8' codec can't encode characters in position 60-61: surrogates not allowed
+    +------------------------------------
+[2024-08-03 10:33:03 +0800] [1683] [ERROR] Exception in ASGI application
+Traceback (most recent call last):
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 265, in __call__
+    await wrap(partial(self.listen_for_disconnect, receive))
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    await func()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 238, in listen_for_disconnect
+    message = await receive()
+              ^^^^^^^^^^^^^^^
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 568, in receive
+    await self.message_event.wait()
+  File "/home/hao/anaconda3/envs/dialog/lib/python3.12/asyncio/locks.py", line 212, in wait
+    await fut
+asyncio.exceptions.CancelledError: Cancelled by cancel scope 7fb6782915b0
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 411, in run_asgi
+  |     result = await app(  # type: ignore[func-returns-value]
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 69, in __call__
+  |     return await self.app(scope, receive, send)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/fastapi/applications.py", line 1054, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/applications.py", line 123, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 756, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 776, in app
+  |     await route.handle(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 297, in handle
+  |     await self.app(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 77, in app
+  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+  |     await response(scope, receive, send)
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 258, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 261, in wrap
+    |     await func()
+    |   File "/home/hao/anaconda3/envs/dialog/lib/python3.12/site-packages/starlette/responses.py", line 252, in stream_response
+    |     chunk = chunk.encode(self.charset)
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    | UnicodeEncodeError: 'utf-8' codec can't encode characters in position 32-33: surrogates not allowed
+    +------------------------------------
+[2024-08-03 10:37:00 +0800] [1638] [INFO] Handling signal: int
+[2024-08-03 10:37:00 +0800] [1683] [INFO] Shutting down
+[2024-08-03 10:37:00 +0800] [1683] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-08-03 10:37:00 +0800] [1682] [INFO] Shutting down
+[2024-08-03 10:37:00 +0800] [1682] [INFO] Error while closing socket [Errno 9] Bad file descriptor
+[2024-08-03 10:37:01 +0800] [1683] [INFO] Waiting for application shutdown.
+[2024-08-03 10:37:01 +0800] [1683] [INFO] Application shutdown complete.
+[2024-08-03 10:37:01 +0800] [1683] [INFO] Finished server process [1683]
+[2024-08-03 10:37:01 +0800] [1638] [ERROR] Worker (pid:1683) was sent SIGINT!
+[2024-08-03 10:37:01 +0800] [1682] [INFO] Waiting for application shutdown.
+[2024-08-03 10:37:01 +0800] [1682] [INFO] Application shutdown complete.
+[2024-08-03 10:37:01 +0800] [1682] [INFO] Finished server process [1682]
+[2024-08-03 10:37:01 +0800] [1638] [ERROR] Worker (pid:1682) was sent SIGINT!
+[2024-08-03 10:37:01 +0800] [1638] [INFO] Shutting down: Master
