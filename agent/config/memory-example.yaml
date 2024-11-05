@@ -1,0 +1,15 @@
+self:
+  emotion: current-emotion
+
+  experience:
+  -
+    datetime: 9999-99-99 hh:mm:ss
+    role: xxxxx
+    action: xxxxx(表达/思考等)
+    content: xxxxxxx
+  -
+    datetime: 9999-99-99 hh:mm:ss
+    role: xxxxx
+    action: xxxxx(表达/思考等)
+    content: xxxxxxxxxx
+

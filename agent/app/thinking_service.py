@@ -1,3 +1,19 @@
+'''
+从和用户（环境）的交互中，思考并形成认知
+该服务独立调度，通过数据读写和chat服务交互：
+chat --- dialog ---> thinking
+thinking --- cognition memory ---> chat
+
+针对用户的认知记忆格式如下：
+[refresh_timestamp:99999999]
+[user information]
+name:xxxxx
+gender:xxxx
+birthday:9999-99-99
+[]
+
+
+'''
 from typing import Any
 import re
 import json
@@ -11,7 +27,7 @@ from agent.domain.interfaces import scene
 
 scenes = scene.load_scenes_from_yaml("agent/config/scene.yaml")
 
-class ChatService():
+class ToolService():
     def __init__(self, chat_request:ChatRequest) -> None:
         self._messages = []
         self._history_len = 2
@@ -22,23 +38,14 @@ class ChatService():
                                                                     robot=self._chat_request.robot)
 
     async def __call__(self) -> Any:
-        end_reason = None
-        last_index = 0
         async for msg in self._async_chat.predict:
-            print(msg)
-            last_index = msg['index']
-            rmsg = re.sub(r'/', '', json.dumps(msg))
+            # print(msg)
+            rmsg = re.sub(r'/', '', json.dumps(msg)).encode('utf-8').decode('unicode_escape')
             if msg["content"]:
                 self._chat_response.content += msg["content"]
             self._chat_response.finish_reason = msg["finish_reason"]
-            end_reason = msg["finish_reason"]
+            
             yield f"data: {rmsg}\n\n"
-        
-        if end_reason is None:
-            print("append stop for iter end msg")
-            self._chat_response.finish_reason = "stop"
-            last_index += 1
-            yield "data: {'index': "+ str(last_index) + ", 'content': '', 'finish_reason': 'stop'}\n\n"
             
         if self._chat_response.content and len(self._chat_response.content) > 0:
             ### TODOself._chat_response.content.find()
@@ -101,16 +108,18 @@ class ChatService():
         return self._chat_response
 
 
-async def test_chat_service():
+async def test_tool_service():
     request = ChatRequest(content="你好", user="kdk3232", robot="xiaoming", mode="sentence", scene="scene")
  
-    ad = ChatService(request)  
+    ad = ToolService(request)  
     await ad.create_chat()
     response  = await ad()
     return response
 
+async def dialog_scan():
+
 if __name__ == "__main__":
     domain.init_global_resource()
-    response = asyncio.run(test_chat_service())
+    response = asyncio.run(test_tool_service())
     
     print(response)

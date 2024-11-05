@@ -9,4 +9,3 @@ class User(BaseModel):
     birthday: datetime # 出生年月
     description: str # 用户介绍，来自用户画像
     
-    

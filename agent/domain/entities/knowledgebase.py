@@ -43,7 +43,7 @@ class KnowledgeBase():
             for sheet in sheets:
                 df = pd.read_excel(excel_path, sheet_name=sheet, keep_default_na=False)
                 for question, answer in zip(df["问"], df['答']):
-                    embed_str = f"topic:{question}\ncontent:{answer}"
+                    embed_str = f"{question}\n{answer}"
                     if len(embed_str) > 2048:
                         print(f"--------embedding string warning!!!, string length below is exceed the max 2048, will be corped for embedding calc!\n{embed_str}")
                         embed_str = embed_str[0:2048]
