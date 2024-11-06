@@ -3,14 +3,14 @@ open_talk: # 场景名称 必填且唯一，作为场景索引key
     -
       name: 4o-2
       provider: azure
-      stream_mode: sentence
+      stream_mode: sentence/token/complete
       temperature: 0.1
       top_p: 0.9
       weight: 0.2
     -
       name: gpt-4o
       provider: openai      
-      stream_mode: sentence
+      stream_mode: sentence/token/complete
       temperature: 0.1
       top_p: 0.9
       weight: 0.8
