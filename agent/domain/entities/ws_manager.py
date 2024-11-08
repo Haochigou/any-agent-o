@@ -7,7 +7,6 @@ from fastapi.responses import HTMLResponse
 class WSConnectionManager:
     def __init__(self):
         self.active_connections: dict[str, WebSocket] = {}
-        self
 
     async def connect(self, client_id: str, websocket: WebSocket):
         await websocket.accept()

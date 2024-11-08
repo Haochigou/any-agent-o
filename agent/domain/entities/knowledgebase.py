@@ -6,7 +6,7 @@ import pandas as pd
 import faiss
 import openpyxl
 
-from infra.association import embedding
+from agent.infra.association import embedding_ali
 
 class KnowledgeBase():
     def __init__(self, file_path: str) -> None:
@@ -47,7 +47,7 @@ class KnowledgeBase():
                     if len(embed_str) > 2048:
                         print(f"--------embedding string warning!!!, string length below is exceed the max 2048, will be corped for embedding calc!\n{embed_str}")
                         embed_str = embed_str[0:2048]
-                    vector = embedding.embed_with_str(embed_str)
+                    vector = embedding_ali.embed_with_str(embed_str)
                     result.append((question, answer, vector))
             with open(self._file_path, 'wb') as handle: 
                 pickle.dump(result, handle)

@@ -20,8 +20,8 @@ open_talk: # 场景名称 必填且唯一，作为场景索引key
     description: 滨滨角色提示
     models:
       -
-        name: ep-20241107225106-78644
-        provider: volc
+        name: ep-20241108151720-vtn8q
+        provider: ark
         stream_mode: sentence
         temperature: 0.0
         top_p: 1

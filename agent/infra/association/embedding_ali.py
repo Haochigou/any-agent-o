@@ -3,9 +3,6 @@ import os
 
 from http import HTTPStatus
 import dashscope
-from volcengine.maas.v2 import MaasService
-from volcengine.maas import MaasException
-
 
 dashscope.api_key = os.getenv("ALI_APP_KEY")
 

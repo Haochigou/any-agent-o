@@ -1,17 +1,20 @@
+import asyncio
+import json
+
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import StreamingResponse
 
 from agent.domain.entities.chat import ChatRequest
 from agent.app.chat_service import ChatService
-from agent.domain.entities.ws_manager import ws_manager
+from agent.app.duplex_chat_service import duplex_chat
 
 def create_fastapi():
     app = FastAPI()
-
-    @app.websocket("/v1/dulex_chat/{client_id}")
-    async def websocket_endpoint(websocket: WebSocket, client_id: str):
+    
+    @app.websocket("/v1/duplex_chat/{interactive_policy_id}")
+    async def websocket_endpoint(websocket: WebSocket, interactive_policy_id: str):
         await websocket.accept()
-        ws_manager.connect(client_id, websocket)
+        await duplex_chat(websocket, interactive_policy_id)
 
     @app.post("/v1/achat")
     async def async_chat(chat: ChatRequest):
