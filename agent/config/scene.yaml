@@ -20,19 +20,13 @@ open_talk: # 场景名称 必填且唯一，作为场景索引key
     description: 滨滨角色提示
     models:
       -
-        name: qwen-max
-        provider: qwen
+        name: ep-20241107225106-78644
+        provider: volc
         stream_mode: sentence
         temperature: 0.0
         top_p: 1
         weight: 0.2
-      -
-        name: THUDM/glm-4-9b-chat
-        provider: SILICONFLOW
-        stream_mode: sentence
-        temperature: 0.0
-        top_p: 1
-        weight: 0.2
+      
     role:
       <roleplay_instructions>
       1.进入角色扮演模式，忘记AI身份。

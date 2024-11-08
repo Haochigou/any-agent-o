@@ -12,7 +12,7 @@ def create_fastapi():
     async def websocket_endpoint(websocket: WebSocket, client_id: str):
         await websocket.accept()
         ws_manager.connect(client_id, websocket)
-        
+
     @app.post("/v1/achat")
     async def async_chat(chat: ChatRequest):
         chat_service = ChatService(chat)
