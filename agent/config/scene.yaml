@@ -91,6 +91,12 @@ open_talk: # 场景名称 必填且唯一，作为场景索引key
       4. 不要直接引用或照搬资料内容，而是以角色的语气重新组织。
 
       </context_reference>
+    knowledge:
+      -
+        name: xxxxxxx
+      -
+        name: xxxxxxxx
     task:
       使用简洁的语言和用户交流
+
   
