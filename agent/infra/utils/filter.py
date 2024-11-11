@@ -3,12 +3,16 @@ import os
 
 
 class Filter:
-    def load_words_from_file(self, filter_dict_file_path):        
+    def load_words_from_file(self, filter_dict_file_path) -> bool:        
         if not os.path.isfile(filter_dict_file_path):
             return False
         for word in open(filter_dict_file_path):
             self.add_word(word)
         return True
+    
+    def add_words(self, words):
+        for word in words:
+            self.add_word(word)
     
     @abstractmethod
     def add_word(self, word):

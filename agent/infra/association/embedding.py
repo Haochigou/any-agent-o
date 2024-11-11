@@ -1,5 +1,5 @@
-from embedding_ali import embed_with_str as ali
-from embedding_ark import embed_with_str as ark
+from agent.infra.association.embedding_ali import embed_with_str as ali
+from agent.infra.association.embedding_ark import embed_with_str as ark
 
 class Embedding():
     def __init__(self, model: str, dim: int = 0):
@@ -11,7 +11,7 @@ class Embedding():
             elif self._model == "ARK":
                 self._d = 2560                
     
-    async def embed_string(self, content: str) -> list|None:
+    def embed_string(self, content: str) -> list|None:
         if self._model == "ALI":
             return ali(content, self._d)
         elif self._model == "ARK":

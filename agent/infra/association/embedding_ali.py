@@ -36,5 +36,5 @@ def embed_with_file(filepath: str) -> list:
     return embeddings
 
 if __name__ == "__main__":
-    print(embed_with_str("你好！"))
+    print(embed_with_str("你好！", 1024))
     embed_with_file("data/测试.txt")

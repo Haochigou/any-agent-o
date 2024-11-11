@@ -33,6 +33,7 @@ class DFAFilter(Filter):
             content = content.decode('utf-8')
         content = content.lower()
         ret = []
+        swords = []
         start = 0
         contained = False
         while start < len(content):
@@ -47,6 +48,7 @@ class DFAFilter(Filter):
                         ret.append(repl * step_ins)
                         start += step_ins - 1
                         contained = True
+                        swords.append(content[start - 1:(start + step_ins - 1)])
                         break
                 else:
                     ret.append(content[start])
@@ -54,13 +56,12 @@ class DFAFilter(Filter):
             else:
                 ret.append(content[start])
             start += 1
-        return contained, ''.join(ret)
+        return contained, ''.join(ret), swords
 
 
-'''
 if __name__ == "__main__":
     filter = DFAFilter()
     #filter.add_word('恐怖')
     filter.load_words_from_file('/mnt/c/Workspace/cognitionX-workshop/test-data/sensitive-words.csv')
-    print(filter.check('昨天发生了恐怖袭击'))
-'''
+    print(filter.check('昨天发生了恐怖袭击，它非常的恐怖'))
+
