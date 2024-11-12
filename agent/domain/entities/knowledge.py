@@ -57,7 +57,7 @@ class Knowledge():
         if not self.ready:
             return None
         #entities = self._filter.check(content)[2]
-        
+        result = []
         if self.index_size > 0:
             if limit > self.index_size:
                 limit = self.index_size
@@ -75,7 +75,7 @@ class Knowledge():
                     break
                 if i < 0.60: 
                     thres_index += 1
-                    dists.append(i)
+                    dists.append(float(i))
                 else:
                     break
             for i in list(text_index[0]):
@@ -84,7 +84,6 @@ class Knowledge():
                 thres_index -= 1
                 if thres_index < 0:
                     break
-                topics.append(self._raw_text[self._embeddings[i][0]][1])
-                context.append(self._raw_text[self._embeddings[i][0]][2])
-            return dists, topics, context
+                result.append((dists[i], self._raw_text[self._embeddings[i][0]][1], self._raw_text[self._embeddings[i][0]][2]))
+            return result
     

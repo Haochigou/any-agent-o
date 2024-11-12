@@ -1,11 +1,11 @@
 import os
 import pickle
 
-from knowledge import Knowledge
+from agent.domain.entities import knowledge
 
 class KnowledgeManager():
     def __init__(self):
-        self._knowledge_base_dir = os.getcwd() + "/knowledge"
+        self._knowledge_base_dir = os.getcwd() + "/knowledge-base"
         self._kbs = {}
         for item in os.scandir(self._knowledge_base_dir):
             if item.is_file():
@@ -20,14 +20,16 @@ class KnowledgeManager():
         result = []
         for kb_name in kb_names:
             if kb_name in self._kbs:
-                result.append(self._kbs[kb_name].query(content, 5))
+                result.extend(self._kbs[kb_name].query(content, 5))
+        if len(kb_names) > 1:
+            result = sorted(result)
         return result
                 
     def build_knowledge(self, kb_name: str, table: list, model_name: str):
         if kb_name in self._kbs:
             print("the knowledge is existed! pls check the content and try another name")
             return
-        kg = Knowledge(kb_name)
+        kg = knowledge.Knowledge(kb_name)
         kg._d = 1024
         kg.build_from_table(table, model_name)
         with open(self._knowledge_base_dir + "/" + kb_name + ".pkl", 'wb') as handle: 
