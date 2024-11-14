@@ -77,10 +77,12 @@ class ChatService():
             })
             self._chat_history.save()
         sys_prompt = ""
+        if "scene" in s:
+            sys_prompt += f"#scene:\n{s["scene"]}\n"
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
         if "task" in s:
-            sys_prompt += f"#role task:\n{s["task"]}\n"
+            sys_prompt += f"#task:\n{s["task"]}\n"
         if "knowledge" in s:            
             kbs = [item["name"] for item in s["knowledge"]]
             knowledge = knowledge_manager.kb_manager.query(self._chat_request.content, kbs)
