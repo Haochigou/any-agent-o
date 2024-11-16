@@ -15,3 +15,11 @@ class ChatResponse(BaseModel):
     finish_reason: str|None
     request_cost: int
     response_cost: int
+
+
+class ChatMessagesRequest(BaseModel):
+    query: str
+    conversation_id: str
+    user: str
+    response_mode: str
+
