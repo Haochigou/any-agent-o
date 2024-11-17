@@ -43,13 +43,16 @@ class Knowledge():
         self._d = self.embed._d
         index = 0
         for item in table:
-            embed_str = f"{item[0]}\n{item[1]}"
+            embed_str = f"{str(item[0])}\n{str(item[1])}"
             if len(embed_str) > 2048:
                 print(f"--------embedding string warning!!!, string length below is exceed the max 2048, will be corped for embedding calc!\n{embed_str}")
                 embed_str = embed_str[0:2048]
             vector = self.embed.embed_string(embed_str)
             self._raw_text.append((index, item[0], item[1]))
             self._embeddings.append((index, [0, 1], vector))
+            if item[0] and len(item[0]) > 0:
+                vector = self.embed.embed_string(item[0])
+                self._embeddings.append((index, [0, 1], vector))
             index += 1
         pass
     
@@ -69,7 +72,7 @@ class Knowledge():
             thres_index = 0
             hit_flag = False
             for i in list(distances[0]):
-                if i < 0.1248:
+                if i < 0.1248:                    
                     hit_flag = True
                 elif hit_flag:
                     break
@@ -78,12 +81,13 @@ class Knowledge():
                     dists.append(float(i))
                 else:
                     break
-            for i in list(text_index[0]):
-                if i < 0:
+            
+            for idx, index in enumerate(list(text_index[0])):
+                if index < 0:
                     break
                 thres_index -= 1
                 if thres_index < 0:
                     break
-                result.append((dists[i], self._raw_text[self._embeddings[i][0]][1], self._raw_text[self._embeddings[i][0]][2]))
+                result.append((dists[idx], self._raw_text[self._embeddings[index][0]][1], self._raw_text[self._embeddings[index][0]][2]))
             return result
     
