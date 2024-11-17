@@ -35,6 +35,5 @@ if __name__ == r"__main__":
     
     logger.error(f"The framework is to start {terminal_args.num_process} workers using the gunicorn, version {__version__} at {terminal_args.host}:{terminal_args.port}")
     
-    
     import uvicorn
     uvicorn.run("agent.main:app", host=terminal_args.host, port=terminal_args.port, workers=terminal_args.num_process)

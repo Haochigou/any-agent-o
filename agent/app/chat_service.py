@@ -84,6 +84,8 @@ class ChatService():
         sys_prompt = ""
         if "scene" in s:
             sys_prompt += f"#scene:\n{s["scene"]}\n"
+        if "reference" in s and s["reference"]:
+            sys_prompt += self._chat_request.reference
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
         if "task" in s:
@@ -103,11 +105,13 @@ class ChatService():
                     self._direct_response = knowledge[0][2]
                     return True
                 else:
-                    sys_prompt += "以下是一些资料信息，请根据需要灵活运用：\n\
-1.如果对话内容和资料信息高度重复，请根据用户的问题结合资料忠实的回答。\n\
-2.如果涉及事件相关，结合资料信息的内容进行回复。\n\
-3.如果用户的问题超出资料信息的范围，用一致的语气回复。\n\
-4.在不改变基本语义和数据的情况下，以角色的语气重新组织。\n"
+                    sys_prompt += """
+以下是一些资料信息，请根据需要灵活运用：
+1.如果对话内容和资料信息高度重复，请根据用户的问题结合资料忠实的回答。
+2.如果涉及事件相关，结合资料信息的内容进行回复。
+3.如果用户的问题超出资料信息的范围，用一致的语气回复。
+4.在不改变基本语义和数据的情况下，以角色的语气重新组织。
+"""
                     sys_prompt += "<context_reference>\n" + '\n'.join(item[1] + ":\n"+ item[2] for item in knowledge) + "\n"
                     sys_prompt += "</context_reference>\n"
         if "tools" in s:
