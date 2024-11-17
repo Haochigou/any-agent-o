@@ -1,5 +1,6 @@
 from typing import Optional
 
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from agent.domain.entities.history import HistoryManager
 from agent.domain.entities.history import RobotHistoryManager
 from agent.config.memory import MemoryConfig 

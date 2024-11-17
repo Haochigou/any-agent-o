@@ -2,3 +2,5 @@ logs/*
 data/*
 *.pyc
 chat-history
+knowledge-base
+docs
