@@ -1,4 +1,5 @@
 from typing import Any
+import os
 import re
 import json
 import asyncio
@@ -28,7 +29,7 @@ class ChatService():
         end_reason = None
         last_index = 0
         if self._direct_response is not None:
-            yield f"data: {'index': 0, 'content': '{self._direct_response}', 'finish_reason': 'stop'}\n\n"
+            yield "data: {'index': 0, 'content': '" + self._direct_response + "', 'finish_reason': 'stop'}\n\n"
             self._chat_response.content = self._direct_response
         else:
             async for msg in self._async_chat.predict:
@@ -49,10 +50,12 @@ class ChatService():
             
         if self._chat_response.content and len(self._chat_response.content) > 0:
             ### TODOself._chat_response.content.find()
+            #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)
+            #self._chat_response.content = self._chat_response.content.encode('utf-8').decode("unicode_escape")
             self._chat_history.load()
             self._chat_history.append({
                 "role": "assistant",
-                "time": round(datetime.now().timestamp()),
+                "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
                 "content": self._chat_response.content
             })
             self._chat_history.save()
@@ -70,33 +73,45 @@ class ChatService():
             return False
         s = target_scene[self._chat_request.robot]
         if self._chat_request.content and len(self._chat_request.content) > 0:
+            #self._chat_request.content = re.sub(r"/", "", self._chat_request.content)
+            #self._chat_request.content = self._chat_request.content.encode('utf-8').decode("unicode_escape")
             self._chat_history.append({
                 "role": "user",
-                "time": round(datetime.now().timestamp()),
+                "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
                 "content": self._chat_request.content
             })
             self._chat_history.save()
         sys_prompt = ""
         if "scene" in s:
             sys_prompt += f"#scene:\n{s["scene"]}\n"
+        if "reference" in s and s["reference"]:
+            sys_prompt += self._chat_request.reference
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
         if "task" in s:
             sys_prompt += f"#task:\n{s["task"]}\n"
+        if "direct" in s and s["direct"]:
+            status_file = os.path.join("data", f"status-{self._chat_request.user}-{self._chat_request.robot}.json")
+            if os.path.exists(status_file):
+                with open(status_file, "r") as status_handle:
+                    status = status_handle.read()
+                sys_prompt += f"#play direct:\n{status}\n"            
         if "knowledge" in s:            
             kbs = [item["name"] for item in s["knowledge"]]
             knowledge = knowledge_manager.kb_manager.query(self._chat_request.content, kbs)
             if knowledge is not None and len(knowledge) > 0:
                 print(knowledge)
-                if knowledge[0][0] < 0.1:
+                if knowledge[0][0] < 0.12:
                     self._direct_response = knowledge[0][2]
                     return True
                 else:
-                    sys_prompt += "以下是一些资料信息，请根据需要灵活运用：\n\
-1.如果对话内容和资料信息高度重复，请根据用户的问题结合资料忠实的回答。\n\
-2.如果涉及事件相关，结合资料信息的内容进行回复。\n\
-3.如果用户的问题超出资料信息的范围，用一致的语气回复。\n\
-4.在不改变基本语义和数据的情况下，以角色的语气重新组织。\n"
+                    sys_prompt += """
+以下是一些资料信息，请根据需要灵活运用：
+1.如果对话内容和资料信息高度重复，请根据用户的问题结合资料忠实的回答。
+2.如果涉及事件相关，结合资料信息的内容进行回复。
+3.如果用户的问题超出资料信息的范围，用一致的语气回复。
+4.在不改变基本语义和数据的情况下，以角色的语气重新组织。
+"""
                     sys_prompt += "<context_reference>\n" + '\n'.join(item[1] + ":\n"+ item[2] for item in knowledge) + "\n"
                     sys_prompt += "</context_reference>\n"
         if "tools" in s:
@@ -140,7 +155,7 @@ class ChatService():
 
 
 async def test_chat_service():
-    request = ChatRequest(content="你好", user="kdk3232", robot="xiaoming", mode="sentence", scene="scene")
+    request = ChatRequest(content="请介绍一下哈尔滨", user="kdk3232", robot="xiaoming", mode="sentence", scene="scene")
  
     ad = ChatService(request)  
     await ad.create_chat()

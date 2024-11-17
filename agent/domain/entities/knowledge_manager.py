@@ -1,6 +1,9 @@
 import os
 import pickle
 
+import pandas as pd
+import openpyxl
+
 from agent.domain.entities import knowledge
 
 class KnowledgeManager():
@@ -37,9 +40,25 @@ class KnowledgeManager():
         kg.start()
         self._kbs[kb_name] = kg
         
+    def load_qa_table_from_excel(self, excel_path: str) -> list:
+        try:
+            wb = openpyxl.load_workbook(excel_path)
+            sheets = wb.sheetnames
+            result = []
+            for sheet in sheets:
+                df = pd.read_excel(excel_path, sheet_name=sheet, keep_default_na=False)
+                for question, answer in zip(df["问"], df['答']):                    
+                    result.append((question, answer))
+        except Exception as e:
+            print(f"build from QA excel file {excel_path} fail!, the exception below:\n{e}")
+            
+        return result
 
 kb_manager = KnowledgeManager()
 
+
 if __name__ == "__main__":
-#    kb_manager.build_knowledge("haerbing", model_name="ark", table=[("西湖美景", "西湖有很多美景，能够吸引很多人前往旅游"), ("哈尔滨美景", "哈尔滨是著名的冰城，众多的冰雪风光能够吸引很多人前往旅游")])
-    print(kb_manager.query("哈尔滨介绍", ["haerbing"]))
+    #qie = kb_manager.load_qa_table_from_excel("docs/企鹅知识汇总.xlsx")
+    #kb_manager.build_knowledge("haerbing-dev", model_name="ark", table=qie)
+    
+    print(kb_manager.query("请介绍一下哈尔滨", ["haerbing-dev"]))

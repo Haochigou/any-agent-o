@@ -9,10 +9,11 @@ class ChatRequest(BaseModel):
     robot: str
     mode: str
     content: str
+    reference: str | None = None
     
 class ChatResponse(BaseModel):
     content: str
-    finish_reason: str|None
+    finish_reason: str | None
     request_cost: int
     response_cost: int
 
