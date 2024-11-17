@@ -11,6 +11,7 @@ from agent.domain.entities.chat import ChatRequest
 from agent.app.chat_service import ChatService
 from agent.app.duplex_chat_service import duplex_chat
 from agent.domain.entities.milian_chat import MilianChatRequest
+from agent.domain.entities.milian_response import get_milian_response
 
 '''
 scheduler = AsyncIOScheduler()
@@ -35,6 +36,7 @@ def create_fastapi():
 
     @app.post("/v1/achat")
     async def async_chat(chat: ChatRequest):
+        print(chat)
         chat_service = ChatService(chat)
         for i in range(3): # 尝试3次
             try:
@@ -89,7 +91,7 @@ def create_fastapi():
                 if await chat_service.create_chat(i):                 
                     
                     if request.mode != "complete":
-                        return StreamingResponse(chat_service(), media_type="text/event-stream")
+                        return StreamingResponse(get_milian_response(traceId=milian_request.traceId, chat_service=chat_service), media_type="text/event-stream")
                     else:
                         full_msg = ""
                         async for frame in chat_service():

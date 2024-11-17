@@ -33,7 +33,7 @@ class ChatService():
             self._chat_response.content = self._direct_response
         else:
             async for msg in self._async_chat.predict:
-                print(msg)
+                #print(msg)
                 last_index = msg['index']
                 rmsg = re.sub(r'/', '', json.dumps(msg))
                 if msg["content"]:
@@ -59,7 +59,6 @@ class ChatService():
                 "content": self._chat_response.content
             })
             self._chat_history.save()
-
         #print(self._chat_response)
         #return self._chat_response.content
     
@@ -85,7 +84,7 @@ class ChatService():
         if "scene" in s:
             sys_prompt += f"#scene:\n{s["scene"]}\n"
         if "reference" in s and s["reference"]:
-            sys_prompt += self._chat_request.reference
+            sys_prompt += str(self._chat_request.reference)
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
         if "task" in s:
