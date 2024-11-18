@@ -11,7 +11,7 @@ from agent.domain.entities.chat import ChatRequest
 from agent.app.chat_service import ChatService
 from agent.app.duplex_chat_service import duplex_chat
 from agent.domain.entities.milian_chat import MilianChatRequest
-from agent.domain.entities.milian_response import get_milian_response
+from agent.domain.interfaces.milian_response import get_milian_response
 
 '''
 scheduler = AsyncIOScheduler()
@@ -72,10 +72,10 @@ def create_fastapi():
 问卷信息"""
         if milian_request.questionnaire and len(milian_request.questionnaire) > 0:
             for questionnaire in milian_request.questionnaire:
-                reference += f"\n问卷名称:{questionnaire["questionnaireName"]}"
+                reference += f"\n问卷名称:" + questionnaire["questionnaireName"]
                 if questionnaire["option"] and len(questionnaire["option"]) > 0:
                     for qa in questionnaire["option"]:
-                        reference += f"\n{qa["question"]}：{qa["answer"]}"
+                        reference += "\n" + qa["question"] + "：" + qa["answer"]
         print(reference)
         request = ChatRequest(scene="open_talk", robot="humi", mode="sentence", content=milian_request.content, user=str(milian_request.userId), reference=reference)
         '''

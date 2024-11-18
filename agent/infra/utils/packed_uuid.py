@@ -2,6 +2,7 @@ import uuid
 
 def get_packed_uuid() -> int:
     str_uuid = uuid.uuid1()
+    print(str_uuid)
     return str_uuid.bytes
     
 

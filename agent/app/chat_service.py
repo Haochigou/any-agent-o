@@ -82,13 +82,13 @@ class ChatService():
             self._chat_history.save()
         sys_prompt = ""
         if "scene" in s:
-            sys_prompt += f"#scene:\n{s["scene"]}\n"
+            sys_prompt += "#scene:\n" +{s["scene"]} + "\n"
         if "reference" in s and s["reference"]:
             sys_prompt += str(self._chat_request.reference)
         if "role" in s:
-            sys_prompt += f"#role:\n{s["role"]}\n"
+            sys_prompt += "#role:\n" + s["role"] + "\n"
         if "task" in s:
-            sys_prompt += f"#task:\n{s["task"]}\n"
+            sys_prompt += "#task:\n" + s["task"] + "\n"
         if "direct" in s and s["direct"]:
             status_file = os.path.join("data", f"status-{self._chat_request.user}-{self._chat_request.robot}.json")
             if os.path.exists(status_file):
