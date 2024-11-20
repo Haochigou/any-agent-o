@@ -28,17 +28,18 @@ class KnowledgeManager():
             result = sorted(result)
         return result
                 
-    def build_knowledge(self, kb_name: str, table: list, model_name: str):
+    def build_knowledge(self, kb_name: str, table: list, model_name: str, storage_type: str = "local"):
         if kb_name in self._kbs:
             print("the knowledge is existed! pls check the content and try another name")
             return
         kg = knowledge.Knowledge(kb_name)
         kg._d = 1024
-        kg.build_from_table(table, model_name)
+        data = kg.build_from_table(table, model_name, storage_type)
+        
         with open(self._knowledge_base_dir + "/" + kb_name + ".pkl", 'wb') as handle: 
             pickle.dump(kg, handle)
         kg.start()
-        self._kbs[kb_name] = kg
+        self._kbs[kb_name] = kg          
         
     def load_qa_table_from_excel(self, excel_path: str) -> list:
         try:

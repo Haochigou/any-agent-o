@@ -8,6 +8,8 @@ import faiss
 
 from agent.infra.utils.filters.dfa import DFAFilter
 from agent.infra.association.embedding import Embedding
+from pymilvus import connections
+
 class Knowledge():
     def __init__(self, name: str):
         self._name = name
@@ -19,6 +21,7 @@ class Knowledge():
         self._d = 0 # default ALI = 1024, ARK = 2560
         self._embeddings = [] # [(seq, [field_no1, field_no2], embedding), (seq, [field_no1, field_no2], embedding)]
         self._embedding_service_name = None # "ALI" or "ARK"
+        self._storage_type = None # "local", "milvus" or other
         self._filter = DFAFilter()        
         
     def start(self):
@@ -35,13 +38,15 @@ class Knowledge():
         self.embed = Embedding(self._embedding_service_name, self._d)
         self.ready = True # this should not dump to pickle
        
-    def build_from_table(self, table: list, model_name: str) -> bool:
+    def build_from_table(self, table: list, model_name: str, storage_type: str = "local") -> list:
         if model_name.upper() not in ['ALI', 'ARK']:
             return False
         self._embedding_service_name = model_name.upper()
         self.embed = Embedding(self._embedding_service_name, self._d)
         self._d = self.embed._d
+        self._storage_type = storage_type
         index = 0
+        data = []
         for item in table:
             embed_str = f"{str(item[0])}\n{str(item[1])}"
             if len(embed_str) > 2048:
@@ -50,13 +55,15 @@ class Knowledge():
             vector = self.embed.embed_string(embed_str)
             self._raw_text.append((index, item[0], item[1]))
             self._embeddings.append((index, [0, 1], vector))
+            data.append(index, item[0], item[1], vector)
             if item[0] and len(item[0]) > 0:
                 vector = self.embed.embed_string(item[0])
-                self._embeddings.append((index, [0, 1], vector))
-            index += 1
-        pass
-    
-    def query(self, content: str, limit: int):
+                self._embeddings.append((index, [0], vector))
+                data.append(index, item[0], item[1], vector)
+            index += 1        
+        return data
+
+    def query(self, content: str, limit: int):            
         if not self.ready:
             return None
         #entities = self._filter.check(content)[2]

@@ -1,0 +1,7 @@
+milvus:
+  alias: milian
+  user: 
+  password:
+  db_name: milian
+  ip: 172.16.10.128
+  port: 19530
