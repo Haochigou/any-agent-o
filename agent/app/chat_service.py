@@ -82,7 +82,7 @@ class ChatService():
             self._chat_history.save()
         sys_prompt = ""
         if "scene" in s:
-            sys_prompt += "#scene:\n" +{s["scene"]} + "\n"
+            sys_prompt += "#scene:\n" +s["scene"] + "\n"
         if "reference" in s and s["reference"]:
             sys_prompt += str(self._chat_request.reference)
         if "role" in s:
