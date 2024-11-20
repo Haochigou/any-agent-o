@@ -169,3 +169,5 @@ wheel==0.43.0
 whisper-timestamped==1.15.4
 xxhash==3.4.1
 yarl==1.9.4
+mysql==0.0.3
+SQLAlchemy==2.0.31
