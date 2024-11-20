@@ -1,4 +1,4 @@
-import db_util
+from dao import db_util
 from dao.entity.chat_history import ChatHistory
 
 
