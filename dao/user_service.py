@@ -7,7 +7,7 @@ class UserService:
         with db_util.getSession() as session:
             user: User = session.query(User).filter(User.userName == username).first()
             if user is None:
-                return self.addUser(userName=user)
+                return self.addUser(userName=username)
             return user
         return None
 
