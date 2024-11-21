@@ -1,7 +1,15 @@
 milvus:
-  alias: milian
+  alias: default
   user: 
   password:
-  db_name: milian
-  ip: 172.16.10.128
+  db_name: default
+  host: 172.16.10.128
   port: 19530
+
+mysql:
+  alias: default
+  user: yuanjun
+  password: Yuanjun123
+  host: rm-bp18z680k4w0b73kiko.mysql.rds.aliyuncs.com
+  port: 3306
+  db_name: milian-ai

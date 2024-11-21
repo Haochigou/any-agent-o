@@ -29,8 +29,9 @@ class ChatService():
         end_reason = None
         last_index = 0
         if self._direct_response is not None:
-            yield "data: {'index': 0, 'content': '" + self._direct_response + "', 'finish_reason': 'stop'}\n\n"
-            self._chat_response.content = self._direct_response
+            print(f"prepare yield direct data: {self._direct_response}")
+            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response + "\", \"finish_reason\": \"stop\"}\n\n"
+            self._chat_response.content = self._direct_response            
         else:
             async for msg in self._async_chat.predict:
                 #print(msg)
@@ -46,7 +47,7 @@ class ChatService():
                 print("append stop for iter end msg")
                 self._chat_response.finish_reason = "stop"
                 last_index += 1
-                yield "data: {'index': "+ str(last_index) + ", 'content': '', 'finish_reason': 'stop'}\n\n"
+                yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"                
             
         if self._chat_response.content and len(self._chat_response.content) > 0:
             ### TODOself._chat_response.content.find()
@@ -74,6 +75,7 @@ class ChatService():
         if self._chat_request.content and len(self._chat_request.content) > 0:
             #self._chat_request.content = re.sub(r"/", "", self._chat_request.content)
             #self._chat_request.content = self._chat_request.content.encode('utf-8').decode("unicode_escape")
+            self._chat_history.load()
             self._chat_history.append({
                 "role": "user",
                 "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
@@ -102,6 +104,7 @@ class ChatService():
                 print(knowledge)
                 if knowledge[0][0] < 0.12:
                     self._direct_response = knowledge[0][2]
+                    print(f"direct reponse: {knowledge[0][2]}")
                     return True
                 else:
                     sys_prompt += """

@@ -48,7 +48,8 @@ def create_fastapi():
                         async for frame in chat_service():
                             full_msg += frame                            
                         return full_msg
-                
+            except StopAsyncIteration:
+                break
             except Exception as e:
                 print(f"try model index {i} error, message: {e}")
                 continue
@@ -87,6 +88,7 @@ def create_fastapi():
         '''
         chat_service = ChatService(request)
         for i in range(3): # 尝试3次
+            print(f"loops：{i}")
             try:
                 if await chat_service.create_chat(i):                 
                     

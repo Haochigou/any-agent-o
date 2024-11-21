@@ -1,6 +1,8 @@
 import os
 import json
 
+from agent.infra.utils import sql
+from agent.domain.entities.mysql_user_memory import Memory
 
 class HistoryManager:
 
@@ -88,8 +90,9 @@ class RobotHistoryManager:
     def __init__(self, path, context_length=4):
         self.path = path
         self.context_length = context_length
-        if not os.path.exists(self.path):
-            os.makedirs(self.path)
+        if path != "mysql":
+            if not os.path.exists(self.path):
+                os.makedirs(self.path)
 
     def get(self, user, robot):
         if not user:
@@ -104,7 +107,7 @@ class RobotHistory:
     def __init__(self, path, user, robot, context_length):
         self.path = path
         self.context_length = context_length
-
+        
         if not isinstance(user, str):
             raise TypeError("who必须是字符串")
         #if not user.isalnum():
@@ -113,14 +116,14 @@ class RobotHistory:
 
         if not isinstance(robot, str):
             raise TypeError("who必须是字符串")
-        #if not robot.isalnum():
-        #    raise ValueError("who必须只由字母数字组成")
+            #if not robot.isalnum():
+            #    raise ValueError("who必须只由字母数字组成")
         self.robot = robot
 
         self._history = None
-
+        
         self.load()
-
+            
     def __del__(self):
         self.save()
 
@@ -146,16 +149,36 @@ class RobotHistory:
 
     def load(self):
         result = []
-        if os.path.exists(self.filename):
-            with open(self.filename, "r") as file:
-                buffer = file.read()
-                result = json.loads(buffer) if len(buffer) > 1 else []
-
+        if self.path != "mysql":
+            if os.path.exists(self.filename):
+                with open(self.filename, "r") as file:
+                    buffer = file.read()
+                    result = json.loads(buffer) if len(buffer) > 1 else []
+        else:
+            s = sql.get_session()
+            one = s.query(Memory).filter(Memory.user_id == int(self.user)).first()
+            if not one:
+                self._history = []
+            else:
+                result = one.chat_history
         self._history = result
 
     def save(self):
-        with open(self.filename, "w+") as file:
-            json.dump(self._history, file)
+        if self.path != "mysql":
+            with open(self.filename, "w+") as file:
+                json.dump(self._history, file)
+        else:
+            s = sql.get_session()
+            one = s.query(Memory).filter(Memory.user_id == int(self.user)).first()
+            if not one:
+                memory = Memory()
+                memory.user_id = int(self.user)
+                memory.profile = {}
+                memory.chat_history = self._history
+                s.add(memory)
+            else:
+                one.chat_history = self._history
+            s.commit()
 
     def get_context(self, context_length=None):
         if context_length is None:

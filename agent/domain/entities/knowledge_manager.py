@@ -5,11 +5,14 @@ import pandas as pd
 import openpyxl
 
 from agent.domain.entities import knowledge
+from agent.infra.embedding_db import milvus
+from agent.infra.utils.dbs import dbs
 
 class KnowledgeManager():
     def __init__(self):
         self._knowledge_base_dir = os.getcwd() + "/knowledge-base"
         self._kbs = {}
+        milvus.connect_to_milvus()
         for item in os.scandir(self._knowledge_base_dir):
             if item.is_file():
                 kbf_name = os.path.basename(item)
@@ -18,7 +21,7 @@ class KnowledgeManager():
                     with open(item, 'rb') as handle:    
                         self._kbs[kb_name] = pickle.load(handle)
                         self._kbs[kb_name].start()
-                        
+                
     def query(self, content: str, kb_names: list):
         result = []
         for kb_name in kb_names:
@@ -39,7 +42,7 @@ class KnowledgeManager():
         with open(self._knowledge_base_dir + "/" + kb_name + ".pkl", 'wb') as handle: 
             pickle.dump(kg, handle)
         kg.start()
-        self._kbs[kb_name] = kg          
+        self._kbs[kb_name] = kg
         
     def load_qa_table_from_excel(self, excel_path: str) -> list:
         try:
@@ -60,6 +63,6 @@ kb_manager = KnowledgeManager()
 
 if __name__ == "__main__":
     #qie = kb_manager.load_qa_table_from_excel("docs/企鹅知识汇总.xlsx")
-    #kb_manager.build_knowledge("haerbing-dev", model_name="ark", table=qie)
+    #kb_manager.build_knowledge("milian_test_dev", model_name="ark", table=qie, storage_type="milvus")
     
-    print(kb_manager.query("请介绍一下哈尔滨", ["haerbing-dev"]))
+    print(kb_manager.query("请介绍一下哈尔滨", ["milian_test_dev"]))
