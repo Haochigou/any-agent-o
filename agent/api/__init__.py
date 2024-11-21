@@ -70,7 +70,7 @@ def create_fastapi():
         chatHistoryService = ChatHistoryService()
         chatHistoryService.save(userId=userId, sessionId="", roleType=1, speakerId=speakerId, content=content)
 
-        chat = ChatRequest(content=content, user=str(userId), robot="taotao", mode="sentence", scene="open_talk")
+        chat = ChatRequest(content=content, user=str(userId), robot="taotao", mode="sentence", scene="stranger")
 
         chat_service = ChatService(chat)
         async def resp_stream():
