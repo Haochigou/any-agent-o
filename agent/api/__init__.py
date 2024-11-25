@@ -12,6 +12,9 @@ from agent.app.chat_service import ChatService
 from agent.app.duplex_chat_service import duplex_chat
 from agent.domain.entities.milian_chat import MilianChatRequest
 from agent.domain.interfaces.milian_response import get_milian_response
+from agent.infra.log.local import getLogger
+
+logger = getLogger("chat", level="INFO")
 
 '''
 scheduler = AsyncIOScheduler()
@@ -36,7 +39,7 @@ def create_fastapi():
 
     @app.post("/v1/achat")
     async def async_chat(chat: ChatRequest):
-        print(chat)
+        logger.info(chat)
         chat_service = ChatService(chat)
         for i in range(3): # 尝试3次
             try:
@@ -51,7 +54,7 @@ def create_fastapi():
             except StopAsyncIteration:
                 break
             except Exception as e:
-                print(f"try model index {i} error, message: {e}")
+                logger.error(f"try model index {i} error, message: {e}")
                 continue
         
         raise HTTPException(status_code=404, detail="request mismatch the definition, please check your submitted scene or robot")
@@ -77,7 +80,7 @@ def create_fastapi():
                 if questionnaire["option"] and len(questionnaire["option"]) > 0:
                     for qa in questionnaire["option"]:
                         reference += "\n" + qa["question"] + "：" + qa["answer"]
-        print(reference)
+        
         request = ChatRequest(scene="open_talk", robot="humi", mode="sentence", content=milian_request.content, user=str(milian_request.userId), reference=reference)
         '''
         req = ChatRequest(scene="open_talk",
@@ -88,7 +91,6 @@ def create_fastapi():
         '''
         chat_service = ChatService(request)
         for i in range(3): # 尝试3次
-            print(f"loops：{i}")
             try:
                 if await chat_service.create_chat(i):                 
                     
@@ -101,7 +103,7 @@ def create_fastapi():
                         return full_msg
                 
             except Exception as e:
-                print(f"try model index {i} error, message: {e}")
+                logger.error(f"try model index {i} error, message: {e}")
                 continue
         
         raise HTTPException(status_code=500, detail="系统错误！")

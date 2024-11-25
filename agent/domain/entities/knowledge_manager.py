@@ -51,7 +51,8 @@ class KnowledgeManager():
             result = []
             for sheet in sheets:
                 df = pd.read_excel(excel_path, sheet_name=sheet, keep_default_na=False)
-                for question, answer in zip(df["问"], df['答']):                    
+                for question, answer in zip(df["问"], df['答']):
+                    print(question, answer)  
                     result.append((question, answer))
         except Exception as e:
             print(f"build from QA excel file {excel_path} fail!, the exception below:\n{e}")
@@ -62,7 +63,8 @@ kb_manager = KnowledgeManager()
 
 
 if __name__ == "__main__":
-    #qie = kb_manager.load_qa_table_from_excel("docs/企鹅知识汇总.xlsx")
-    #kb_manager.build_knowledge("milian_test_dev", model_name="ark", table=qie, storage_type="milvus")
+    #qie = kb_manager.load_qa_table_from_excel("docs/milian-knowledge.xlsx")
+    #print(f"total size:v{qie}")
+    #kb_manager.build_knowledge("milian_knowledge_v1", model_name="ark", table=qie, storage_type="milvus")
     
-    print(kb_manager.query("请介绍一下哈尔滨", ["milian_test_dev"]))
+    print(kb_manager.query("产后怎么调整心态？", ["milian_knowledge_v1"]))

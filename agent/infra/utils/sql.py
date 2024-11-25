@@ -14,3 +14,7 @@ def get_session():
 
 def get_tbl_object():
     return declarative_base()
+
+if __name__ == "__main__":
+    s = get_session()
+    print(get_session())

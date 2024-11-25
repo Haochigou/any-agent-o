@@ -155,11 +155,13 @@ class RobotHistory:
                     buffer = file.read()
                     result = json.loads(buffer) if len(buffer) > 1 else []
         else:
-            s = sql.get_session()
-            one = s.query(Memory).filter(Memory.user_id == int(self.user)).first()
-            if not one:
-                self._history = []
-            else:
+            s = sql.get_session()            
+            one = None
+            try:
+                one = s.query(Memory).filter(Memory.user_id == int(self.user)).first()
+            except Exception as e:
+                print(e)
+            if one:
                 result = one.chat_history
         self._history = result
 
@@ -169,16 +171,19 @@ class RobotHistory:
                 json.dump(self._history, file)
         else:
             s = sql.get_session()
-            one = s.query(Memory).filter(Memory.user_id == int(self.user)).first()
-            if not one:
-                memory = Memory()
-                memory.user_id = int(self.user)
-                memory.profile = {}
-                memory.chat_history = self._history
-                s.add(memory)
-            else:
-                one.chat_history = self._history
-            s.commit()
+            try:
+                one = s.query(Memory).filter(Memory.user_id == int(self.user)).first()
+                if not one:
+                    memory = Memory()
+                    memory.user_id = int(self.user)
+                    memory.profile = {}
+                    memory.chat_history = self._history
+                    s.add(memory)
+                else:
+                    one.chat_history = self._history
+                s.commit()
+            except Exception as e:
+                print(e)
 
     def get_context(self, context_length=None):
         if context_length is None:

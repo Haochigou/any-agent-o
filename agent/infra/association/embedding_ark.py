@@ -28,7 +28,7 @@ def embed_with_str(content: str, dim: int) -> list|None:
 
 def embed_with_list(content: list) -> list|None:
     try:
-        resp = ark.embeddings.create(model='ep-20241119165204-9cjxg', input=content)
+        resp = ark.embeddings.create(model='ep-20241119165204-9cjxg', input=content)        
         embeddings = [item.embedding for item in resp.data]
         return embeddings
     except ArkAPIError as e:

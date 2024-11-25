@@ -96,13 +96,13 @@ class ChatService():
             if os.path.exists(status_file):
                 with open(status_file, "r") as status_handle:
                     status = status_handle.read()
-                sys_prompt += f"#play direct:\n{status}\n"            
+                sys_prompt += f"#play direct:\n{status}\n"
         if "knowledge" in s:            
             kbs = [item["name"] for item in s["knowledge"]]
             knowledge = knowledge_manager.kb_manager.query(self._chat_request.content, kbs)
             if knowledge is not None and len(knowledge) > 0:
                 print(knowledge)
-                if knowledge[0][0] < 0.12:
+                if knowledge[0][0] < 0.12 and "knowledge_cache" in s and s["knowledge_cache"] == True:
                     self._direct_response = knowledge[0][2]
                     print(f"direct reponse: {knowledge[0][2]}")
                     return True
