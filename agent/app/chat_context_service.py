@@ -24,6 +24,8 @@ class ChatContextService:
         master: 主人聊天场景
         try_master: 尝试认主场景
         """
+        print(f"userStatusService.userStatus: {userStatusService.userStatus}")
+        print(f"userStatusService.userTryMasterStatus: {userStatusService.userTryMasterStatus}")
         chatHistoryService = ChatHistoryService()
         userStatus = userStatusService.getUserStatus(userId=userId)
         if len(userStatus.speakers)>1: # 多人聊天
@@ -50,6 +52,10 @@ class ChatContextService:
         return toyMasterService.isMaster(userId=userId, speakerId=speakerId)
 
     def needTryMaster(self, userId: int, speakerId: str) -> bool:
+        """
+            1. 每24小时触发一次
+            2. 如果拒绝了，12小时后再触发一次
+        """
         if userStatusService.tryMaster(userId=userId, speakerId=speakerId):
             return True
 

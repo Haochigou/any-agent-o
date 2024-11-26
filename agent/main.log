@@ -1,0 +1,9 @@
+2024-11-11 17:01:09,629 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 13:06:27,736 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 13:41:10,216 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 13:41:15,835 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 13:43:04,694 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 13:44:51,862 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 14:52:46,298 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 14:52:50,499 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080
+2024-11-12 14:53:52,595 [D:\Users\17212\Desktop\any-agent-o\agent\main.py-->line:36] - ERROR: The framework is to start 16 workers using the gunicorn, version 0.1.0 at 127.0.0.1:8080

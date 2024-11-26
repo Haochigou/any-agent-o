@@ -133,6 +133,8 @@ def create_fastapi():
                     chatHistoryService.save(userId=userId, sessionId="", roleType=0, speakerId=speakerId,
                                             content=rawContent)
                 if cmdContent:
+                    cmdContent = cmdContent.replace("\\", "")
+                    print(f"cmdContent: {cmdContent}")
                     cmdObj = json.loads(cmdContent)
                     cmdStatus = cmdObj.get("status")
                     if "accept" == cmdStatus:
