@@ -9,7 +9,23 @@ class ToyMasterService:
             return toyMasters;
 
 
-    def addToyMaster(self, toyMaster):
+    def addToyMaster(self, toyMaster: ToyMaster):
         with db_util.getSession() as session:
             session.add(toyMaster)
             session.commit()
+
+
+    def addToyMaster(self, userId: int, masterId: str):
+        toyMaster = ToyMaster()
+        toyMaster.userId = userId
+        toyMaster.masterId = masterId
+        with db_util.getSession() as session:
+            session.add(toyMaster)
+            session.commit()
+
+
+    def isMaster(self, userId: int, speakerId: str)->bool:
+        with db_util.getSession() as session:
+            return session.query(ToyMaster).filter(ToyMaster.userId == userId,ToyMaster.masterId == speakerId).count() > 0
+
+        return False

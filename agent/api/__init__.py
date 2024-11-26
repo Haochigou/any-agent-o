@@ -4,13 +4,14 @@ import json
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import StreamingResponse
 
+from agent.app.chat_context_service import ChatContextService
+from agent.app.user_status_service import userStatusService
 from agent.domain.entities.chat import ChatRequest, ChatMessagesRequest
 from agent.app.chat_service import ChatService
 from agent.app.duplex_chat_service import duplex_chat
 from dao.chat_history_service import ChatHistoryService
-from dao.entity.chat_history import ChatHistory
+from dao.toy_master_service import ToyMasterService
 from dao.user_service import UserService
-
 
 def create_fastapi():
     app = FastAPI()
@@ -56,25 +57,34 @@ def create_fastapi():
         userId = userObj.id;
 
         queryObj = json.loads(chatMessage.query)
-        toy = queryObj["toy"]
-        status = toy["status"]  # 售卖状态：待售、
+        toy = queryObj.get("toy", {"id": "f09e9e01655c", "status": "待售"})
+        status = toy.get("status", "待售")  # 售卖状态：待售、
 
-        speaker = queryObj["speaker"]
-        speakerId: str = speaker["id"];
+        speaker = queryObj.get("speaker", {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": False, "gender": "男性", "age": "中年"})
+        speakerId: str = speaker.get("id", "default_speaker");
         age = speaker["age"];
         gender = speaker["gender"];
         content: str = queryObj["stt"]["text"];
         print(
             f"user: {chatMessage.user}, conversation_id: {chatMessage.conversation_id}, userId: {userId}, speakerId: {speakerId}, age: {age}, gender: {gender}, content: {content}")
 
-        chatHistoryService = ChatHistoryService()
-        chatHistoryService.save(userId=userId, sessionId="", roleType=1, speakerId=speakerId, content=content)
+        sessionId = userStatusService.updateSession(userId=userId, speakerId=speakerId)
 
-        chat = ChatRequest(content=content, user=str(userId), robot="taotao", mode="sentence", scene="open_talk")
+        chatHistoryService = ChatHistoryService()
+        chatHistoryService.save(userId=userId, sessionId=sessionId, roleType=1, speakerId=speakerId, content=content)
+
+        chatContextService = ChatContextService()
+        chatContext = chatContextService.getChatContext(userId=userId, speakerId=speakerId,sellStatus=status)
+        print(f"chatContext: {chatContext}")
+
+        chat = ChatRequest(content=content, user=speakerId, robot="taotao", mode="sentence", scene=chatContext.scene, reference=chatContext.history)
 
         chat_service = ChatService(chat)
         async def resp_stream():
             if await chat_service.create_chat(1):
+                rawContent: str = ""
+                haveCmd: bool = False
+                cmdContent: str = ""
                 while True:
                     resp = await chat_service().__anext__()
                     if resp is None:
@@ -87,7 +97,51 @@ def create_fastapi():
                         break
                     else:
                         respContent = respObj["content"]
+                        rawContent += respContent;
+
+                        if -1 != respContent.find("{") and respContent.find("}") != -1:
+                            # 指令全部内容在内容中间
+                            left = respContent.find("{")
+                            right = respContent.find("}")
+                            cmdContent = respContent[left:right + 1]
+                            leftContent = respContent[0:left]
+                            rightContent = respContent[right + 1:]
+                            yield "data: {\"event\": \"message\", \"answer\": \"" + leftContent + rightContent + "\"}\n\n"
+                            continue
+
+                        if haveCmd != True and -1 != respContent.find("{"):
+                            # 只有指令前面部分内容
+                            haveCmd = True
+                            index = respContent.find("{")
+                            leftContent = respContent[0:index]
+                            cmdContent += respContent[index:]
+                            yield "data: {\"event\": \"message\", \"answer\": \"" + leftContent + "\"}\n\n"
+                            continue
+
+
+                        if haveCmd and -1 != respContent.find("}"):
+                            # 只有指令后半部分内容
+                            index = respContent.find("}")
+                            cmdContent += respContent[0:index + 1]
+                            rightContent = respContent[index + 1:]
+                            yield "data: {\"event\": \"message\", \"answer\": \"" + rightContent + "\"}\n\n"
+                            continue
+
+
                         yield "data: {\"event\": \"message\", \"answer\": \"" + respContent+ "\"}\n\n"
+                if rawContent:
+                    chatHistoryService.save(userId=userId, sessionId="", roleType=0, speakerId=speakerId,
+                                            content=rawContent)
+                if cmdContent:
+                    cmdContent = cmdContent.replace("\\", "")
+                    print(f"cmdContent: {cmdContent}")
+                    cmdObj = json.loads(cmdContent)
+                    cmdStatus = cmdObj.get("status")
+                    if "accept" == cmdStatus:
+                        toyMasterService = ToyMasterService()
+                        toyMasterService.addToyMaster(userId=userId, masterId=speakerId)
+                    elif "reject" == cmdStatus:
+                        userStatusService.rejectMaster(userId=userId, speakerId=speakerId)
 
             yield "data: {\"event\": \"message_end\"}\n\n"
 
