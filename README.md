@@ -11,3 +11,8 @@
 ## 未来规划
 
 ## 协议
+
+## 部署
+
+sudo apt-get install cmake pkg-config python3-dev default-libmysqlclient-dev build-essential
+pip install -r requirements.txt
