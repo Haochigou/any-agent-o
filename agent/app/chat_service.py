@@ -10,7 +10,9 @@ from agent.domain.entities.chat import ChatRequest, ChatResponse
 from agent import domain
 from agent.domain.interfaces import scene
 from agent.domain.entities import knowledge_manager
+from agent.infra.log.local import getLogger
 
+logger = getLogger("chat_service")
 
 scenes = scene.load_scenes_from_yaml("agent/config/scene.yaml")
 
@@ -33,7 +35,7 @@ class ChatService():
             self._chat_response.content = self._direct_response
         else:
             async for msg in self._async_chat.predict:
-                print(msg)
+                logger.info(msg)
                 last_index = msg['index']
                 rmsg = re.sub(r'/', '', json.dumps(msg))
                 if msg["content"]:
@@ -43,7 +45,7 @@ class ChatService():
                 yield f"data: {rmsg}\n\n"
             
             if end_reason is None:
-                print("append stop for iter end msg")
+                logger.info("append stop for iter end msg")
                 self._chat_response.finish_reason = "stop"
                 last_index += 1
                 yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"
@@ -83,7 +85,7 @@ class ChatService():
             self._chat_history.save()
         sys_prompt = ""
         if "scene" in s:
-            sys_prompt += f"#scene:\n{s["scene"]}\n"
+            sys_prompt += f"#scene:\n" + s["scene"] + "\n"
         max_history_round = 1
         if "max_history_round" not in s:
             max_history_round = target_scene["default_max_history_round"]
@@ -107,7 +109,7 @@ class ChatService():
             kbs = [item["name"] for item in s["knowledge"]]
             knowledge = knowledge_manager.kb_manager.query(self._chat_request.content, kbs)
             if knowledge is not None and len(knowledge) > 0:
-                print(knowledge)
+                logger.info(knowledge)
                 if knowledge[0][0] < 0.12:
                     self._direct_response = knowledge[0][2]
                     return True
@@ -143,7 +145,7 @@ class ChatService():
         #self._messages.append({"role":"user", "content":new_content})
         
         self._async_chat = AsyncChat(models[model_turns % len(models)]["provider"])
-        print(self._messages)
+        logger.info(self._messages)
         await self._async_chat.create(messages=self._messages,
                                       model=models[model_turns % len(models)]["name"],
                                       stream_mode=self._chat_request.mode,

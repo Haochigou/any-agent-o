@@ -12,6 +12,9 @@ from agent.app.duplex_chat_service import duplex_chat
 from dao.chat_history_service import ChatHistoryService
 from dao.toy_master_service import ToyMasterService
 from dao.user_service import UserService
+from agent.infra.log.local import getLogger
+
+logger = getLogger("api")
 
 def create_fastapi():
     app = FastAPI()
@@ -38,7 +41,7 @@ def create_fastapi():
                         return full_msg
 
             except Exception as e:
-                print(f"try model index {i} error, message: {e}")
+                logger.error(f"try model index {i} error, message: {e}")
                 continue
 
         raise HTTPException(status_code=404,
@@ -65,7 +68,7 @@ def create_fastapi():
         age = speaker["age"];
         gender = speaker["gender"];
         content: str = queryObj["stt"]["text"];
-        print(
+        logger.info(
             f"user: {chatMessage.user}, conversation_id: {chatMessage.conversation_id}, userId: {userId}, speakerId: {speakerId}, age: {age}, gender: {gender}, content: {content}")
 
         sessionId = userStatusService.updateSession(userId=userId, speakerId=speakerId)
@@ -75,7 +78,7 @@ def create_fastapi():
 
         chatContextService = ChatContextService()
         chatContext = chatContextService.getChatContext(userId=userId, speakerId=speakerId,sellStatus=status)
-        print(f"chatContext: {chatContext}")
+        logger.info(f"chatContext: {chatContext}")
 
         chat = ChatRequest(content=content, user=speakerId, robot="taotao", mode="sentence", scene=chatContext.scene, reference=chatContext.history)
 
@@ -134,7 +137,7 @@ def create_fastapi():
                                             content=rawContent)
                 if cmdContent:
                     cmdContent = cmdContent.replace("\\", "")
-                    print(f"cmdContent: {cmdContent}")
+                    logger.info(f"cmdContent: {cmdContent}")
                     cmdObj = json.loads(cmdContent)
                     cmdStatus = cmdObj.get("status")
                     if "accept" == cmdStatus:
