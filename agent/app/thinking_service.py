@@ -19,17 +19,25 @@ import re
 import json
 import asyncio
 import os
-from datetime import datetime
+import time
+from datetime import datetime, timedelta
 import multiprocessing
+
+import aiomysql
 
 from agent.infra.llm.async_chat import AsyncChat
 from agent.domain.entities.chat import ChatRequest, ChatResponse
 from agent import domain
 from agent.domain.interfaces import scene
 from agent.domain.entities import knowledge_manager
+from agent.config.memory import MemoryConfig
+from agent.infra.log.local import getLogger
 
+memory_config = MemoryConfig()
 scenes = scene.load_scenes_from_yaml("agent/config/scene.yaml")
 g_profile_build_multiproc_lock = multiprocessing.Lock()
+
+logger = getLogger("thinking", level="INFO")
 
 class ToolService():
     def __init__(self, chat_request:ChatRequest) -> None:
@@ -63,11 +71,11 @@ class ToolService():
         s = target_scene[self._chat_request.robot]
         sys_prompt = ""
         if "scene" in s:
-            sys_prompt += f"#scene:\n{s["scene"]}\n"
+            sys_prompt += "#scene:\n" + s["scene"] + "\n"
         if "role" in s:
-            sys_prompt += f"#role:\n{s["role"]}\n"
+            sys_prompt += "#scene:\n" + s["role"] + "\n"
         if "task" in s:
-            sys_prompt += f"#task:\n{s["task"]}\n"
+            sys_prompt += "#scene:\n" + s["task"] + "\n"
         if "knowledge" in s:            
             kbs = [item["name"] for item in s["knowledge"]]
             knowledge = knowledge_manager.kb_manager.query(self._chat_request.content, kbs)
@@ -121,7 +129,67 @@ async def test_tool_service():
     response  = await ad()
     return response
 
+async def scan_dialog(path, loop = None):
+    limit = int(100)
+    if path == "mysql":
+        db_info = []
+        conn = await aiomysql.connect(host=db_info["host"], port=int(db_info["port"]),
+                                      user=db_info["user"], password=db_info["password"],
+                                      db=db_info["db_name"], loop=loop)
+        async with conn.cursor() as cur:
+            await cur.execute(f"select user_id, chat_history, profile from tb_interaction_memory order by update_ts desc limit {limit}")
+            rs = await cur.fetchall()
+            if rs:
+                for r in rs:
+                    yield r[0], json.loads(r[1])
+            await cur.close()
+        conn.close()
+    else:
+        index = 0
+        dialog_src_dir = memory_config.get_chat_history_local_path()
+        files = os.listdir(dialog_src_dir)
+        if files:
+            files = sorted(files, key=lambda x: os.path.getmtime(os.path.join(dialog_src_dir, x)), reverse=True)
+            for file in files:
+                with open(os.path.join(dialog_src_dir, file), "r") as history:
+                    yield file.split('-')[1], json.loads(history.read())
+                index += 1
+                if index > limit:
+                    break
 
+async def abstract_data_from_dialog_v2(type, robot, loop):
+    async for uid, history in scan_dialog(type, loop):
+        status_file_path = os.path.join(memory_config.get_chat_status_local_path(), f"status-{uid}-{robot}.json")
+        one_day = timedelta(days=7)
+        status_datetime = datetime.now() - one_day
+        if os.path.exists(status_file_path):
+            status_timestamp = os.path.getmtime(status_file_path)
+            status_datetime = datetime.fromtimestamp(status_timestamp)
+        
+        if history and len(history) > 0:
+            history_datetime = datetime.strptime(history[-1]["time"], '%Y-%m-%d,%H:%M:%S')
+            print(f"history:{history_datetime}, status:{status_datetime}")
+            if history_datetime < status_datetime:
+                break
+            unprocessed_history = []
+            for chat in history[::-1]:
+                if datetime.strptime(chat["time"], '%Y-%m-%d,%H:%M:%S') < status_datetime:
+                    break
+                unprocessed_history.insert(0, chat)
+            if len(unprocessed_history) > 0:
+                request = ChatRequest(scene="tools", robot="talk_director", mode="complete", content=json.dumps(unprocessed_history), user="")
+                tool = ToolService(request)
+                await tool.create()
+                result = await tool() 
+                with open(status_file_path, "w") as status:
+                    print(result)
+                    status.write(result)                
+                # profile may write to the db
+                '''
+                with open(status_file_path.replace("status", "profile"), "a+") as profile:
+                    profile.writelines(result)
+                '''
+                    
 async def abstract_data_from_dialog():
     '''
     global g_profile_build_multiproc_lock
@@ -160,24 +228,27 @@ async def abstract_data_from_dialog():
                 
                 profile_name = file_name.replace('dialogue', 'profile')
                 status_name = file_name.replace('dialogue', 'status')
-                with open(os.path.join("data", profile_name), "a+") as profile:
-                    profile.writelines('\n'.join(result[0:-1]))
                 with open(os.path.join("data", status_name), "w") as status:
                     print(result[-1])
                     status.write(result[-1])
+                with open(os.path.join("data", profile_name), "a+") as profile:
+                    profile.writelines('\n'.join(result[0:-1]))
                 
     finally:
         #g_profile_build_multiproc_lock.release()
         print("profile build finish!")
 
 def job_build_profile():
-    while True:
-        asyncio.run(abstract_data_from_dialog)
-        asyncio.sleep(10)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(abstract_data_from_dialog_v2("local", "taotao", loop))
+    
     
 if __name__ == "__main__":
     #domain.init_global_resource()
     #response = asyncio.run(test_tool_service())
     
     #print(response)
-    job_build_profile()
+    while True:
+        print("start loop:")
+        job_build_profile()
+        time.sleep(1)
