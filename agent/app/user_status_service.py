@@ -17,6 +17,9 @@ class UserStatus:
     speakers: {}
     tryMaster: bool = False
 
+    def __repr__(self):
+        return f"sessionId: {self.sessionId}, lastTime: {self.lastTime}, speakers: {self.speakers}, tryMaster: {self.tryMaster}"
+
 
 class UserTryMasterStatus:
     nextTime: int  # 下一次开启引导认主的时间。
@@ -24,6 +27,8 @@ class UserTryMasterStatus:
     trying: bool  # 正在执行认主流程
     count: int = 0 # 统计聊天次数，在一个周期内，超过8轮，即满足认主条件
 
+    def __repr__(self):
+        return f"nextTime: {self.nextTime}, lastTime: {self.lastTime}, count: {self.count}"
 
 class UserStatusService:
     userStatus: {str: UserStatus} = {}
