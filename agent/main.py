@@ -4,13 +4,13 @@ __version__ = r"0.1.0"
 import multiprocessing
 import argparse
 
-from agent.infra.log import local
+from agent.infra.log.local import getLogger
 from agent.api import create_fastapi
 from agent import domain
 
 app = create_fastapi()
 
-logger = local.getLogger("main")
+logger = getLogger("main")
 
 domain.init_global_resource()
 
