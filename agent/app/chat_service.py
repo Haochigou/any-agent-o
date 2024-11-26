@@ -10,7 +10,9 @@ from agent.domain.entities.chat import ChatRequest, ChatResponse
 from agent import domain
 from agent.domain.interfaces import scene
 from agent.domain.entities import knowledge_manager
+from agent.infra.log.local import getLogger
 
+logger = getLogger("chat_service")
 
 scenes = scene.load_scenes_from_yaml("agent/config/scene.yaml")
 
