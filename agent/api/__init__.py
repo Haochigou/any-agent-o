@@ -83,6 +83,8 @@ def create_fastapi():
         async def resp_stream():
             if await chat_service.create_chat(1):
                 rawContent: str = ""
+                haveCmd: bool = False
+                cmdContent: str = ""
                 while True:
                     resp = await chat_service().__anext__()
                     if resp is None:
@@ -97,18 +99,47 @@ def create_fastapi():
                         respContent = respObj["content"]
                         rawContent += respContent;
 
+                        if -1 != respContent.find("{") and respContent.find("}") != -1:
+                            # 指令全部内容在内容中间
+                            left = respContent.find("{")
+                            right = respContent.find("}")
+                            cmdContent = respContent[left:right + 1]
+                            leftContent = respContent[0:left]
+                            rightContent = respContent[right + 1:]
+                            yield "data: {\"event\": \"message\", \"answer\": \"" + leftContent + rightContent + "\"}\n\n"
+                            continue
+
+                        if haveCmd != True and -1 != respContent.find("{"):
+                            # 只有指令前面部分内容
+                            haveCmd = True
+                            index = respContent.find("{")
+                            leftContent = respContent[0:index]
+                            cmdContent += respContent[index:]
+                            yield "data: {\"event\": \"message\", \"answer\": \"" + leftContent + "\"}\n\n"
+                            continue
+
+
+                        if haveCmd and -1 != respContent.find("}"):
+                            # 只有指令后半部分内容
+                            index = respContent.find("}")
+                            cmdContent += respContent[0:index + 1]
+                            rightContent = respContent[index + 1:]
+                            yield "data: {\"event\": \"message\", \"answer\": \"" + rightContent + "\"}\n\n"
+                            continue
+
+
                         yield "data: {\"event\": \"message\", \"answer\": \"" + respContent+ "\"}\n\n"
                 if rawContent:
                     chatHistoryService.save(userId=userId, sessionId="", roleType=0, speakerId=speakerId,
                                             content=rawContent)
-
-                if "accept":
-                    toyMasterService = ToyMasterService()
-                    toyMasterService.addToyMaster(userId=userId, masterId=speakerId)
-                    pass
-                elif "reject":
-                    userStatusService
-                    pass
+                if cmdContent:
+                    cmdObj = json.loads(cmdContent)
+                    cmdStatus = cmdObj.get("status")
+                    if "accept" == cmdStatus:
+                        toyMasterService = ToyMasterService()
+                        toyMasterService.addToyMaster(userId=userId, masterId=speakerId)
+                    elif "reject" == cmdStatus:
+                        userStatusService.rejectMaster(userId=userId, speakerId=speakerId)
 
             yield "data: {\"event\": \"message_end\"}\n\n"
 
