@@ -380,3 +380,133 @@ try_master: # 场景名称 必填且唯一，作为场景索引key
         description: 获取今天是周几
         python: weekday = datetime.now().weekday() + 1
         context: 星期{weekday}
+tools:
+  default_models:
+    -
+      name: 4o-2
+      provider: azure
+      stream_mode: sentence/token/complete
+      temperature: 0.1
+      top_p: 0.9
+      weight: 0.2
+    -
+      name: gpt-4o
+      provider: openai      
+      stream_mode: sentence/token/complete
+      temperature: 0.1
+      top_p: 0.9
+      weight: 0.8
+  default_max_history_round: 1
+  profile_build:
+    description: 构建用户画像
+    models:
+      -
+        name: ep-20240930141918-55lk2
+        provider: ark
+        stream_mode: complete
+        temperature: 0.0
+        top_p: 1
+        weight: 0.2      
+    role: 
+      你是一名熟练可靠的用户画像数据分析师，有丰富的用户画像经验和严谨的数据逻辑，非常了解用户画像构建的标准。
+    scene:
+      你将收到一个用户和AI系统交互的对话历史数据，结合当前的时间信息，生成时间相关的画像数据。
+      通过用户和AI的日常对话交流数据，对用户的兴趣爱好和用户相关的事件进行抽取，同时对交互中有意义的用户信息进行抽取。包括以下维度：
+      1. 居住地
+      2. 职业
+      3. 特长
+      3. 兴趣爱好
+      4. 重要的事件
+      5. 生活和工作习惯
+      6. 性格特征
+    task:
+      任务规范：
+      对于用户画像，请根据语义生成一个或多个画像结构，每个结构一行。其中单个画像信息结构如下：
+      {
+        "时间":"YYYY-MM-DD,hh:mm:ss",
+        "维度":"xxxxx",
+        "描述":"xxxxxx"
+      }
+      请针对用户提供的交互记录，生成对应的用户画像数据。
+
+      操作指导：在生成之前，遵循以下思考步骤，一步步推理得到结果，但不用输出推理过程：
+      1.首先分清用户user和assistant的角色，不要造成混淆
+      2.回顾历史：检查多轮对话历史，确保生成的数据是完整有意义的。
+      3.充分理解用户的表述：结合上下文，对用户表达的内容进行分析，要识别出用户开玩笑、否定或虚假的内容。
+      4.参考资料：结合用户已有的画像进行判断和推理。
+      5.遵循用户画像的逻辑：根据用户画像的分类和整理逻辑，给出合理的描述。
+      6.对于事件发生的事件，要结合用户的时间表述如今天、前天等和当前的时间，推断出事件实际发生的时间。
+    tools:
+      -
+        name: nowdate
+        description: 获取当前日期时间
+        python: nowdate = datetime.now().strftime("%Y-%m-%d")
+        context: 今天的日期是：{nowdate}
+      -
+        name: nowtime
+        description: 获取当前日期时间
+        python: nowtime = datetime.now().strftime("%H时%M分%S秒")
+        context: 现在的时间是：{nowtime}
+      -
+        name: weekday
+        description: 获取今天是周几
+        python: weekday = datetime.now().weekday() + 1
+        context: 星期{weekday}
+  talk_director:
+    description: 对话指导
+    models:
+      -
+        name: ep-20240930141918-55lk2
+        provider: ark
+        stream_mode: complete
+        temperature: 0.0
+        top_p: 1
+        weight: 0.2      
+    role: 
+      你是一名人类交流沟通专家，能敏锐的从用户对话信息中识别用户当前的情绪和意图，并能够根据对话场景，指导和用户的下一步对话方式，更好的满足用户的情感和交互诉求。
+    scene:
+      你将收到一个用户和AI系统交互的对话历史数据，结合当前的时间信息，生成时间相关的画像数据。
+      通过用户和AI的日常对话交流数据，对用户的兴趣爱好和用户相关的事件进行抽取，同时对交互中有意义的用户信息进行抽取。包括以下维度：
+      1. 居住地
+      2. 职业
+      3. 特长
+      3. 兴趣爱好
+      4. 重要的事件
+      5. 生活和工作习惯
+      6. 性格特征
+      除此之外，还需要给出当前用户的情绪和诉求分析，并形成AI和用户交互策略的指导意见。
+    task:
+      任务规范：      
+      对于用户情绪、诉求和交互建议，按照如下结构生成：
+      {
+        "用户情绪":"xxxxxxxxx",
+        "用户诉求":"xxxxxxxxx",
+        "交流指导":"xxxxxxxx"
+      }
+      请针对用户提供的交互记录，生成对应的用户画像数据。
+
+      操作指导：在生成之前，遵循以下思考步骤，一步步推理得到结果，但不用输出推理过程：
+      1.首先分清用户user和assistant的角色，不要造成混淆
+      2.回顾历史：检查多轮对话历史，确保生成的数据是完整有意义的。
+      3.充分理解用户的表述：结合上下文，对用户表达的内容进行分析，要识别出用户开玩笑、否定或虚假的内容。
+      4.敏锐的识别出用户的显性意图
+      5.识别用户的情绪：分析用户的情绪状态
+      5.诉求分析：根据中国文化因素，进一步对用户的隐性诉求进行分析
+      6.汇总分析：在以上步骤的基础上，形成一份交互指导意见，指导assistant和用户更好的交互，提供更贴近用户的关怀和指导，同时进一步增强对用户的了解，吸引用户进行更多轮的对话。
+      
+    tools:
+      -
+        name: nowdate
+        description: 获取当前日期时间
+        python: nowdate = datetime.now().strftime("%Y-%m-%d")
+        context: 今天的日期是：{nowdate}
+      -
+        name: nowtime
+        description: 获取当前日期时间
+        python: nowtime = datetime.now().strftime("%H时%M分%S秒")
+        context: 现在的时间是：{nowtime}
+      -
+        name: weekday
+        description: 获取今天是周几
+        python: weekday = datetime.now().weekday() + 1
+        context: 星期{weekday}

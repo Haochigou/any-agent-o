@@ -29,7 +29,7 @@ class ChatService():
         end_reason = None
         last_index = 0
         if self._direct_response is not None:
-            yield "data: {'index': 0, 'content': '" + self._direct_response + "', 'finish_reason': 'stop'}\n\n"
+            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response + "\", \"finish_reason\": \"stop\"}\n\n"
             self._chat_response.content = self._direct_response
         else:
             async for msg in self._async_chat.predict:
@@ -46,7 +46,7 @@ class ChatService():
                 print("append stop for iter end msg")
                 self._chat_response.finish_reason = "stop"
                 last_index += 1
-                yield "data: {'index': "+ str(last_index) + ", 'content': '', 'finish_reason': 'stop'}\n\n"
+                yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"
             
         if self._chat_response.content and len(self._chat_response.content) > 0:
             ### TODOself._chat_response.content.find()
@@ -89,7 +89,7 @@ class ChatService():
             max_history_round = target_scene["default_max_history_round"]
         else:
             max_history_round = s["max_history_round"]
-        if "reference" in s and s["reference"] and self._chat_request.reference is not None:
+        if "reference" in s and s["reference"] and self._chat_request.reference is not None and len(self._chat_request.reference) > 0:
             sys_prompt += "现在你和多个小伙伴在一起聊天，前面大家的对话信息如下：\n" + self._chat_request.reference + "\n"
             sys_prompt += f"其中当前用户的speakerId是{self._chat_request.user}\n请结合场景和当前用户进行对话\n"
             max_history_round = 2
