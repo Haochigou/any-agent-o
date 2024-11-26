@@ -10,7 +10,7 @@ from agent import domain
 
 app = create_fastapi()
 
-logger = getLogger("main")
+logger = getLogger("chat")
 
 domain.init_global_resource()
 

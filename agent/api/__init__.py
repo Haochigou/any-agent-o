@@ -14,7 +14,7 @@ from dao.toy_master_service import ToyMasterService
 from dao.user_service import UserService
 from agent.infra.log.local import getLogger
 
-logger = getLogger("api")
+logger = getLogger("chat")
 
 def create_fastapi():
     app = FastAPI()
