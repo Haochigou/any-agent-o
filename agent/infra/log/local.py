@@ -16,7 +16,7 @@ def getLogger(name, level="DEBUG"):
     else:
         logfile_dir = ""
         
-    fullpath = os.path.join(logfile_dir, name+".log")
+    fullpath = os.path.join(logfile_dir, name+f".{os.getpid()}.log")
     print(f'---------logging into {fullpath}-------------')
     my_log_collector = logging.getLogger(fullpath)
     log_handler = handlers.RotatingFileHandler(fullpath, maxBytes = 1024 * 1024 * 10, backupCount=100)

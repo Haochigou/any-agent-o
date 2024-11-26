@@ -5,7 +5,7 @@ import yaml
 from agent.domain.entities.scene import Scene
 from agent.infra.log.local import getLogger
 
-logger = getLogger("scene")
+logger = getLogger("chat")
 
 _scenes = {}
 
