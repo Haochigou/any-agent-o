@@ -84,8 +84,8 @@ class ChatService():
         sys_prompt = ""
         if "scene" in s:
             sys_prompt += f"#scene:\n{s["scene"]}\n"
-        if "reference" in s and s["reference"]:
-            sys_prompt += self._chat_request.reference
+        if "reference" in s and s["reference"] and self._chat_request.reference is not None:
+            sys_prompt += "现在你和多个小伙伴在一起聊天，前面大家的对话信息如下：\n" + self._chat_request.reference + "\n"
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
         if "task" in s:
