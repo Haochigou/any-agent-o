@@ -84,8 +84,15 @@ class ChatService():
         sys_prompt = ""
         if "scene" in s:
             sys_prompt += f"#scene:\n{s["scene"]}\n"
+        max_history_round = 1
+        if "max_history_round" not in s:
+            max_history_round = target_scene["default_max_history_round"]
+        else:
+            max_history_round = s["max_history_round"]
         if "reference" in s and s["reference"] and self._chat_request.reference is not None:
             sys_prompt += "现在你和多个小伙伴在一起聊天，前面大家的对话信息如下：\n" + self._chat_request.reference + "\n"
+            sys_prompt += f"其中当前用户的speakerId是{self._chat_request.user}\n请结合场景和当前用户进行对话\n"
+            max_history_round = 2
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
         if "task" in s:
@@ -124,11 +131,6 @@ class ChatService():
                 
         self._messages.append({"role":"system", "content":sys_prompt})        
         #hs = domain.get_robot_history_manager().get(user=self._chat_request.user, robot=self._chat_request.robot)
-        max_history_round = 1
-        if "max_history_round" not in s:
-            max_history_round = target_scene["default_max_history_round"]
-        else:
-            max_history_round = s["max_history_round"]
         
         if "models" not in s:
             models = target_scene["default_models"]
