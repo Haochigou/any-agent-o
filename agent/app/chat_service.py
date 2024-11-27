@@ -44,24 +44,22 @@ class ChatService():
                 end_reason = msg["finish_reason"]
                 yield f"data: {rmsg}\n\n"
             
+            if self._chat_response.content and len(self._chat_response.content) > 0:
+                ### TODOself._chat_response.content.find()
+                #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)
+                #self._chat_response.content = self._chat_response.content.encode('utf-8').decode("unicode_escape")                
+                self._chat_history.load()
+                self._chat_history.append({
+                    "role": "assistant",
+                    "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
+                    "content": self._chat_response.content
+                })
+                self._chat_history.save()
             if end_reason is None:
                 logger.info("append stop for iter end msg")
                 self._chat_response.finish_reason = "stop"
                 last_index += 1
                 yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"
-            
-        if self._chat_response.content and len(self._chat_response.content) > 0:
-            ### TODOself._chat_response.content.find()
-            #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)
-            #self._chat_response.content = self._chat_response.content.encode('utf-8').decode("unicode_escape")
-            self._chat_history.load()
-            self._chat_history.append({
-                "role": "assistant",
-                "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
-                "content": self._chat_response.content
-            })
-            self._chat_history.save()
-
         #print(self._chat_response)
         #return self._chat_response.content
     
@@ -93,7 +91,7 @@ class ChatService():
             max_history_round = s["max_history_round"]
         if "reference" in s and s["reference"] and self._chat_request.reference is not None and len(self._chat_request.reference) > 0:
             sys_prompt += "现在你和多个小伙伴在一起聊天，前面大家的对话信息如下：\n" + self._chat_request.reference + "\n"
-            sys_prompt += f"其中当前用户的speakerId是{self._chat_request.user}\n请结合场景和当前用户进行对话\n"
+            sys_prompt += f"其中当前用户的speakerId是{self._chat_request.user}\n请结合场景和当前用户进行对话,务必对用户当前的表达进行回应。\n"
             max_history_round = 2
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
