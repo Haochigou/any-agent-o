@@ -24,12 +24,13 @@ async def get_milian_response(traceId: str, chat_service: ChatService):
             #x = await chat_service().__anext__()
             raw_response = json.loads(x.strip("data:"))
             content = raw_response["content"]
-                
+            
             type = detect_content_type(content)
             if type != 2:
                 milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":{is_start}, \"isEnd\":false, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":{type},\"content\":\"{content}\",\"finishReason\":\"null\"" + "}\n\n"
-            else:
-                milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":{is_start}, \"isEnd\":false, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":{type},\"content\":\"\",\"extend\":\"{content}\", \"finishReason\":\"null\"" + "}\n\n"
+            else:                
+                content = content.replace("\\\"", "\"")
+                milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":{is_start}, \"isEnd\":false, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":{type},\"content\":\"\",\"extend\":{content}, \"finishReason\":\"null\"" + "}\n\n"
             is_start = "false"
             yield milian_response
         except StopAsyncIteration:           
