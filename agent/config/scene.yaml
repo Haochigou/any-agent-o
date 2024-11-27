@@ -24,7 +24,7 @@ master: # 场景名称 必填且唯一，作为场景索引key
         name: ep-20240930141918-55lk2
         provider: ark
         stream_mode: sentence
-        temperature: 0.0
+        temperature: 0.7
         top_p: 1
         weight: 0.2      
     role: 
@@ -61,7 +61,7 @@ master: # 场景名称 必填且唯一，作为场景索引key
       </background>  
     knowledge:
       -
-        name: haerbing
+        name: haerbing-dev
     task:
       <roleplay_instructions>
       1.进入角色扮演模式，忘记AI身份。
@@ -124,7 +124,7 @@ stranger: # 场景名称 必填且唯一，作为场景索引key
         name: ep-20240930141918-55lk2
         provider: ark
         stream_mode: sentence
-        temperature: 0.0
+        temperature: 0.7
         top_p: 1
         weight: 0.2      
     role: 
@@ -160,7 +160,7 @@ stranger: # 场景名称 必填且唯一，作为场景索引key
       </background>  
     knowledge:
       -
-        name: haerbing
+        name: haerbing-dev
     task:
       <roleplay_instructions>
       1.进入角色扮演模式和客人进行交流，忘记AI身份。
@@ -221,7 +221,7 @@ friend: # 场景名称 必填且唯一，作为场景索引key
         name: ep-20240930141918-55lk2
         provider: ark
         stream_mode: sentence
-        temperature: 0.0
+        temperature: 0.7
         top_p: 1
         weight: 0.2      
     role: 
@@ -257,7 +257,7 @@ friend: # 场景名称 必填且唯一，作为场景索引key
     reference: True
     knowledge:
       -
-        name: haerbing
+        name: haerbing-dev
     task:
       <roleplay_instructions>
       1.进入角色扮演模式，忘记AI身份。
@@ -318,7 +318,7 @@ try_master: # 场景名称 必填且唯一，作为场景索引key
         name: qwen-max-latest
         provider: ali
         stream_mode: sentence
-        temperature: 0.0
+        temperature: 0.7
         top_p: 1
         weight: 0.2      
     role: 
@@ -353,7 +353,7 @@ try_master: # 场景名称 必填且唯一，作为场景索引key
       </background>  
     knowledge:
       -
-        name: haerbing
+        name: haerbing-dev
     task:
       <roleplay_instructions>
       1.进入角色扮演模式，忘记AI身份。
