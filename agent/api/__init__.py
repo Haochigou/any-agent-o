@@ -56,6 +56,7 @@ def create_fastapi():
         token = token.replace("Bearer ", "")
         if token != "61fa181f-84b1-f840-de58-7994399eb3b4":
             # raise HTTPException(status_code=401, detail="认证失败")
+            pass
 
         # chat.query: {"toy": {"id": "f09e9e01655c", "status": "待售"}, "speaker": {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": false, "gender": "男性", "age": "中年"}, "stt": {"text": "你好！"}}
         logger.info(f"query: {chatMessage.query}")
