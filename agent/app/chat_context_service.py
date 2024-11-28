@@ -24,6 +24,9 @@ class ChatContextService:
         master: 主人聊天场景
         try_master: 尝试认主场景
         """
+        if "待售" == sellStatus:
+            return ChatContext("stranger", "")
+
         chatHistoryService = ChatHistoryService()
         userStatus = userStatusService.getUserStatus(userId=userId)
         if len(userStatus.speakers)>1: # 多人聊天
@@ -31,9 +34,6 @@ class ChatContextService:
             return ChatContext("stranger", json.dumps(history, ensure_ascii=False))
 
         history: str = ""
-        if "待售" == sellStatus:
-            return ChatContext("stranger", history)
-
         if self.isMaster(userId=userId, speakerId=speakerId):
             # 已认主，和主人聊天
             return ChatContext("master", history)
