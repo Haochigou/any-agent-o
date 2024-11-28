@@ -3,6 +3,7 @@ import os
 import re
 import json
 import asyncio
+import random
 from datetime import datetime
 
 from agent.infra.llm.async_chat import AsyncChat
@@ -11,6 +12,7 @@ from agent import domain
 from agent.domain.interfaces import scene
 from agent.domain.entities import knowledge_manager
 from agent.infra.log.local import getLogger
+from agent.infra.utils.content_moderation.huawei import check_words_by_huawei
 
 logger = getLogger("chat")
 
@@ -75,12 +77,17 @@ class ChatService():
         if self._chat_request.content and len(self._chat_request.content) > 0:
             #self._chat_request.content = re.sub(r"/", "", self._chat_request.content)
             #self._chat_request.content = self._chat_request.content.encode('utf-8').decode("unicode_escape")
+            self._chat_history.load()
             self._chat_history.append({
                 "role": "user",
                 "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
                 "content": self._chat_request.content
             })
             self._chat_history.save()
+        is_moderate = await check_words_by_huawei(self._chat_request.content)
+        if not is_moderate:
+            self._direct_response = random.choice(['哎呀，这个话题好像不太适合淘淘哦，我们聊点别的吧!', '嗯嗯，我知道你有很多想说的，但我们可以聊一些更温馨的内容哦!'])
+            return True
         sys_prompt = ""
         if "scene" in s:
             sys_prompt += f"#scene:\n" + s["scene"] + "\n"
