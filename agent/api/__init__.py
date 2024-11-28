@@ -1,7 +1,7 @@
 import asyncio
 import json
 
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket, Header
 from fastapi.responses import StreamingResponse
 
 from agent.app.chat_context_service import ChatContextService
@@ -52,9 +52,14 @@ def create_fastapi():
         return "test ok"
 
     @app.post("/v1/chat-messages")
-    async def chat_messages(chatMessage: ChatMessagesRequest):
-        # chat.query: {"toy": {"id": "f09e9e01655c", "status": "待售"}, "speaker": {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": false, "gender": "男性", "age": "中年"}, "stt": {"text": "你好！"}}
+    async def chat_messages(chatMessage: ChatMessagesRequest,token: str = Header(alias="Authorization", default="default_token")):
+        token = token.replace("Bearer ", "")
+        if token != "61fa181f-84b1-f840-de58-7994399eb3b4":
+            # raise HTTPException(status_code=401, detail="认证失败")
+            pass
 
+        # chat.query: {"toy": {"id": "f09e9e01655c", "status": "待售"}, "speaker": {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": false, "gender": "男性", "age": "中年"}, "stt": {"text": "你好！"}}
+        logger.info(f"query: {chatMessage.query}")
         userService = UserService()
         userObj = userService.getUserByUsername(username=chatMessage.user)
         userId = userObj.id;
@@ -72,7 +77,7 @@ def create_fastapi():
         gender = speaker["gender"];
         content: str = queryObj["stt"]["text"];
         logger.info(
-            f"user: {chatMessage.user}, conversation_id: {chatMessage.conversation_id}, userId: {userId}, speakerId: {speakerId}, age: {age}, gender: {gender}, content: {content}")
+            f"user: {chatMessage.user}, status: {status}, userId: {userId}, speakerId: {speakerId}, age: {age}, gender: {gender}, content: {content}")
 
         sessionId = userStatusService.updateSession(userId=userId, speakerId=speakerId)
 
@@ -83,7 +88,7 @@ def create_fastapi():
         chatContext = chatContextService.getChatContext(userId=userId, speakerId=speakerId,sellStatus=status)
         logger.info(f"chatContext: {chatContext}")
 
-        chat = ChatRequest(content=content, user=speakerId, robot="taotao", mode="sentence", scene=chatContext.scene, reference=chatContext.history)
+        chat = ChatRequest(content=content, user=str(userId), robot="taotao", mode="sentence", scene=chatContext.scene)
 
         chat_service = ChatService(chat)
         async def resp_stream():
@@ -100,6 +105,8 @@ def create_fastapi():
                     respObj = json.loads(resp.strip("data:"))
                     status = respObj["finish_reason"]
                     if status == "stop":
+                        respContent = respObj["content"]
+                        yield "data: {\"event\": \"message\", \"answer\": \"" + respContent + "\"}\n\n"
                         break
                     else:
                         respContent = respObj["content"]
