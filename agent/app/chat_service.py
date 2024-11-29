@@ -36,16 +36,21 @@ class ChatService():
             yield "data: {\"index\": 0, \"content\": \"" + self._direct_response + "\", \"finish_reason\": \"stop\"}\n\n"
             self._chat_response.content = self._direct_response
         else:
-            async for msg in self._async_chat.predict:
-                logger.info(msg)
-                last_index = msg['index']
-                rmsg = re.sub(r'/', '', json.dumps(msg))
-                if msg["content"]:
-                    self._chat_response.content += msg["content"]
-                self._chat_response.finish_reason = msg["finish_reason"]
-                end_reason = msg["finish_reason"]
-                yield f"data: {rmsg}\n\n"
-            
+            try:
+                async for msg in self._async_chat.predict:
+                    logger.info(msg)
+                    last_index = msg['index']
+                    rmsg = re.sub(r'/', '', json.dumps(msg))
+                    if msg["content"]:
+                        self._chat_response.content += msg["content"]
+                    self._chat_response.finish_reason = msg["finish_reason"]
+                    end_reason = msg["finish_reason"]
+                    yield f"data: {rmsg}\n\n"
+            except Exception as e:
+                logger.error(e)
+                yield "data: {\"index\":" + str(last_index) + ", \"content\": \"...\", \"finish_reason\": \"stop\"}\n\n" 
+                self._chat_response.content += "..."
+
             if self._chat_response.content and len(self._chat_response.content) > 0:
                 ### TODOself._chat_response.content.find()
                 #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)

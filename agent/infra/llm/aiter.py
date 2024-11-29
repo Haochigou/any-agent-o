@@ -63,7 +63,7 @@ class AIter:
         self._index += 1
         if self._stream_mode == "complete":
             if self._index > 1:
-                raise StopAsyncIteration           
+                raise StopAsyncIteration
             smsg['content'] = self._response.choices[0].message.content.replace('\n', '\\n').replace('\"', '\\"')
             smsg['finish_reason'] = self._response.choices[0].finish_reason
             return smsg
