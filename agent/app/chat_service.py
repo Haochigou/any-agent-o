@@ -151,12 +151,17 @@ class ChatService():
         
         self._async_chat = AsyncChat(models[model_turns % len(models)]["provider"])
         logger.info(self._messages)
-        await self._async_chat.create(messages=self._messages,
-                                      model=models[model_turns % len(models)]["name"],
-                                      stream_mode=self._chat_request.mode,
-                                      temperature=models[model_turns % len(models)]["temperature"],
-                                      top_p=models[model_turns % len(models)]["top_p"]
-                                      )
+        try:
+            await self._async_chat.create(messages=self._messages,
+                                        model=models[model_turns % len(models)]["name"],
+                                        stream_mode=self._chat_request.mode,
+                                        temperature=models[model_turns % len(models)]["temperature"],
+                                        top_p=models[model_turns % len(models)]["top_p"]
+                                        )
+        except Exception as e:
+            logger.error(e)
+            self._direct_response = random.choice(['哎呀，刚才淘淘走神了，你说的能再讲一次吗？'])
+            return True
         return True
 
     def get_response(self) -> ChatResponse:

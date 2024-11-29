@@ -27,7 +27,7 @@ class History:
         #    raise ValueError("who必须只由字母数字组成")
         self.who = who
 
-        self._history = None
+        self._history = []
 
         self.load()
 
@@ -117,7 +117,7 @@ class RobotHistory:
         #    raise ValueError("who必须只由字母数字组成")
         self.robot = robot
 
-        self._history = None
+        self._history = []
 
         self.load()
 
