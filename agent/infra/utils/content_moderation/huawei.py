@@ -33,7 +33,7 @@ async def check_words_by_huawei(text):
     check_url = "https://moderation.cn-north-4.myhuaweicloud.com/v3/a31ea41b66f94dada7a9e93e0d152087/moderation/text"
     # headers = {"Content-Type":"application/json;charset=utf8"}
     headers = {"Content-Type":"application/json;charset=utf8", "X-Auth-Token":huawei_token}
-    body = "{\"event_type\":\"comment\", \"glossary_names\":[\"dialog-refuse\"], \"white_glossary_names\":[\"Dialog\"],\"data\":{\"text\":\"" + text + "\"}}"
+    body = "{\"event_type\":\"comment\", \"glossary_names\":[\"dialog-refuse\"], \"biz_type\":\"biz_type _ai taotao\", \"white_glossary_names\":[\"Dialog\"],\"data\":{\"text\":\"" + text + "\"}}"
     try:
         async with httpx.AsyncClient() as client:
             check_request = await client.post(check_url, headers=headers, data=body.encode())
@@ -44,6 +44,7 @@ async def check_words_by_huawei(text):
                 if max_confidence < evidence["confidence"]:
                     max_confidence = evidence["confidence"]
             if res["result"]["suggestion"] == "block" and max_confidence > 0.95:
+                m_logger.info(f"content:{res}, block score:{max_confidence}")                
                 return False
     except Exception as e:
         print(e)
