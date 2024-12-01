@@ -6,7 +6,7 @@ from agent.app.user_status_service import userStatusService
 
 class ChatContext:
     scene: str = "stranger"
-    history: str
+    history: []
 
     def __init__(self, scene: str, history: []):
         self.scene = scene
@@ -31,9 +31,9 @@ class ChatContextService:
         userStatus = userStatusService.getUserStatus(userId=userId)
         if len(userStatus.speakers)>1: # 多人聊天
             history: [] = chatHistoryService.getRecentHistory(userId)
-            return ChatContext("stranger", json.dumps(history, ensure_ascii=False))
+            return ChatContext("stranger", history)
 
-        history: str = ""
+        history: [] = []
         if self.isMaster(userId=userId, speakerId=speakerId):
             # 已认主，和主人聊天
             return ChatContext("master", history)
