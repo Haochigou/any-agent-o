@@ -1,8 +1,7 @@
 import json
 import time
 
-import redis.asyncio as aioredis
-
+from redis import Redis
 
 # 会话（多人会话），
 # 认主流程控制（1. 明确拒绝，24小时后重试，2. ）
@@ -17,10 +16,22 @@ class UserStatus:
     """
     sessionId: str
     speakers: {}
-    tryMaster: bool = False
 
     def __repr__(self):
-        return f"sessionId: {self.sessionId}, speakers: {self.speakers}, tryMaster: {self.tryMaster}"
+        return f"sessionId: {self.sessionId}, speakers: {self.speakers}"
+
+    def to_dict(self):
+        return {
+            "sessionId": self.sessionId,
+            "speakers": self.speakers,
+        }
+
+    @staticmethod
+    def from_dict(data):
+        status = UserStatus()
+        status.sessionId = data["sessionId"]
+        status.speakers = data["speakers"]
+        return status
 
 
 class UserTryMasterStatus:
@@ -32,27 +43,46 @@ class UserTryMasterStatus:
     def __repr__(self):
         return f"nextTime: {self.nextTime}, lastTime: {self.lastTime}, count: {self.count}"
 
+    def to_dict(self):
+        return {
+            "nextTime": self.nextTime,
+            "lastTime": self.lastTime,
+            "trying": self.trying,
+            "count": self.count
+        }
+
+    @staticmethod
+    def from_dict(data):
+        status = UserTryMasterStatus()
+        status.nextTime = data["nextTime"]
+        status.lastTime = data["lastTime"]
+        status.trying = data["trying"]
+        status.count = data["count"]
+        return status
+
 
 class UserStatusService:
-    redis = aioredis.Redis
+    redis = Redis
 
     def updateSession(self, userId: int, speakerId: str) -> UserStatus:
         userStatus: UserStatus = self.getUserStatus(userId=userId)
+        print(f"userStatus: {userStatus}")
         userStatus.speakers[speakerId] = 1
         self.setUserStatus(userId=userId, userStatus=userStatus)
 
-    async def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
+    def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
         key: str = f"qie:userstatus:{userId}"
-        await self.redis.set(key, json.dumps(userStatus, ensure_ascii=False), ex=5 * 60)
+        self.redis.set(key, json.dumps(userStatus.to_dict(), ensure_ascii=False), ex=5 * 60)
 
-    async def getUserStatus(self, userId: int) -> UserStatus:
+    def getUserStatus(self, userId: int) -> UserStatus:
         key: str = f"qie:userstatus:{userId}"
 
-        val = await self.redis.get(key);
+        val = self.redis.get(key);
+        print(f"userStatus: {val}")
 
         userStatus: UserStatus = None
         if val:
-            userStatus = json.loads(val, cls=UserStatus)
+            userStatus = UserStatus.from_dict(json.loads(val))
 
         if userStatus is None:
             timestamp = int(time.time())  # 获取到秒
@@ -67,29 +97,10 @@ class UserStatusService:
         key: str = f"qie:userstrymaster:{userId}.{speakerId}"
         return key
 
-    async def getUserTryMasterStatus(self, userId: int, speakerId: str) -> UserTryMasterStatus:
-        key = self.tryMasterKey(userId, speakerId)
-
-        val = await self.redis.get(key)
-        status: UserStatus = None
-        if val:
-            status = json.loads(val, UserStatus)
-
-        if status is None:
-            timestamp = int(time.time())  # 获取到秒
-            status = UserTryMasterStatus()
-            status.nextTime = timestamp
-            status.lastTime = timestamp
-            status.trying = True
-            status.count = 0
-            self.setUserTryMasterStatus(userId, speakerId, status)
-
-        return status
-
     async def setUserTryMasterStatus(self, userId: int, speakerId: str, status: UserTryMasterStatus) -> None:
         key: str = self.tryMasterKey(userId, speakerId)
 
-        await self.redis.set(key, json.dumps(status, ensure_ascii=False), ex=2 * 24 * 60 * 60)  # 2天过期
+        self.redis.set(key, json.dumps(status.to_dict(), ensure_ascii=False), ex=2 * 24 * 60 * 60)  # 2天过期
 
     def rejectMaster(self, userId: int, speakerId: str) -> None:
         # 明确拒绝
@@ -101,6 +112,25 @@ class UserStatusService:
         status.nextTime = timestamp + (24 * 60 * 60)  # 更新下一次认主时间
 
         self.setUserTryMasterStatus(userId, speakerId, status)
+
+    def getUserTryMasterStatus(self, userId: int, speakerId: str) -> UserTryMasterStatus:
+        key = self.tryMasterKey(userId, speakerId)
+
+        val = self.redis.get(key)
+        status: UserTryMasterStatus = None
+        if val:
+            status = UserTryMasterStatus.from_dict(json.loads(val))
+
+        if status is None:
+            timestamp = int(time.time())  # 获取到秒
+            status = UserTryMasterStatus()
+            status.nextTime = timestamp
+            status.lastTime = timestamp
+            status.trying = True
+            status.count = 0
+            self.setUserTryMasterStatus(userId, speakerId, status)
+
+        return status
 
     def tryMaster(self, userId: int, speakerId: str) -> bool:
         timestamp = int(time.time())  # 获取到秒

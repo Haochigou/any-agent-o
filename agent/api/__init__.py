@@ -1,4 +1,3 @@
-import asyncio
 import json
 from contextlib import asynccontextmanager
 
@@ -15,7 +14,7 @@ from dao.chat_history_service import ChatHistoryService
 from dao.toy_master_service import ToyMasterService
 from dao.user_service import UserService
 from agent.infra.log.local import getLogger
-import redis.asyncio as aioredis
+from redis import Redis
 
 logger = getLogger("chat")
 
@@ -23,13 +22,13 @@ app = FastAPI()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.redis = aioredis.Redis.from_url(config.REDIS_URL)
+    app.state.redis = Redis.from_url(config.REDIS_URL)
     yield
     # await app.state.redis.close()
 
 app.router.lifespan_context = lifespan
 
-def get_redis_client()-> aioredis.Redis:
+def get_redis_client()-> Redis:
     return app.state.redis
 
 def create_fastapi():
