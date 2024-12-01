@@ -41,14 +41,15 @@ class UserStatusService:
         userStatus.speakers[speakerId] = 1
         self.setUserStatus(userId=userId, userStatus=userStatus)
 
-    def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
+    async def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
         key: str = f"qie:userstatus:{userId}"
-        self.redis.set(key, json.dumps(userStatus, ensure_ascii=False), ex=5 * 60)
+        await self.redis.set(key, json.dumps(userStatus, ensure_ascii=False), ex=5 * 60)
 
-    def getUserStatus(self, userId: int) -> UserStatus:
+    async def getUserStatus(self, userId: int) -> UserStatus:
         key: str = f"qie:userstatus:{userId}"
 
-        val = self.redis.get(key)
+        val = await self.redis.get(key);
+
         userStatus: UserStatus = None
         if val:
             userStatus = json.loads(val, cls=UserStatus)
@@ -66,10 +67,10 @@ class UserStatusService:
         key: str = f"qie:userstrymaster:{userId}.{speakerId}"
         return key
 
-    def getUserTryMasterStatus(self, userId: int, speakerId: str) -> UserTryMasterStatus:
+    async def getUserTryMasterStatus(self, userId: int, speakerId: str) -> UserTryMasterStatus:
         key = self.tryMasterKey(userId, speakerId)
 
-        val = self.redis.get(key)
+        val = await self.redis.get(key)
         status: UserStatus = None
         if val:
             status = json.loads(val, UserStatus)
@@ -85,10 +86,10 @@ class UserStatusService:
 
         return status
 
-    def setUserTryMasterStatus(self, userId: int, speakerId: str, status: UserTryMasterStatus) -> None:
+    async def setUserTryMasterStatus(self, userId: int, speakerId: str, status: UserTryMasterStatus) -> None:
         key: str = self.tryMasterKey(userId, speakerId)
 
-        self.redis.set(key, json.dumps(status, ensure_ascii=False), ex=2 * 24 * 60 * 60)  # 2天过期
+        await self.redis.set(key, json.dumps(status, ensure_ascii=False), ex=2 * 24 * 60 * 60)  # 2天过期
 
     def rejectMaster(self, userId: int, speakerId: str) -> None:
         # 明确拒绝
