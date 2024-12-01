@@ -16,6 +16,7 @@ from agent.infra.log.local import getLogger
 
 logger = getLogger("chat")
 
+
 def create_fastapi():
     app = FastAPI()
 
@@ -52,7 +53,8 @@ def create_fastapi():
         return "test ok"
 
     @app.post("/v1/chat-messages")
-    async def chat_messages(chatMessage: ChatMessagesRequest,token: str = Header(alias="Authorization", default="default_token")):
+    async def chat_messages(chatMessage: ChatMessagesRequest,
+                            token: str = Header(alias="Authorization", default="default_token")):
         token = token.replace("Bearer ", "")
         if token != "61fa181f-84b1-f840-de58-7994399eb3b4":
             # raise HTTPException(status_code=401, detail="认证失败")
@@ -68,13 +70,20 @@ def create_fastapi():
         toy = queryObj.get("toy", {"id": "f09e9e01655c", "status": "待售"})
         status = toy.get("status", "待售")  # 售卖状态：待售、
 
-        speaker = queryObj.get("speaker", {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": False, "gender": "男性", "age": "中年"})
+        speaker = queryObj.get("speaker",
+                               {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": False, "gender": "男性",
+                                "age": "中年"})
         speakerId: str = speaker.get("id", "default_speaker");
         speakerId: str = speaker.get("id", f"{userId}.default_speaker");
         if not speakerId:
             speakerId = f"{userId}.default_speaker"
         age = speaker["age"];
+        if age is None:
+            age = "中年"
         gender = speaker["gender"];
+        if gender is None:
+            gender = "男性"
+
         content: str = queryObj["stt"]["text"];
         logger.info(
             f"user: {chatMessage.user}, status: {status}, userId: {userId}, speakerId: {speakerId}, age: {age}, gender: {gender}, content: {content}")
@@ -85,12 +94,18 @@ def create_fastapi():
         chatHistoryService.save(userId=userId, sessionId=sessionId, roleType=1, speakerId=speakerId, content=content)
 
         chatContextService = ChatContextService()
-        chatContext = chatContextService.getChatContext(userId=userId, speakerId=speakerId,sellStatus=status)
+        chatContext = chatContextService.getChatContext(userId=userId, speakerId=speakerId, sellStatus=status)
         logger.info(f"chatContext: {chatContext}")
 
-        chat = ChatRequest(content=content, user=str(userId), robot="taotao", mode="sentence", scene=chatContext.scene)
+        chat = ChatRequest(content=content, user=str(userId), robot="taotao", mode="sentence", scene=chatContext.scene,
+                           reference={
+                               "age": age,
+                               "gender": gender,
+                               "meeting": chatContext.history
+                           })
 
         chat_service = ChatService(chat)
+
         async def resp_stream():
             if await chat_service.create_chat(1):
                 rawContent: str = ""
@@ -131,7 +146,6 @@ def create_fastapi():
                             yield "data: {\"event\": \"message\", \"answer\": \"" + leftContent + "\"}\n\n"
                             continue
 
-
                         if haveCmd and -1 != respContent.find("}"):
                             # 只有指令后半部分内容
                             index = respContent.find("}")
@@ -140,8 +154,7 @@ def create_fastapi():
                             yield "data: {\"event\": \"message\", \"answer\": \"" + rightContent + "\"}\n\n"
                             continue
 
-
-                        yield "data: {\"event\": \"message\", \"answer\": \"" + respContent+ "\"}\n\n"
+                        yield "data: {\"event\": \"message\", \"answer\": \"" + respContent + "\"}\n\n"
                 if rawContent:
                     chatHistoryService.save(userId=userId, sessionId="", roleType=0, speakerId=speakerId,
                                             content=rawContent)
@@ -157,7 +170,6 @@ def create_fastapi():
                         userStatusService.rejectMaster(userId=userId, speakerId=speakerId)
 
             yield "data: {\"event\": \"message_end\"}\n\n"
-
 
         return StreamingResponse(resp_stream(), media_type="text/event-stream")
 
