@@ -66,7 +66,6 @@ class UserStatusService:
 
     def updateSession(self, userId: int, speakerId: str) -> UserStatus:
         userStatus: UserStatus = self.getUserStatus(userId=userId)
-        print(f"userStatus: {userStatus}")
         userStatus.speakers[speakerId] = 1
         self.setUserStatus(userId=userId, userStatus=userStatus)
         return userStatus
