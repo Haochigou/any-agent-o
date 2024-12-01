@@ -2,10 +2,10 @@ import json
 import time
 
 from redis import Redis
-
+from agent.infra.log.local import getLogger
 # 会话（多人会话），
 # 认主流程控制（1. 明确拒绝，24小时后重试，2. ）
-
+logger = getLogger("chat")
 class UserStatus:
     """
     {
@@ -73,13 +73,14 @@ class UserStatusService:
 
     def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
         key: str = f"qie:userstatus:{userId}"
+        logger.info(f"key: {key} value: {userStatus}")
         self.redis.set(key, json.dumps(userStatus.to_dict(), ensure_ascii=False), ex=5 * 60)
 
     def getUserStatus(self, userId: int) -> UserStatus:
         key: str = f"qie:userstatus:{userId}"
 
         val = self.redis.get(key);
-        print(f"userStatus: {val}")
+        logger.info(f"key: {key}, userStatus: {val}")
 
         userStatus: UserStatus = None
         if val:
@@ -100,24 +101,14 @@ class UserStatusService:
 
     def setUserTryMasterStatus(self, userId: int, speakerId: str, status: UserTryMasterStatus) -> None:
         key: str = self.tryMasterKey(userId, speakerId)
-
+        logger.info(f"key: {key}, userId:{userId}, speakerId: {speakerId}, status: {status}")
         self.redis.set(key, json.dumps(status.to_dict(), ensure_ascii=False), ex=2 * 24 * 60 * 60)  # 2天过期
-
-    def rejectMaster(self, userId: int, speakerId: str) -> None:
-        # 明确拒绝
-        timestamp = int(time.time())  # 获取到秒
-        status: UserTryMasterStatus = self.getUserTryMasterStatus(userId, speakerId)
-
-        status.count = 0
-        status.trying = False
-        status.nextTime = timestamp + (24 * 60 * 60)  # 更新下一次认主时间
-
-        self.setUserTryMasterStatus(userId, speakerId, status)
 
     def getUserTryMasterStatus(self, userId: int, speakerId: str) -> UserTryMasterStatus:
         key = self.tryMasterKey(userId, speakerId)
 
         val = self.redis.get(key)
+        logger.info(f"key: {key}, userId:{userId}, speakerId: {speakerId}, val: {val}")
         status: UserTryMasterStatus = None
         if val:
             status = UserTryMasterStatus.from_dict(json.loads(val))
@@ -132,6 +123,19 @@ class UserStatusService:
             self.setUserTryMasterStatus(userId, speakerId, status)
 
         return status
+
+
+    def rejectMaster(self, userId: int, speakerId: str) -> None:
+        # 明确拒绝
+        timestamp = int(time.time())  # 获取到秒
+        status: UserTryMasterStatus = self.getUserTryMasterStatus(userId, speakerId)
+
+        status.count = 0
+        status.trying = False
+        status.nextTime = timestamp + (24 * 60 * 60)  # 更新下一次认主时间
+
+        self.setUserTryMasterStatus(userId, speakerId, status)
+
 
     def tryMaster(self, userId: int, speakerId: str) -> bool:
         timestamp = int(time.time())  # 获取到秒
