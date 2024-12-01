@@ -1,9 +1,11 @@
 import asyncio
 import json
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, WebSocket, Header
 from fastapi.responses import StreamingResponse
 
+import config
 from agent.app.chat_context_service import ChatContextService
 from agent.app.user_status_service import userStatusService
 from agent.domain.entities.chat import ChatRequest, ChatMessagesRequest
@@ -13,12 +15,25 @@ from dao.chat_history_service import ChatHistoryService
 from dao.toy_master_service import ToyMasterService
 from dao.user_service import UserService
 from agent.infra.log.local import getLogger
+import redis.asyncio as aioredis
 
 logger = getLogger("chat")
 
+app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.redis = aioredis.Redis.from_url(config.REDIS_URL)
+    yield
+    # await app.state.redis.close()
+
+app.router.lifespan_context = lifespan
+
+def get_redis_client()-> aioredis.Redis:
+    return app.state.redis
 
 def create_fastapi():
-    app = FastAPI()
+
 
     @app.websocket("/v1/duplex_chat/{interactive_policy_id}")
     async def websocket_endpoint(websocket: WebSocket, interactive_policy_id: str):
@@ -60,6 +75,8 @@ def create_fastapi():
             # raise HTTPException(status_code=401, detail="认证失败")
             pass
 
+        userStatusService.redis = get_redis_client()
+
         # chat.query: {"toy": {"id": "f09e9e01655c", "status": "待售"}, "speaker": {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": false, "gender": "男性", "age": "中年"}, "stt": {"text": "你好！"}}
         logger.info(f"query: {chatMessage.query}")
         userService = UserService()
@@ -88,10 +105,11 @@ def create_fastapi():
         logger.info(
             f"user: {chatMessage.user}, status: {status}, userId: {userId}, speakerId: {speakerId}, age: {age}, gender: {gender}, content: {content}")
 
-        sessionId = userStatusService.updateSession(userId=userId, speakerId=speakerId)
+
+        userStatus = userStatusService.updateSession(userId=userId, speakerId=speakerId)
 
         chatHistoryService = ChatHistoryService()
-        chatHistoryService.save(userId=userId, sessionId=sessionId, roleType=1, speakerId=speakerId, content=content)
+        chatHistoryService.save(userId=userId, sessionId=userStatus.sessionId, roleType=1, speakerId=speakerId, content=content)
 
         chatContextService = ChatContextService()
         chatContext = chatContextService.getChatContext(userId=userId, speakerId=speakerId, sellStatus=status)
@@ -156,7 +174,7 @@ def create_fastapi():
 
                         yield "data: {\"event\": \"message\", \"answer\": \"" + respContent + "\"}\n\n"
                 if rawContent:
-                    chatHistoryService.save(userId=userId, sessionId="", roleType=0, speakerId=speakerId,
+                    chatHistoryService.save(userId=userId, sessionId=userStatus.sessionId, roleType=0, speakerId=speakerId,
                                             content=rawContent)
                 if cmdContent:
                     cmdContent = cmdContent.replace("\\", "")
