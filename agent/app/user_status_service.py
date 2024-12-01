@@ -69,6 +69,7 @@ class UserStatusService:
         print(f"userStatus: {userStatus}")
         userStatus.speakers[speakerId] = 1
         self.setUserStatus(userId=userId, userStatus=userStatus)
+        return userStatus
 
     def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
         key: str = f"qie:userstatus:{userId}"
@@ -97,7 +98,7 @@ class UserStatusService:
         key: str = f"qie:userstrymaster:{userId}.{speakerId}"
         return key
 
-    async def setUserTryMasterStatus(self, userId: int, speakerId: str, status: UserTryMasterStatus) -> None:
+    def setUserTryMasterStatus(self, userId: int, speakerId: str, status: UserTryMasterStatus) -> None:
         key: str = self.tryMasterKey(userId, speakerId)
 
         self.redis.set(key, json.dumps(status.to_dict(), ensure_ascii=False), ex=2 * 24 * 60 * 60)  # 2天过期
