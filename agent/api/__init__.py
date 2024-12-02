@@ -14,7 +14,7 @@ from dao.chat_history_service import ChatHistoryService
 from dao.toy_master_service import ToyMasterService
 from dao.user_service import UserService
 from agent.infra.log.local import getLogger
-from redis import Redis
+from redis import Redis, ConnectionPool
 
 logger = getLogger("chat")
 
@@ -22,7 +22,14 @@ app = FastAPI()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.redis = Redis.from_url(config.REDIS_URL)
+    pool = ConnectionPool(
+        host=config.REDIS_HOST,
+        port=config.REDIS_PORT,
+        db=config.REDIS_DB,
+        max_connections=0  # 设置最大重连次数
+    )
+
+    app.state.redis = Redis(connection_pool=pool)
     yield
     # await app.state.redis.close()
 

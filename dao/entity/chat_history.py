@@ -1,3 +1,5 @@
+import datetime
+
 import sqlalchemy
 
 from sqlalchemy import Column, Integer, String, TIMESTAMP, Text
@@ -13,8 +15,8 @@ class ChatHistory(db_util.TblObject):
     speakerId: str = Column("speaker_id", String(32))
     roleType: int = Column("role_type", Integer, comment="角色类型，0：AI，1：用户")
     content: str = Column("content", Text)
-    updateTime: str = Column("update_time", TIMESTAMP, default=sqlalchemy.func.now())
-    createTime: str = Column("create_time", TIMESTAMP, default=sqlalchemy.func.now())
+    updateTime: str = Column("update_time", TIMESTAMP, default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    createTime: str = Column("create_time", TIMESTAMP, default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
     def __repr__(self):
         return f"ChatHistory id: {self.id} userId: {self.userId} sessionId: {self.sessionId} updateTime: {self.updateTime} createTime: {self.createTime}"
