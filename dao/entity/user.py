@@ -1,4 +1,4 @@
-from pip._internal.utils import datetime
+import datetime
 
 from sqlalchemy import Column, Integer, String, TIMESTAMP
 
