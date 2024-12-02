@@ -102,9 +102,17 @@ class ChatService():
         else:
             max_history_round = s["max_history_round"]
         if "reference" in s and s["reference"] and self._chat_request.reference is not None and len(self._chat_request.reference) > 0:
-            sys_prompt += "现在你和多个小伙伴在一起聊天，前面大家的对话信息如下：\n" + self._chat_request.reference + "\n"
-            sys_prompt += f"其中当前用户的speakerId是{self._chat_request.user}\n请结合场景和当前用户进行对话,务必对用户当前的表达进行回应。\n"
-            max_history_round = 2
+            print(self._chat_request.reference)
+            if "meeting" in self._chat_request.reference and len(self._chat_request.reference["meeting"]) > 0:
+                sys_prompt += "现在你和多个小伙伴在一起聊天，前面大家的对话信息如下：\n" + json.dumps(self._chat_request.reference["meeting"]) + "\n"
+                sys_prompt += f"其中当前用户的speakerId是{self._chat_request.user}\n请结合场景和当前用户进行对话,务必对用户当前的表达进行回应。\n"
+                max_history_round = 1
+            sys_prompt += "<user_info>\n"
+            if "age" in self._chat_request.reference:
+                sys_prompt += "用户年龄：" + str(self._chat_request.reference["age"]) + "\n"
+            if "gender" in self._chat_request.reference:
+                sys_prompt += "用户性别：" + str(self._chat_request.reference["gender"]) + "\n"
+            sys_prompt += "</user_info>"
         if "role" in s:
             sys_prompt += f"#role:\n{s["role"]}\n"
         if "task" in s:
@@ -140,7 +148,6 @@ class ChatService():
                 exec(tool_script, globals(), exec_locals)
                 result = exec_locals.get(tool["name"])
                 sys_prompt += tool["context"].replace("{" + tool["name"] + "}", str(result)) + "\n"
-                
         self._messages.append({"role":"system", "content":sys_prompt})        
         #hs = domain.get_robot_history_manager().get(user=self._chat_request.user, robot=self._chat_request.robot)
         

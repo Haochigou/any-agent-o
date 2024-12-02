@@ -9,7 +9,7 @@ class ChatRequest(BaseModel):
     robot: str
     mode: str
     content: str
-    reference: str | None = None
+    reference: dict | None = None
     
 class ChatResponse(BaseModel):
     content: str
