@@ -130,6 +130,7 @@ def create_fastapi():
                 cmdContent: str = ""
                 while True:
                     resp = await chat_service().__anext__()
+                    logger.info(f"chat resp: {resp}")
                     if resp is None:
                         break
 
@@ -138,6 +139,7 @@ def create_fastapi():
                     status = respObj["finish_reason"]
                     if status == "stop":
                         respContent = respObj["content"]
+                        rawContent += respContent;
                         yield "data: {\"event\": \"message\", \"answer\": \"" + respContent + "\"}\n\n"
                         break
                     else:
