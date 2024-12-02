@@ -30,15 +30,15 @@ class ChatService():
         last_index = 0
         if self._direct_response is not None:
             print(f"prepare yield direct data: {self._direct_response}")
-            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response + "\", \"finish_reason\": \"stop\"}\n\n"
+            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response.replace("\n", "\n\n").replace("\"", "\\\"") + "\", \"finish_reason\": \"stop\"}\n\n"
             self._chat_response.content = self._direct_response            
         else:
             async for msg in self._async_chat.predict:
-                #print(msg)
                 last_index = msg['index']
                 rmsg = re.sub(r'/', '', json.dumps(msg))
-                if msg["content"] and not msg["content"].strip(" ").strip("\n").startswith("{"):
-                    self._chat_response.content += msg["content"]
+                if msg["content"]:
+                    if not (msg["content"].strip(" ").strip("\n").startswith("{") and msg["content"].find("Menses") > 0):
+                        self._chat_response.content += msg["content"]
                 self._chat_response.finish_reason = msg["finish_reason"]
                 end_reason = msg["finish_reason"]
                 yield f"data: {rmsg}\n\n"
