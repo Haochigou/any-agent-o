@@ -47,7 +47,11 @@ class ChatService():
                 print("append stop for iter end msg")
                 self._chat_response.finish_reason = "stop"
                 last_index += 1
-                yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"                
+                if len(self._chat_response.content) < 1:
+                    yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"我想想...\", \"finish_reason\": \"stop\"}\n\n"
+                else:
+                    yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"
+
             
         if self._chat_response.content:
             if len(self._chat_response.content) == 0:
