@@ -33,7 +33,7 @@ class ChatService():
         end_reason = None
         last_index = 0
         if self._direct_response is not None:
-            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response + "\", \"finish_reason\": \"stop\"}\n\n"
+            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response.replace("\n", "\\n").replace("\"", "\\\"") + "\", \"finish_reason\": \"stop\"}\n\n"
             self._chat_response.content = self._direct_response
         else:
             try:
