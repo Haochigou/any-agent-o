@@ -37,7 +37,7 @@ class ChatService():
                 #print(msg)
                 last_index = msg['index']
                 rmsg = re.sub(r'/', '', json.dumps(msg))
-                if msg["content"]:
+                if msg["content"] and not msg["content"].strip(" ").strip("\n").startswith("{"):
                     self._chat_response.content += msg["content"]
                 self._chat_response.finish_reason = msg["finish_reason"]
                 end_reason = msg["finish_reason"]
@@ -49,7 +49,9 @@ class ChatService():
                 last_index += 1
                 yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"                
             
-        if self._chat_response.content and len(self._chat_response.content) > 0:
+        if self._chat_response.content:
+            if len(self._chat_response.content) == 0:
+                self._chat_response.content == ' '
             ### TODOself._chat_response.content.find()
             #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)
             #self._chat_response.content = self._chat_response.content.encode('utf-8').decode("unicode_escape")
