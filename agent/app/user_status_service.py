@@ -72,14 +72,14 @@ class UserStatusService:
 
     def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
         key: str = f"qie:userstatus:{userId}"
-        logger.info(f"key: {key} value: {userStatus}")
+        logger.info(f"setUserStatus key: {key} value: {userStatus}")
         self.redis.set(key, json.dumps(userStatus.to_dict(), ensure_ascii=False), ex=5 * 60)
 
     def getUserStatus(self, userId: int) -> UserStatus:
         key: str = f"qie:userstatus:{userId}"
 
         val = self.redis.get(key);
-        logger.info(f"key: {key}, userStatus: {val}")
+        logger.info(f"getUserStatus key: {key}, userStatus: {val}")
 
         userStatus: UserStatus = None
         if val:
@@ -100,14 +100,14 @@ class UserStatusService:
 
     def setUserTryMasterStatus(self, userId: int, speakerId: str, status: UserTryMasterStatus) -> None:
         key: str = self.tryMasterKey(userId, speakerId)
-        logger.info(f"key: {key}, userId:{userId}, speakerId: {speakerId}, status: {status}")
+        logger.info(f"setUserTryMasterStatus key: {key}, userId:{userId}, speakerId: {speakerId}, status: {status}")
         self.redis.set(key, json.dumps(status.to_dict(), ensure_ascii=False), ex=2 * 24 * 60 * 60)  # 2天过期
 
     def getUserTryMasterStatus(self, userId: int, speakerId: str) -> UserTryMasterStatus:
         key = self.tryMasterKey(userId, speakerId)
 
         val = self.redis.get(key)
-        logger.info(f"key: {key}, userId:{userId}, speakerId: {speakerId}, val: {val}")
+        logger.info(f"getUserTryMasterStatus key: {key}, userId:{userId}, speakerId: {speakerId}, val: {val}")
         status: UserTryMasterStatus = None
         if val:
             status = UserTryMasterStatus.from_dict(json.loads(val))
@@ -117,7 +117,7 @@ class UserStatusService:
             status = UserTryMasterStatus()
             status.nextTime = timestamp
             status.lastTime = timestamp
-            status.trying = True
+            status.trying = False
             status.count = 0
             self.setUserTryMasterStatus(userId, speakerId, status)
 
@@ -132,6 +132,7 @@ class UserStatusService:
         status.count = 0
         status.trying = False
         status.nextTime = timestamp + (24 * 60 * 60)  # 更新下一次认主时间
+        status.lastTime = timestamp
 
         self.setUserTryMasterStatus(userId, speakerId, status)
 
@@ -143,6 +144,7 @@ class UserStatusService:
         status.count += 1
         if status.count < 8:  # 判断聊天轮数
             # 聊天次数小于8此，不满足认主条件
+            self.setUserTryMasterStatus(userId, speakerId, status)
             return False
 
         if timestamp < status.nextTime:  # 判断认主间隔（明确拒绝：24小时后再次发起，消极响应：12小时后再次发起）

@@ -180,7 +180,7 @@ def create_fastapi():
                     logger.info(f"cmdContent: {cmdContent}")
                     cmdObj = json.loads(cmdContent)
                     cmdStatus = cmdObj.get("status")
-                    if "accept" == cmdStatus:
+                    if "accept" == cmdStatus and "try_master" == chatContext.scene: # 只有认主场景的时候，可以认主。
                         toyMasterService = ToyMasterService()
                         toyMasterService.addToyMaster(userId=userId, masterId=speakerId)
                     elif "reject" == cmdStatus:
