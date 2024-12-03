@@ -16,7 +16,7 @@ def sliced_norm_l2(vec: List[float], dim=2048) -> List[float]:
 def embed_with_str(content: str, dim: int) -> list|None:
     try:
         #resp = ark.embeddings.create(model='ep-20241108140417-zwtnf', input=content)
-        resp = ark.embeddings.create(model="ep-20241112173511-wzhlj", input=content, timeout=0.1)
+        resp = ark.embeddings.create(model="ep-20241112173511-wzhlj", input=content)
         if dim != 0 and len(resp.data[0].embedding) != dim:
             return sliced_norm_l2(resp.data[0].embedding, dim)
         else:

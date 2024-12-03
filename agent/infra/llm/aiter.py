@@ -100,8 +100,9 @@ class AIter:
                                 self.__reset_sentence(segs[-1])
                             else:
                                 smsg['content'] = self._sentence.replace('\n', '\\n').replace('\"', '\\"')                        
-                                self.__reset_sentence("")                        
-                            
+                                self.__reset_sentence("")
+                            if len(smsg["content"]) == 0:
+                                continue
                             return smsg
                     else:
                         continue    

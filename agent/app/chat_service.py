@@ -51,7 +51,10 @@ class ChatService():
                 yield "data: {\"index\":" + str(last_index) + ", \"content\": \"...\", \"finish_reason\": \"stop\"}\n\n" 
                 self._chat_response.content += "..."
 
-            if self._chat_response.content and len(self._chat_response.content) > 0:
+            if self._chat_response.content:
+                if len(self._chat_response.content) == 0:
+                    self._chat_response.content = "我想想..."
+                    yield "data: {\"index\":" + str(last_index) + ", \"content\": \"我想想...\", \"finish_reason\": \"stop\"}\n\n" 
                 ### TODOself._chat_response.content.find()
                 #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)
                 #self._chat_response.content = self._chat_response.content.encode('utf-8').decode("unicode_escape")                
@@ -128,6 +131,7 @@ class ChatService():
             knowledge = knowledge_manager.kb_manager.query(self._chat_request.content, kbs)
             if knowledge is not None and len(knowledge) > 0:
                 logger.info(knowledge)
+                print(knowledge)
                 if knowledge[0][0] < 0.12:
                     self._direct_response = knowledge[0][2]
                     return True
@@ -163,6 +167,7 @@ class ChatService():
         
         self._async_chat = AsyncChat(models[model_turns % len(models)]["provider"])
         logger.info(self._messages)
+        print(self._messages)
         try:
             await self._async_chat.create(messages=self._messages,
                                         model=models[model_turns % len(models)]["name"],

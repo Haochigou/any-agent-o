@@ -58,7 +58,7 @@ kb_manager = KnowledgeManager()
 
 
 if __name__ == "__main__":
-    #qie = kb_manager.load_qa_table_from_excel("docs/企鹅知识汇总.xlsx")
-    #kb_manager.build_knowledge("haerbing-dev", model_name="ark", table=qie)
+    #qie = kb_manager.load_qa_table_from_excel("docs/企鹅知识汇总_20241202.xlsx")
+    #kb_manager.build_knowledge("haerbing-v1", model_name="ark", table=qie)
     
-    print(kb_manager.query("请介绍一下哈尔滨", ["haerbing-dev"]))
+    print(kb_manager.query("2025年哈尔滨亚东会的吉祥物是谁呀?", ["haerbing-v1"]))
