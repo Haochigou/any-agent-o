@@ -17,7 +17,7 @@ domain.init_global_resource()
 
 if __name__ == r"__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--host", dest="host", default="127.0.0.1", help="system host")
+    parser.add_argument("-r", "--host", dest="host", default="0.0.0.0", help="system host")
     
     parser.add_argument("-p", "--port", dest="port", default=8080, help="run on the given port", type=int)
 

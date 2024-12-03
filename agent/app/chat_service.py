@@ -33,8 +33,22 @@ class ChatService():
         end_reason = None
         last_index = 0
         if self._direct_response is not None:
-            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response.replace("\n", "\\n").replace("\"", "\\\"") + "\", \"finish_reason\": \"stop\"}\n\n"
+            self._direct_response = self._direct_response.replace("\n", "\\n").replace("\"", "\\\"")
             self._chat_response.content = self._direct_response
+            if self._chat_response.content:
+                if len(self._chat_response.content) == 0:
+                    self._chat_response.content = "我想想..."                    
+                    ### TODOself._chat_response.content.find()
+                    #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)
+                    #self._chat_response.content = self._chat_response.content.encode('utf-8').decode("unicode_escape")                
+                self._chat_history.load()
+                self._chat_history.append({
+                    "role": "assistant",
+                    "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
+                    "content": self._chat_response.content
+                })
+                self._chat_history.save()
+            yield "data: {\"index\": 0, \"content\": \"" + self._chat_response.content + "\", \"finish_reason\": \"stop\"}\n\n"
         else:
             try:
                 async for msg in self._async_chat.predict:
@@ -46,30 +60,31 @@ class ChatService():
                     self._chat_response.finish_reason = msg["finish_reason"]
                     end_reason = msg["finish_reason"]
                     yield f"data: {rmsg}\n\n"
+                    print(rmsg)
             except Exception as e:
                 logger.error(e)
                 yield "data: {\"index\":" + str(last_index) + ", \"content\": \"...\", \"finish_reason\": \"stop\"}\n\n" 
                 self._chat_response.content += "..."
-
-            if self._chat_response.content:
-                if len(self._chat_response.content) == 0:
-                    self._chat_response.content = "我想想..."
-                    yield "data: {\"index\":" + str(last_index) + ", \"content\": \"我想想...\", \"finish_reason\": \"stop\"}\n\n" 
+        if self._chat_response.content:
+            if len(self._chat_response.content) == 0:
+                self._chat_response.content = "我想想..."
+                yield "data: {\"index\":" + str(last_index) + ", \"content\": \"我想想...\", \"finish_reason\": \"stop\"}\n\n" 
                 ### TODOself._chat_response.content.find()
                 #self._chat_response.content = re.sub(r"/", "", self._chat_response.content)
                 #self._chat_response.content = self._chat_response.content.encode('utf-8').decode("unicode_escape")                
-                self._chat_history.load()
-                self._chat_history.append({
-                    "role": "assistant",
-                    "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
-                    "content": self._chat_response.content
-                })
-                self._chat_history.save()
-            if end_reason is None:
-                logger.info("append stop for iter end msg")
-                self._chat_response.finish_reason = "stop"
-                last_index += 1
-                yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"
+            self._chat_history.load()
+            self._chat_history.append({
+                "role": "assistant",
+                "time": datetime.now().strftime("%Y-%m-%d,%H:%M:%S"),
+                "content": self._chat_response.content
+            })
+            self._chat_history.save()
+            print(f"write answer to history:{self._chat_response.content}")
+        if end_reason is None:
+            logger.info("append stop for iter end msg")
+            self._chat_response.finish_reason = "stop"
+            last_index += 1
+            yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"
         #print(self._chat_response)
         #return self._chat_response.content
     

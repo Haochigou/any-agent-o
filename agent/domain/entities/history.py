@@ -1,6 +1,7 @@
 import os
 import json
 
+from NamedAtomicLock import NamedAtomicLock
 
 class HistoryManager:
 
@@ -29,6 +30,8 @@ class History:
 
         self._history = []
 
+        self._lock = NamedAtomicLock(self.who)
+
         self.load()
 
     def __del__(self):
@@ -56,15 +59,28 @@ class History:
 
     def load(self):
         result = []
-        if os.path.exists(self.filename):
-            with open(self.filename, "r") as file:
-                result = json.load(file) or []
+        self._lock.acquire(timeout=5)
+        try:
+            if os.path.exists(self.filename):
+                with open(self.filename, "r") as file:
+                    result = json.load(file) or []
+        except Exception as e:
+            print(f"load {self.who} history error")
+        finally:
+            self._lock.release()
 
         self._history = result
 
     def save(self):
-        with open(self.filename, "w+") as file:
-            json.dump(self.history, file)
+        self._lock.acquire(timeout=5)
+        print("lock")
+        try:
+            with open(self.filename, "w+") as file:
+                json.dump(self.history, file)
+        except Exception as e:
+            print(f"save {self.who} history error")
+        finally:
+            self._lock.release()
 
     def get_context(self, context_length=None):
         if context_length is None:
@@ -118,6 +134,7 @@ class RobotHistory:
         self.robot = robot
 
         self._history = []
+        self._lock = NamedAtomicLock(self.user)
 
         self.load()
 
@@ -146,16 +163,29 @@ class RobotHistory:
 
     def load(self):
         result = []
-        if os.path.exists(self.filename):
-            with open(self.filename, "r") as file:
-                buffer = file.read()
-                result = json.loads(buffer) if len(buffer) > 1 else []
-
+        self._lock.acquire(timeout=5)
+        #print(f"user {self.user} load history with lock {self._lock}")
+        try:
+            if os.path.exists(self.filename):
+                with open(self.filename, "r") as file:
+                    buffer = file.read()
+                    result = json.loads(buffer) if len(buffer) > 1 else []
+        except Exception as e:
+            print(f"user {self.user} load history error {e}")
+        finally:
+            self._lock.release()
         self._history = result
 
     def save(self):
-        with open(self.filename, "w+") as file:
-            json.dump(self._history, file)
+        self._lock.acquire(timeout=5)
+        #print(f"user {self.user} save history with lock {self._lock}")
+        try:
+            with open(self.filename, "w+") as file:
+                json.dump(self._history, file)
+        except Exception as e:
+            print(f"user {self.user} save history error {e}")
+        finally:
+            self._lock.release()
 
     def get_context(self, context_length=None):
         if context_length is None:
