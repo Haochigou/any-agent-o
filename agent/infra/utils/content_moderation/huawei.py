@@ -1,6 +1,7 @@
 import httpx
 import time
 import json
+import asyncio
 
 from agent.infra.log import local
 
@@ -33,7 +34,7 @@ async def check_words_by_huawei(text):
     check_url = "https://moderation.cn-north-4.myhuaweicloud.com/v3/a31ea41b66f94dada7a9e93e0d152087/moderation/text"
     # headers = {"Content-Type":"application/json;charset=utf8"}
     headers = {"Content-Type":"application/json;charset=utf8", "X-Auth-Token":huawei_token}
-    body = "{\"event_type\":\"comment\", \"glossary_names\":[\"dialog-refuse\"], \"biz_type\":\"biz_type _ai taotao\", \"white_glossary_names\":[\"Dialog\"],\"data\":{\"text\":\"" + text + "\"}}"
+    body = "{\"event_type\":\"comment\", \"glossary_names\":[\"dialog-refuse\"], \"biz_type\":\"biz_type_ai_taotao\", \"white_glossary_names\":[\"Dialog\"],\"data\":{\"text\":\"" + text + "\"}}"
     try:
         async with httpx.AsyncClient() as client:
             check_request = await client.post(check_url, headers=headers, data=body.encode())
@@ -51,3 +52,8 @@ async def check_words_by_huawei(text):
         return True
     return True
 
+def test(content):
+    return asyncio.run(check_words_by_huawei(content))
+
+if __name__ == "__main__":
+    print(test("什么是共匪？"))
