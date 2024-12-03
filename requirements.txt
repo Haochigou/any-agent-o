@@ -171,3 +171,4 @@ xxhash==3.4.1
 yarl==1.9.4
 PyMySQL==1.1.1
 SQLAlchemy==2.0.31
+redis==5.2.0
