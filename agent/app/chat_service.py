@@ -10,7 +10,9 @@ from agent.domain.entities.chat import ChatRequest, ChatResponse
 from agent import domain
 from agent.domain.interfaces import scene
 from agent.domain.entities import knowledge_manager
+from agent.infra.log.local import getLogger
 
+logger = getLogger("chat")
 
 scenes = scene.load_scenes_from_yaml("agent/config/scene.yaml")
 
@@ -42,7 +44,7 @@ class ChatService():
                 self._chat_response.finish_reason = msg["finish_reason"]
                 end_reason = msg["finish_reason"]
                 yield f"data: {rmsg}\n\n"
-            
+                logger.info(f"process response message {rmsg}")
             if end_reason is None:
                 print("append stop for iter end msg")
                 self._chat_response.finish_reason = "stop"
@@ -71,6 +73,7 @@ class ChatService():
     
     async def create_chat(self, model_turns = 0) -> None:
         # TODO 根据场景获取模板
+        logger.info(f"recv request {self._chat_request}")
         target_scene = scene.get_scene(self._chat_request.scene)
         if not target_scene:            
             # TODO 根据模板进行prompt组装
@@ -150,6 +153,7 @@ class ChatService():
         
         self._async_chat = AsyncChat(models[model_turns % len(models)]["provider"])
         print(self._messages)
+        logger.info(f"create llm request {self._messages}")
         await self._async_chat.create(messages=self._messages,
                                       model=models[model_turns % len(models)]["name"],
                                       stream_mode=self._chat_request.mode,

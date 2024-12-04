@@ -19,6 +19,7 @@ def detect_content_type(content: str):
 async def get_milian_response(traceId: str, chat_service: ChatService):    
     messageId = uuid.uuid1()
     is_start = "true"
+    total = ""
     async for x in chat_service():
         try:
             #x = await chat_service().__anext__()
@@ -32,6 +33,8 @@ async def get_milian_response(traceId: str, chat_service: ChatService):
             else:                
                 content = content.replace("\\\"", "\"")
                 milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":false, \"isEnd\":false, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":{type},\"content\":\"\",\"extend\":{content}, \"finishReason\":\"null\"" + "}\n\n"
+            if type == 1:
+                total += content
             yield milian_response
         except StopAsyncIteration:           
             break
@@ -39,5 +42,5 @@ async def get_milian_response(traceId: str, chat_service: ChatService):
             print(e)
             break
             # TODO 追加后续处理，如完成返回内容等
-    milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":{is_start}, \"isEnd\":true, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":99,\"content\":\"{chat_service._chat_response.content}\",\"finishReason\":\"stop\"" + "}\n\n"
+    milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":{is_start}, \"isEnd\":true, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":99,\"content\":\"{total}\",\"finishReason\":\"stop\"" + "}\n\n"
     yield milian_response

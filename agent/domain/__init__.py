@@ -14,7 +14,7 @@ def init_global_resource():
     global _history_manager
     _history_manager = HistoryManager(path=memory_config.get_chat_history_local_path())
     global _robot_history_manager
-    _robot_history_manager = RobotHistoryManager(path="mysql")
+    _robot_history_manager = RobotHistoryManager(path=memory_config.get_chat_history_local_path())
 
 
 def get_history_manager():
