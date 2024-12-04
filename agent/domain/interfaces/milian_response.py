@@ -8,11 +8,19 @@ from agent.app.chat_service import ChatService
 from agent.infra.utils.packed_ulid import get_packed_ulid
 
 def detect_content_type(content: str):
-    if content.strip("\n").startswith("{") and content.rstrip("\n").endswith("}"):
+    start = content.find("{")
+    if start >= 0:
+        content = content[start:]
+    start = content.find("[")
+    if start >= 0:
+        content = content[start:]
+    if content.startswith("{") and content.rstrip("\n").endswith("}"):
         if "lastMenses" in content:
             return 2
         if "cardTag" in content:
             return 4
+    elif content.startswith("[") and content.rstrip("\n").endswith("]"):
+        return 5
     else:
         return 1
 
@@ -27,6 +35,13 @@ async def get_milian_response(traceId: str, chat_service: ChatService):
             content = raw_response["content"]
             
             type = detect_content_type(content)
+            if type != 1:
+                start = content.find("{")
+                if start > 0:
+                    content = content[start:]
+                start = content.find("[")
+                if start > 0:
+                    content = content[start:]
             if type != 2:
                 milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":{is_start}, \"isEnd\":false, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":{type},\"content\":\"{content}\",\"finishReason\":\"null\"" + "}\n\n"
                 is_start = "false"

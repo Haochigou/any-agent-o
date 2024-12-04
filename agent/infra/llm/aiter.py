@@ -16,7 +16,7 @@ import re
 
 
 class AIter:
-    sentence_splitors = ['。', '!', '！', '?', '？', '\n', '. ', '\n\n', '\\n', '.\"', '}']
+    sentence_splitors = ['。', '!', '！', '?', '？', '\n', '. ', '\n\n', '\\n', '.\"', '}', ']']
     left_matches = ['(', '《', '{', '[', '（']
     right_matches = [')', '》', '}', ']', '）']
     double_quotes = ["\""] # 这里没有计算\'符号，在英文中可能有多种用法
