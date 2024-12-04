@@ -31,9 +31,10 @@ class ChatService():
         end_reason = None
         last_index = 0
         if self._direct_response is not None:
-            print(f"prepare yield direct data: {self._direct_response}")
-            yield "data: {\"index\": 0, \"content\": \"" + self._direct_response.replace("\n", "\n\n").replace("\"", "\\\"") + "\", \"finish_reason\": \"stop\"}\n\n"
-            self._chat_response.content = self._direct_response            
+            response = self._direct_response.replace("\n", "").replace("\"", "\\\"")
+            print(f"prepare yield direct data1: {response}")
+            yield "data: {\"index\": 0, \"content\": \"" + response + "\", \"finish_reason\": \"stop\"}\n\n"
+            self._chat_response.content = response           
         else:
             async for msg in self._async_chat.predict:
                 last_index = msg['index']
@@ -109,9 +110,10 @@ class ChatService():
         if "knowledge" in s:            
             kbs = [item["name"] for item in s["knowledge"]]
             knowledge = knowledge_manager.kb_manager.query(self._chat_request.content, kbs)
+            print(knowledge)
             if knowledge is not None and len(knowledge) > 0:
                 print(knowledge)
-                if knowledge[0][0] < 0.12 and "knowledge_cache" in s and s["knowledge_cache"] == True:
+                if knowledge[0][0] < 0.06 and "knowledge_cache" in s and s["knowledge_cache"] == True:
                     self._direct_response = knowledge[0][2]
                     print(f"direct reponse: {knowledge[0][2]}")
                     return True

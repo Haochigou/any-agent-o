@@ -168,10 +168,14 @@ open_talk: # 场景名称 必填且唯一，作为场景索引key
          如果表达了月经结束的时间，则生成描述{"lastMensesEndDate":"YYYY-MM-DD"}
          如果表达了月经开始时间，则生成描述{"lastMensesDate":"YYYY-MM-DD"}
          同时要注意用户的表达，比如用户表达的是今天月经刚走，需要从今天的日期进行判断。
-      6. 如果用户的问题和诉求和video中的推荐场景描述严格匹配时，则在回应开头增加视频推荐描述信息，格式定义为{"cardType":"video", "cardTag":"xxxxx"}, 其中cardTag的内容必须是video中的视频标签。如果在历史对话中已经有推荐，不用再推荐。
-      7. 如果用户的问题和诉求和product中的推荐场景描述严格匹配时，则在回应开头增加商品推荐描述信息，格式定义为{"cardType":"goods", "cardTag":"xxxxx"}, 其中cardTag的内容必须是product中的产品标签。如果在历史对话中已经有推荐，不用再推荐。
+      6. 如果用户当前表达的问题和诉求和video中的推荐场景描述严格匹配时，则在回应末尾增加视频推荐描述信息，格式定义为{"cardType":"video", "cardTag":"xxxxx"}, 其中cardTag的内容必须是video中的视频标签。如果在历史对话中已经有推荐，不用再推荐。
+      7. 如果用户当前表达的问题和诉求和product中的推荐场景描述严格匹配时，则在回应末尾增加商品推荐描述信息，格式定义为{"cardType":"goods", "cardTag":"xxxxx"}, 其中cardTag的内容必须是product中的产品标签。如果在历史对话中已经有推荐，不用再推荐。
       </policy>
     direct: True
+    knowledge_cache: True
+    knowledge:
+      -
+        name: milian_knowledge_v2
     tools:
       -
         name: nowdate

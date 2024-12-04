@@ -1,9 +1,12 @@
 import os
 import pickle
+import sys
+import argparse
 
 import pandas as pd
 import openpyxl
 
+sys.path.append(os.getcwd())
 from agent.domain.entities import knowledge
 from agent.infra.embedding_db import milvus
 from agent.infra.utils.dbs import dbs
@@ -63,8 +66,16 @@ kb_manager = KnowledgeManager()
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", "--fileqa", dest="fileqa", default=None, help="raw knowledge in QA excel")
+    parser.add_argument("-c", "--collection", dest="collection", default="milian_ai_v1", help="collection name")
+    parser.add_argument("-q", "--query", dest="query", default=None, help="string to query in collection")
+    parser.add_argument("-t", "--type", dest="type", default="local", help="storage type: local or milvus")
+    terminal_args = parser.parse_args()
+    if terminal_args.fileqa:
+        ks = kb_manager.load_qa_table_from_excel("docs/milian-knowledge.xlsx")
+        kb_manager.build_knowledge(terminal_args.collection, model_name="ark", table=ks, storage_type=terminal_args.type)
     #qie = kb_manager.load_qa_table_from_excel("docs/milian-knowledge.xlsx")
     #print(f"total size:v{qie}")
-    #kb_manager.build_knowledge("milian_knowledge_v1", model_name="ark", table=qie, storage_type="milvus")
-    
-    print(kb_manager.query("产后怎么调整心态？", ["milian_knowledge_v1"]))
+    if terminal_args.query:
+        print(kb_manager.query(terminal_args.query, [terminal_args.collection]))

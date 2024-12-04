@@ -41,4 +41,36 @@
        bind = '0.0.0.0:7890'#绑定fastapi的端口号
        workers = multiprocessing.cpu_count() * 2 + 1 #并行工作进程数
 
-启动项目 进入本项目安装路径/your/deploy/path，执行以下命令启动项目： nohup ./main.sh & 或在tmux中，直接执行 ./main.sh
+5. 启动项目
+  
+    进入本项目安装路径/your/deploy/path，执行以下命令启动项目： nohup ./main.sh & 或在tmux中，直接执行 ./main.sh
+
+## 知识库构建
+
+1. 进入项目部署目录 /your/deploy/path
+
+2. 进入python环境，如conda使用 conda activate xxxxx
+
+3. 准备好待构建的知识文件, 路劲如： /your/knowledge/file/path，是QA形式的excel文件，至少包括2列数据，其中一列为“问”，一列为“答”，每组QA为一行
+
+4. 执行构建
+
+    python /your/deploy/path/agent/domain/entities/knowledge_manager.py -f /your/knowledge/file/path -c colloction_name -q "验证查询语句" -t milvus
+
+    例如：
+
+    python agent/domain/entities/knowledge_manager.py -f docs/milian-knowledge.xlsx -c milian_knowledge_v2 -q 水巴巴 -t milvus
+
+    其中-t如果不指定默认构建在本地，指定milvus后，会从/your/deploy/path/agent/config/dbs.yaml中获取milvus链接信息，
+    
+    验证无误后，配置 /your/deploy/path/agent/config/scene.yaml 文件，修改如下配置：
+
+    ```text
+    open_talk:
+        humi:
+            knowledge:
+            -
+                name: colloction_name
+    ```
+
+    重启应用后知识生效。
