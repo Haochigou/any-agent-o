@@ -10,11 +10,11 @@ def getLogger(name, level="DEBUG"):
         return _file_handlers.get(name)
     
     logfile_dir = os.getenv("LOG_DIR")
+    if logfile_dir is None:
+        logfile_dir = "./logs"
     if logfile_dir is not None:
         if not os.path.exists(logfile_dir):
             os.mkdir(logfile_dir)
-    else:
-        logfile_dir = "./logs"
         
     fullpath = os.path.join(logfile_dir, name+".log")
     print(f'---------logging into {fullpath}-------------')
