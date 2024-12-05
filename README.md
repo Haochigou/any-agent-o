@@ -55,11 +55,11 @@
 
 4. 执行构建
 
-    python /your/deploy/path/agent/domain/entities/knowledge_manager.py -f /your/knowledge/file/path -c colloction_name -q "验证查询语句" -t milvus
+    python /your/deploy/path/agent/app/knowledge_manager.py -f /your/knowledge/file/path -c colloction_name -q "验证查询语句" -t milvus
 
     例如：
 
-    python agent/domain/entities/knowledge_manager.py -f docs/milian-knowledge.xlsx -c milian_knowledge_v2 -q 水巴巴 -t milvus
+    python agent/app/knowledge_manager.py -f docs/milian-knowledge.xlsx -c milian_knowledge_v2 -q 水巴巴 -t milvus
 
     其中-t如果不指定默认构建在本地，指定milvus后，会从/your/deploy/path/agent/config/dbs.yaml中获取milvus链接信息，
     
