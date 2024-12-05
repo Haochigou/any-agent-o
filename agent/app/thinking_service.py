@@ -28,7 +28,7 @@ from agent.infra.llm.async_chat import AsyncChat
 from agent.domain.entities.chat import ChatRequest, ChatResponse
 from agent import domain
 from agent.domain.interfaces import scene
-from agent.domain.entities import knowledge_manager
+from agent.app import knowledge_manager
 from agent.infra.utils.dbs import dbs
 from agent.config.memory import MemoryConfig
 from agent.infra.log.local import getLogger

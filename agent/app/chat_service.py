@@ -9,7 +9,7 @@ from agent.infra.llm.async_chat import AsyncChat
 from agent.domain.entities.chat import ChatRequest, ChatResponse
 from agent import domain
 from agent.domain.interfaces import scene
-from agent.domain.entities import knowledge_manager
+from agent.app import knowledge_manager
 from agent.infra.log.local import getLogger
 
 logger = getLogger("chat")
@@ -47,7 +47,6 @@ class ChatService():
                 yield f"data: {rmsg}\n\n"
                 logger.info(f"process response message {rmsg}")
             if end_reason is None:
-                print("append stop for iter end msg")
                 self._chat_response.finish_reason = "stop"
                 last_index += 1
                 if len(self._chat_response.content) < 1:

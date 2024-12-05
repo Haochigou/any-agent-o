@@ -15,7 +15,7 @@ class KnowledgeManager():
     def __init__(self):
         self._knowledge_base_dir = os.getcwd() + "/knowledge-base"
         self._kbs = {}
-        milvus.connect_to_milvus()
+        self._is_connect_milvus = False
         for item in os.scandir(self._knowledge_base_dir):
             if item.is_file():
                 kbf_name = os.path.basename(item)
@@ -23,6 +23,9 @@ class KnowledgeManager():
                     kb_name = kbf_name.rstrip(".pkl")                    
                     with open(item, 'rb') as handle:    
                         self._kbs[kb_name] = pickle.load(handle)
+                        if not self._is_connect_milvus and self._kbs[kb_name]._storage_type and self._kbs[kb_name]._storage_type == "milvus":
+                            milvus.connect_to_milvus()
+                            self._is_connect_milvus = True
                         self._kbs[kb_name].start()
                 
     def query(self, content: str, kb_names: list):
