@@ -62,15 +62,12 @@ async def get_milian_response(traceId: str, chat_service: ChatService):
                 is_start = "false"
                 if type != 1 and type != 5:
                     item = json.loads(content.replace("\\\"","\""))
-                    if item["cardTag"] not in recommand:
-                        continue
-                    if any(history["content"].find(item["cardTag"]) >= 0 for history in chat_service._chat_history.get_context(15)):
+                    if item["cardTag"] not in recommand or any(history["content"].find(item["cardTag"]) >= 0 for history in chat_service._chat_history.get_context(15)):
                         continue
                     if cards is None:
                         cards = str(item["cardTag"])
                     else:
-                        cards += "," + str(item["cardTag"])
-                    
+                        cards += "," + str(item["cardTag"])                    
             else:                
                 content = content.replace("\\\"", "\"")
                 milian_response = "data: {" + f"\"messageId\":\"{messageId}\",\"isStart\":false, \"isEnd\":false, \"traceId\":\"{traceId}\",\"userId\":{chat_service._chat_request.user},\"responseType\":{type},\"content\":\"\",\"extend\":{content}, \"finishReason\":\"null\"" + "}\n\n"
