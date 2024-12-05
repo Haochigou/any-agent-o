@@ -1,6 +1,8 @@
 import os
 import json
 
+from NamedAtomicLock import NamedAtomicLock
+
 from agent.infra.utils import sql
 from agent.domain.entities.mysql_user_memory import Memory
 
@@ -122,6 +124,8 @@ class RobotHistory:
 
         self._history = None
         
+        self._lock = NamedAtomicLock(self.user)
+        
         self.load()
             
     def __del__(self):
@@ -150,10 +154,16 @@ class RobotHistory:
     def load(self):
         result = []
         if self.path != "mysql":
-            if os.path.exists(self.filename):
-                with open(self.filename, "r") as file:
-                    buffer = file.read()
-                    result = json.loads(buffer) if len(buffer) > 1 else []
+            self._lock.acquire(timeout=5)
+            try:
+                if os.path.exists(self.filename):
+                    with open(self.filename, "r") as file:
+                        buffer = file.read()
+                        result = json.loads(buffer) if len(buffer) > 1 else []
+            except Exception as e:
+                print(f"user {self.user} load history error {e}")
+            finally:
+                self._lock.release()
         else:
             s = sql.get_session()            
             one = None
@@ -167,8 +177,15 @@ class RobotHistory:
 
     def save(self):
         if self.path != "mysql":
-            with open(self.filename, "w+") as file:
-                json.dump(self._history, file)
+            self._lock.acquire(timeout=5)
+            #print(f"user {self.user} save history with lock {self._lock}")
+            try:
+                with open(self.filename, "w+") as file:
+                    json.dump(self._history, file)
+            except Exception as e:
+                print(f"user {self.user} save history error {e}")
+            finally:
+                self._lock.release()
         else:
             s = sql.get_session()
             try:

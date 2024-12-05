@@ -53,7 +53,6 @@ class ChatService():
                     yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"我想想...\", \"finish_reason\": \"stop\"}\n\n"
                 else:
                     yield "data: {\"index\": "+ str(last_index) + ", \"content\": \"\", \"finish_reason\": \"stop\"}\n\n"
-
             
         if self._chat_response.content:
             if len(self._chat_response.content) == 0:
