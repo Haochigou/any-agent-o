@@ -23,7 +23,7 @@ class KnowledgeManager():
         result = []
         for kb_name in kb_names:
             if kb_name in self._kbs:
-                result.extend(self._kbs[kb_name].query(content, 5))
+                result.extend(self._kbs[kb_name].query(content, 20))
         if len(kb_names) > 1:
             result = sorted(result)
         return result

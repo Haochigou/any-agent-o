@@ -13,8 +13,11 @@ from agent.domain.interfaces import scene
 from agent.domain.entities import knowledge_manager
 from agent.infra.log.local import getLogger
 from agent.infra.utils.content_moderation.huawei import check_words_by_huawei
+from agent.domain.entities import jokes
 
 logger = getLogger("chat")
+
+jokes.load_jokes("knowledge-base/jokes.yaml")
 
 scenes = scene.load_scenes_from_yaml("agent/config/scene.yaml")
 
@@ -54,13 +57,19 @@ class ChatService():
                 async for msg in self._async_chat.predict:
                     logger.info(msg)
                     last_index = msg['index']
-                    rmsg = re.sub(r'/', '', json.dumps(msg))
                     if msg["content"]:
+                        if msg["content"].startswith("{") and msg["content"].endswith("}"):
+                            resource = json.loads(msg["content"].replace("\\\"", "\""))
+                            print(resource)
+                            if resource["resource"] == "joke":
+                                print(resource["index"])
+                                msg["content"] = jokes.choose_joke(resource["index"])
+                            self._chat_response.content += "给用户讲了一个书中的笑话："
                         self._chat_response.content += msg["content"]
                     self._chat_response.finish_reason = msg["finish_reason"]
                     end_reason = msg["finish_reason"]
+                    rmsg = re.sub(r'/', '', json.dumps(msg))
                     yield f"data: {rmsg}\n\n"
-                    print(rmsg)
             except Exception as e:
                 logger.error(e)
                 yield "data: {\"index\":" + str(last_index) + ", \"content\": \"...\", \"finish_reason\": \"stop\"}\n\n" 
@@ -79,7 +88,7 @@ class ChatService():
                 "content": self._chat_response.content
             })
             self._chat_history.save()
-            print(f"write answer to history:{self._chat_response.content}")
+            #print(f"write answer to history:{self._chat_response.content}")
         if end_reason is None:
             logger.info("append stop for iter end msg")
             self._chat_response.finish_reason = "stop"
@@ -120,7 +129,7 @@ class ChatService():
         else:
             max_history_round = s["max_history_round"]
         if "reference" in s and s["reference"] and self._chat_request.reference is not None and len(self._chat_request.reference) > 0:
-            print(self._chat_request.reference)
+            #print(self._chat_request.reference)
             if "meeting" in self._chat_request.reference and len(self._chat_request.reference["meeting"]) > 0:
                 sys_prompt += "现在你和多个小伙伴在一起聊天，前面大家的对话信息如下：\n" + json.dumps(self._chat_request.reference["meeting"]) + "\n"
                 sys_prompt += f"其中当前用户的speakerId是{self._chat_request.user}\n请结合场景和当前用户进行对话,务必对用户当前的表达进行回应。\n"
@@ -169,12 +178,12 @@ class ChatService():
                 sys_prompt += tool["context"].replace("{" + tool["name"] + "}", str(result)) + "\n"
         self._messages.append({"role":"system", "content":sys_prompt})        
         #hs = domain.get_robot_history_manager().get(user=self._chat_request.user, robot=self._chat_request.robot)
-        
         if "models" not in s:
             models = target_scene["default_models"]
         else:
             models = s["models"]
         self._messages.extend(self._chat_history.get_context(max_history_round))
+        print(self._messages)
         #last = self._messages.pop()
         #new_content = "请思考：结合上下文，对我的最新请求\"" + last["content"] + "\"进行分析，" + "如果询问某个地方或景点的位置，或表达希望去某个地方时，则只需要返回一个json，格式如：{\"功能\":\"地图查询\", \"起点\":\"用户表达起点\", \"目的地\":\"用户目的地\"}即可。否则结合上下文正常回复。"
         #self._messages.append({"role":"user", "content":"请思考：结合上下文进行分析，如果询问某个地方或景点的位置，或表达希望去某个地方时，则只需要返回一个json，格式如：{\"功能\":\"地图查询\", \"起点\":\"用户表达起点\", \"目的地\":\"用户目的地\"}即可。"})
@@ -182,7 +191,7 @@ class ChatService():
         
         self._async_chat = AsyncChat(models[model_turns % len(models)]["provider"])
         logger.info(self._messages)
-        print(self._messages)
+        #print(self._messages)
         try:
             await self._async_chat.create(messages=self._messages,
                                         model=models[model_turns % len(models)]["name"],

@@ -23,7 +23,7 @@ if __name__ == r"__main__":
 
     parser.add_argument("-d", "--debug", dest="debug", default=True, help="run in debug mode", type=bool)
     
-    parser.add_argument("-np", "--num_process", dest="num_process", default=multiprocessing.cpu_count(), type=int)
+    parser.add_argument("-np", "--num_process", dest="num_process", default=2, type=int)
 
     parser.add_argument(
         "--dialog-history-path", "--history",
