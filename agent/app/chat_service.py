@@ -156,7 +156,7 @@ class ChatService():
             if knowledge is not None and len(knowledge) > 0:
                 logger.info(knowledge)
                 print(knowledge)
-                if knowledge[0][0] < 0.12:
+                if knowledge[0][0] < 0.03:
                     self._direct_response = knowledge[0][2]
                     return True
                 else:

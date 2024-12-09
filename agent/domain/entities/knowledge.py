@@ -72,7 +72,7 @@ class Knowledge():
             thres_index = 0
             hit_flag = False
             for i in list(distances[0]):
-                if i < 0.1248:                    
+                if i < 0.05248:
                     hit_flag = True
                 elif hit_flag:
                     break
