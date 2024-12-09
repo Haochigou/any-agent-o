@@ -63,7 +63,7 @@ class ChatService():
                             print(resource)
                             if resource["resource"] == "joke":
                                 print(resource["index"])
-                                msg["content"] = jokes.choose_joke(resource["index"])
+                                msg["content"] = jokes.choose_joke(resource["index"]).replace("\n", "\\n").replace("\"", "\\\"")
                             self._chat_response.content += "给用户讲了一个书中的笑话："
                         self._chat_response.content += msg["content"]
                     self._chat_response.finish_reason = msg["finish_reason"]
