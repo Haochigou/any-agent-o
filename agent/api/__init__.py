@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, WebSocket, Header
 from fastapi.responses import StreamingResponse
+from redis import Redis, ConnectionPool
 
 import config
 from agent.app.chat_context_service import ChatContextService
@@ -14,7 +15,7 @@ from dao.chat_history_service import ChatHistoryService
 from dao.toy_master_service import ToyMasterService
 from dao.user_service import UserService
 from agent.infra.log.local import getLogger
-from redis import Redis, ConnectionPool
+from agent.app.clear_chat_history import clear_chat_history
 
 logger = getLogger("chat")
 
@@ -72,6 +73,11 @@ def create_fastapi():
     @app.get("/test")
     async def test():
         return "test ok"
+
+    @app.post("/v1/clear_history")
+    async def clear_history(user, robot):
+        print(f"user:{user}, robot:{robot}")
+        clear_chat_history(user, robot)
 
     @app.post("/v1/chat-messages")
     async def chat_messages(chatMessage: ChatMessagesRequest,
