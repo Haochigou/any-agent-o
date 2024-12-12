@@ -1,7 +1,7 @@
 import json
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, WebSocket, Header,
+from fastapi import FastAPI, HTTPException, WebSocket, Header
 from fastapi.responses import StreamingResponse, JSONResponse
 from redis import Redis, ConnectionPool
 
