@@ -89,7 +89,7 @@ def create_fastapi():
         userStatusService.redis = get_redis_client()
         userStatusService.clean(userId=userId)
 
-        robot: str = "淘淘"
+        robot: str = "taotao"
         print(f"user:{user}, userId: {userId}, robot:{robot}")
         clear_chat_history(str(userId), robot)
 
