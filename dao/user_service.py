@@ -3,6 +3,15 @@ from dao.entity.user import User
 
 
 class UserService:
+
+    def queryUserByUsername(self, username: str):
+        with db_util.getSession() as session:
+            user: User = session.query(User).filter(User.userName == username).first()
+            if user is None:
+                return None
+            return user
+        return None
+
     def getUserByUsername(self, username: str):
         with db_util.getSession() as session:
             user: User = session.query(User).filter(User.userName == username).first()

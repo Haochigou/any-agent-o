@@ -75,9 +75,26 @@ def create_fastapi():
         return "test ok"
 
     @app.post("/v1/clear_history")
-    async def clear_history(user, robot):
-        print(f"user:{user}, robot:{robot}")
-        clear_chat_history(user, robot)
+    async def clear_history(user, token: str = Header(alias="Authorization", default="default_token")):
+        token = token.replace("Bearer ", "")
+        if token != "61fa181f-84b1-f840-de58-7994399eb3b4":
+            # raise HTTPException(status_code=401, detail="认证失败")
+            pass
+
+        userService = UserService()
+        userObj = userService.queryUserByUsername(username=user)
+        if userObj is None:
+            raise HTTPException(status_code=500,detail="用户不存在。")
+        userId = userObj.id;
+
+        userStatusService.redis = get_redis_client()
+        userStatusService.clean(userId=userId)
+
+        robot: str = "淘淘"
+        print(f"user:{user}, userId: {userId}, robot:{robot}")
+        clear_chat_history(str(userId), robot)
+
+
 
     @app.post("/v1/chat-messages")
     async def chat_messages(chatMessage: ChatMessagesRequest,
