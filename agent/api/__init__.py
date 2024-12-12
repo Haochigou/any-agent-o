@@ -89,9 +89,13 @@ def create_fastapi():
         userStatusService.redis = get_redis_client()
         userStatusService.clean(userId=userId)
 
+        toyMasterService = ToyMasterService()
+        toyMasterService.deleteToyMasterByUserId(userId)
+
         robot: str = "taotao"
         print(f"user:{user}, userId: {userId}, robot:{robot}")
         clear_chat_history(str(userId), robot)
+
 
         return JSONResponse(content={"message": "ok"}, status_code=200)
 
