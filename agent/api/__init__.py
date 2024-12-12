@@ -1,8 +1,8 @@
 import json
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, WebSocket, Header
-from fastapi.responses import StreamingResponse
+from fastapi import FastAPI, HTTPException, WebSocket, Header,
+from fastapi.responses import StreamingResponse, JSONResponse
 from redis import Redis, ConnectionPool
 
 import config
@@ -75,11 +75,10 @@ def create_fastapi():
         return "test ok"
 
     @app.post("/v1/clear_history")
-    async def clear_history(user, token: str = Header(alias="Authorization", default="default_token")):
+    async def clear_history(user, token: str = Header(alias="Authorization")):
         token = token.replace("Bearer ", "")
-        if token != "61fa181f-84b1-f840-de58-7994399eb3b4":
-            # raise HTTPException(status_code=401, detail="认证失败")
-            pass
+        if token != config.TOKEN:
+            raise HTTPException(status_code=401, detail="认证失败")
 
         userService = UserService()
         userObj = userService.queryUserByUsername(username=user)
@@ -94,13 +93,14 @@ def create_fastapi():
         print(f"user:{user}, userId: {userId}, robot:{robot}")
         clear_chat_history(str(userId), robot)
 
+        return JSONResponse(content={"message": "ok"}, status_code=200)
 
 
     @app.post("/v1/chat-messages")
     async def chat_messages(chatMessage: ChatMessagesRequest,
                             token: str = Header(alias="Authorization", default="default_token")):
         token = token.replace("Bearer ", "")
-        if token != "61fa181f-84b1-f840-de58-7994399eb3b4":
+        if token != config.TOKEN:
             # raise HTTPException(status_code=401, detail="认证失败")
             pass
 
