@@ -74,11 +74,18 @@ def create_fastapi():
     async def test():
         return "test ok"
 
-    @app.post("/v1/clear_history")
-    async def clear_history(user, token: str = Header(alias="Authorization")):
+    @app.post("/v1/bound")
+    async def clear_history(user, status, token: str = Header(alias="Authorization")):
         token = token.replace("Bearer ", "")
         if token != config.TOKEN:
             raise HTTPException(status_code=401, detail="认证失败")
+
+        if status == "1": # 绑定
+
+            pass
+        elif status == "0": # 解绑
+
+            pass
 
         userService = UserService()
         userObj = userService.queryUserByUsername(username=user)
