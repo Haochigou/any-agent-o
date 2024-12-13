@@ -27,11 +27,11 @@ class ChatContextService:
         if "待售" == sellStatus:
             return ChatContext("stranger", "")
 
-        chatHistoryService = ChatHistoryService()
-        userStatus = userStatusService.getUserStatus(userId=userId)
-        if len(userStatus.speakers)>1: # 多人聊天
-            history: [] = chatHistoryService.getRecentHistory(userId)
-            return ChatContext("stranger", history)
+        # chatHistoryService = ChatHistoryService()
+        # userStatus = userStatusService.getUserStatus(userId=userId)
+        # if len(userStatus.speakers)>1: # 多人聊天
+        #     history: [] = chatHistoryService.getRecentHistory(userId)
+        #     return ChatContext("stranger", history)
 
         history: [] = []
         if self.isMaster(userId=userId, speakerId=speakerId):

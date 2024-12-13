@@ -123,10 +123,11 @@ def create_fastapi():
         speaker = queryObj.get("speaker",
                                {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": False, "gender": "男性",
                                 "age": "中年"})
-        speakerId: str = speaker.get("id", "default_speaker");
-        speakerId: str = speaker.get("id", f"{userId}.default_speaker");
+        speakerId: str = speaker.get("id", f"{userId}.{userId}");
+        speakerId = f"{userId}.{userId}" # 不考虑多人的场景。
         if not speakerId:
-            speakerId = f"{userId}.default_speaker"
+            speakerId = f"{userId}.{userId}"
+
         age = speaker["age"];
         if age is None:
             age = "中年"
