@@ -2,7 +2,7 @@ import json
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, WebSocket, Header
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
 from redis import Redis, ConnectionPool
 
 import config
@@ -74,16 +74,44 @@ def create_fastapi():
     async def test():
         return "test ok"
 
-    @app.post("/v1/clear_history")
-    async def clear_history(user, robot):
-        print(f"user:{user}, robot:{robot}")
-        clear_chat_history(user, robot)
+    @app.post("/v1/bound")
+    async def clear_history(user, status, token: str = Header(alias="Authorization")):
+        token = token.replace("Bearer ", "")
+        if token != config.TOKEN:
+            raise HTTPException(status_code=401, detail="认证失败")
+
+        if status == "1": # 绑定
+
+            pass
+        elif status == "0": # 解绑
+
+            pass
+
+        userService = UserService()
+        userObj = userService.queryUserByUsername(username=user)
+        if userObj is None:
+            raise HTTPException(status_code=500,detail="用户不存在。")
+        userId = userObj.id;
+
+        userStatusService.redis = get_redis_client()
+        userStatusService.clean(userId=userId)
+
+        toyMasterService = ToyMasterService()
+        toyMasterService.deleteToyMasterByUserId(userId)
+
+        robot: str = "taotao"
+        print(f"user:{user}, userId: {userId}, robot:{robot}")
+        clear_chat_history(str(userId), robot)
+
+
+        return JSONResponse(content={"message": "ok"}, status_code=200)
+
 
     @app.post("/v1/chat-messages")
     async def chat_messages(chatMessage: ChatMessagesRequest,
                             token: str = Header(alias="Authorization", default="default_token")):
         token = token.replace("Bearer ", "")
-        if token != "61fa181f-84b1-f840-de58-7994399eb3b4":
+        if token != config.TOKEN:
             # raise HTTPException(status_code=401, detail="认证失败")
             pass
 
@@ -102,10 +130,11 @@ def create_fastapi():
         speaker = queryObj.get("speaker",
                                {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": False, "gender": "男性",
                                 "age": "中年"})
-        speakerId: str = speaker.get("id", "default_speaker");
-        speakerId: str = speaker.get("id", f"{userId}.default_speaker");
+        speakerId: str = speaker.get("id", f"{userId}.{userId}");
+        speakerId = f"{userId}.{userId}" # 不考虑多人的场景。
         if not speakerId:
-            speakerId = f"{userId}.default_speaker"
+            speakerId = f"{userId}.{userId}"
+
         age = speaker["age"];
         if age is None:
             age = "中年"

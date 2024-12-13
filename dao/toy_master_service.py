@@ -5,8 +5,13 @@ from dao.entity.toy_master import ToyMaster
 class ToyMasterService:
     def getToyMasterByUserId(self, user_id):
         with db_util.getSession() as session:
-            toyMasters = session.query(ToyMaster).filter(ToyMaster.user_id == user_id).all()
+            toyMasters = session.query(ToyMaster).filter(ToyMaster.userId == user_id).all()
             return toyMasters;
+
+    def deleteToyMasterByUserId(self, user_id):
+        with db_util.getSession() as session:
+            session.query(ToyMaster).filter(ToyMaster.userId == user_id).delete()
+            session.commit()
 
 
     def addToyMaster(self, toyMaster: ToyMaster):

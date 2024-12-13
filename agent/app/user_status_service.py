@@ -64,10 +64,28 @@ class UserTryMasterStatus:
 class UserStatusService:
     redis = Redis
 
+    def clean(self, userId: int):
+        key: str = f"qie:userstatus:{userId}"
+        self.redis.delete(key)
+
+        speakers = self.redis.smembers(f"userspeakers:{userId}")
+        if speakers is not None:
+            for speaker in speakers:
+                tryMasterKey = self.tryMasterKey(userId=userId,speakerId=speaker)
+                print(f"clean userId: {userId}, speaker: {speaker}, tryMasterKey: {tryMasterKey}")
+                self.redis.delete(tryMasterKey)
+
+    def addSpeaker(self, userId: int, speakerId: str):
+        speakerKey = f"userspeakers:{userId}"
+        self.redis.sadd(speakerKey, speakerId)
+        self.redis.expire(speakerKey, 2 * 24 * 60 * 60)
+
     def updateSession(self, userId: int, speakerId: str) -> UserStatus:
         userStatus: UserStatus = self.getUserStatus(userId=userId)
         userStatus.speakers[speakerId] = 1
         self.setUserStatus(userId=userId, userStatus=userStatus)
+
+        self.addSpeaker(userId=userId, speakerId=speakerId)
         return userStatus
 
     def setUserStatus(self, userId: int, userStatus: UserStatus) -> None:
