@@ -58,6 +58,7 @@ class ChatService():
                     logger.info(msg)
                     last_index = msg['index']
                     if msg["content"]:
+                        msg["content"] = msg["content"].strip("哎呀，")
                         if msg["content"].startswith("{") and msg["content"].endswith("}"):
                             resource = json.loads(msg["content"].replace("\\\"", "\""))
                             print(resource)
