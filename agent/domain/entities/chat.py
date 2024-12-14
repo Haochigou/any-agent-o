@@ -1,6 +1,8 @@
 """Chat 描述和用户的交互信息
     在系统内部，chat被分解到感知和执行节点上，既听到了什么，说了什么
 """
+from typing import Optional
+
 from pydantic import BaseModel
 
 class ChatRequest(BaseModel):
@@ -23,5 +25,5 @@ class ChatMessagesRequest(BaseModel):
     conversation_id: str
     user: str
     response_mode: str
-    scene: str|None
+    scene: Optional[str] = None
 
