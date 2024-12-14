@@ -131,7 +131,6 @@ def create_fastapi():
                                {"id": "97758ac0-ea41-493f-a8ec-f0538ec21a3a", "first_time": False, "gender": "男性",
                                 "age": "中年"})
         speakerId: str = speaker.get("id", f"{userId}.{userId}");
-        speakerId = f"{userId}.{userId}" # 不考虑多人的场景。
         if not speakerId:
             speakerId = f"{userId}.{userId}"
 
@@ -154,6 +153,9 @@ def create_fastapi():
 
         chatContextService = ChatContextService()
         chatContext = chatContextService.getChatContext(userId=userId, speakerId=speakerId, sellStatus=status)
+        if chatMessage.scene:
+            chatContext.scene = chatMessage.scene
+
         logger.info(f"chatContext: {chatContext}")
 
         chat = ChatRequest(content=content, user=str(userId), robot="taotao", mode="sentence", scene=chatContext.scene,
