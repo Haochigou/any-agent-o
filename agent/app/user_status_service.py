@@ -154,13 +154,23 @@ class UserStatusService:
 
         self.setUserTryMasterStatus(userId, speakerId, status)
 
+    def getTryMasterCount(self, userId: int, speakerId: str) -> int:
+        destCount: int = 2 # 第一次出现的speaker，2轮后进入认主流程，如果拒绝，后续就需要8轮才能触发
+
+        key = f"user:speaker:{userId}.{speakerId}"
+        if self.redis.get(key):
+            destCount = 8
+        else:
+            self.redis.set(key, "1", ex=7 * 24 * 60 * 60)
+
+        return destCount
 
     def tryMaster(self, userId: int, speakerId: str) -> bool:
         timestamp = int(time.time())  # 获取到秒
         status: UserTryMasterStatus = self.getUserTryMasterStatus(userId, speakerId)
-
         status.count += 1
-        if status.count < 8:  # 判断聊天轮数
+
+        if status.count < self.getTryMasterCount(userId,speakerId):  # 判断聊天轮数
             # 聊天次数小于8此，不满足认主条件
             self.setUserTryMasterStatus(userId, speakerId, status)
             return False

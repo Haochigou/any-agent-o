@@ -23,4 +23,5 @@ class ChatMessagesRequest(BaseModel):
     conversation_id: str
     user: str
     response_mode: str
+    scene: str|None
 
